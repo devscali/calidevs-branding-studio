@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { Terminal, Share2, Wrench } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { TEMPLATE_LIST, CATEGORIES, getTemplatesByCategory, type Category } from '@/lib/templates/registry';
 
 const CATEGORY_LABELS: Record<Category, string> = {
@@ -11,10 +13,16 @@ const CATEGORY_LABELS: Record<Category, string> = {
   dev: 'Dev',
 };
 
-const CATEGORY_ICONS: Record<string, string> = {
-  terminal: '💻',
-  social: '📱',
-  dev: '🔧',
+const CATEGORY_ICONS: Record<string, LucideIcon> = {
+  terminal: Terminal,
+  social: Share2,
+  dev: Wrench,
+};
+
+const CATEGORY_COLORS: Record<string, string> = {
+  terminal: 'text-ignite',
+  social: 'text-amber',
+  dev: 'text-muted',
 };
 
 export default function StudioPage() {
@@ -50,24 +58,28 @@ export default function StudioPage() {
 
       {/* Template grid */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {templates.map((template) => (
-          <Link
-            key={template.id}
-            href={`/studio/${template.id}`}
-            className="group rounded-2xl border border-border bg-surface p-6 transition-all hover:border-ignite/30 hover:shadow-lg hover:shadow-ignite/5"
-          >
-            <div className="mb-3 flex items-center gap-2">
-              <span>{CATEGORY_ICONS[template.category]}</span>
-              <span className="rounded-full bg-border px-2 py-0.5 text-xs uppercase tracking-wider text-muted">
-                {template.category}
-              </span>
-            </div>
-            <h2 className="mb-1 text-lg font-bold group-hover:text-ignite transition-colors">
-              {template.name}
-            </h2>
-            <p className="text-sm text-muted">{template.description}</p>
-          </Link>
-        ))}
+        {templates.map((template) => {
+          const Icon = CATEGORY_ICONS[template.category];
+          const colorClass = CATEGORY_COLORS[template.category];
+          return (
+            <Link
+              key={template.id}
+              href={`/studio/${template.id}`}
+              className="group rounded-2xl border border-border bg-surface p-6 transition-all hover:border-ignite/30 hover:shadow-lg hover:shadow-ignite/5"
+            >
+              <div className="mb-3 flex items-center gap-2">
+                {Icon && <Icon size={16} strokeWidth={1.5} className={colorClass} />}
+                <span className="rounded-full bg-border px-2 py-0.5 text-xs uppercase tracking-wider text-muted">
+                  {template.category}
+                </span>
+              </div>
+              <h2 className="mb-1 text-lg font-bold group-hover:text-ignite transition-colors">
+                {template.name}
+              </h2>
+              <p className="text-sm text-muted">{template.description}</p>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

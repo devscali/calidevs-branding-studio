@@ -1,10 +1,22 @@
+import type { LucideIcon } from 'lucide-react';
+import {
+  BookOpen,
+  Presentation,
+  Mail,
+  Terminal,
+  Flame,
+  Target,
+  PenTool,
+  Hexagon,
+} from 'lucide-react';
+
 export interface GalleryItem {
   slug: string;
   title: string;
   description: string;
   file: string;
   category: 'brand' | 'logo' | 'collateral';
-  icon: string;
+  icon: LucideIcon;
 }
 
 export const GALLERY_ITEMS: GalleryItem[] = [
@@ -14,7 +26,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     description: 'Complete brand identity system — colors, typography, logo usage, and philosophy.',
     file: 'calidevs-brand-guidelines.html',
     category: 'brand',
-    icon: '📖',
+    icon: BookOpen,
   },
   {
     slug: 'sales-deck',
@@ -22,7 +34,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     description: '18-slide presentation — services, process, case studies, pricing tiers.',
     file: 'calidevs-sales-deck.html',
     category: 'collateral',
-    icon: '📊',
+    icon: Presentation,
   },
   {
     slug: 'stationery',
@@ -30,7 +42,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     description: 'Business cards, letterhead, envelope, invoice, email signature, social, merch.',
     file: 'calidevs-stationery.html',
     category: 'collateral',
-    icon: '✉️',
+    icon: Mail,
   },
   {
     slug: 'dev-applications',
@@ -38,7 +50,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     description: 'Terminal posts, CLI card, git log, deploy notifications, 404 page, wallpapers.',
     file: 'calidevs-dev-applications.html',
     category: 'collateral',
-    icon: '💻',
+    icon: Terminal,
   },
   {
     slug: 'flame-proposals',
@@ -46,7 +58,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     description: '10 flame icon proposals — exploration of shapes, layers, and expressions.',
     file: 'calidevs-flame-proposals.html',
     category: 'logo',
-    icon: '🔥',
+    icon: Flame,
   },
   {
     slug: 'flame-iconic',
@@ -54,7 +66,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     description: '6 refined flame concepts (A-F) — final selection round.',
     file: 'calidevs-flame-iconic.html',
     category: 'logo',
-    icon: '🎯',
+    icon: Target,
   },
   {
     slug: 'logo-concepts',
@@ -62,7 +74,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     description: 'Initial wordmark explorations and logo concepts.',
     file: 'logo-calidevs-2026.html',
     category: 'logo',
-    icon: '✏️',
+    icon: PenTool,
   },
   {
     slug: 'logo-fire',
@@ -70,6 +82,6 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     description: 'Fire-themed logo iterations and final flame integration.',
     file: 'logo-calidevs-FIRE.html',
     category: 'logo',
-    icon: '🔶',
+    icon: Hexagon,
   },
 ];

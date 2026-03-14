@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Images, Wand2 } from 'lucide-react';
 import { Wordmark } from '@/lib/brand/wordmark';
 import { BoldBlaze } from '@/lib/brand/flame';
 import { TAGLINE } from '@/lib/brand/constants';
@@ -19,7 +20,9 @@ export default function Home() {
           href="/gallery"
           className="group rounded-2xl border border-border bg-surface p-8 transition-all hover:border-ignite/40 hover:shadow-lg hover:shadow-ignite/5"
         >
-          <div className="mb-4 text-3xl">🎨</div>
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-ignite/10 text-ignite transition-colors group-hover:bg-ignite/20">
+            <Images size={24} strokeWidth={1.5} />
+          </div>
           <h2 className="mb-2 text-xl font-bold">Gallery</h2>
           <p className="text-sm text-muted">
             Browse brand guidelines, sales deck, stationery, and all brand files.
@@ -33,7 +36,9 @@ export default function Home() {
           href="/studio"
           className="group rounded-2xl border border-border bg-surface p-8 transition-all hover:border-amber/40 hover:shadow-lg hover:shadow-amber/5"
         >
-          <div className="mb-4 text-3xl">✨</div>
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-amber/10 text-amber transition-colors group-hover:bg-amber/20">
+            <Wand2 size={24} strokeWidth={1.5} />
+          </div>
           <h2 className="mb-2 text-xl font-bold">Studio</h2>
           <p className="text-sm text-muted">
             Create Instagram posts, social cards, and dev content from brand templates.
