@@ -26,6 +26,9 @@ import * as brandHook from './campaign/brand-hook';
 import * as packageBase from './campaign/package-base';
 import * as manifesto from './campaign/manifesto';
 import * as fullPackage from './campaign/full-package';
+import * as tagline from './campaign/tagline';
+import * as competitor from './campaign/competitor';
+import * as ctaClosing from './campaign/cta-closing';
 
 export const TEMPLATES: Record<string, TemplateModule> = {
   'terminal-insight': insightPost,
@@ -47,6 +50,9 @@ export const TEMPLATES: Record<string, TemplateModule> = {
   'campaign-package-base': packageBase,
   'campaign-manifesto': manifesto,
   'campaign-full-package': fullPackage,
+  'campaign-tagline': tagline,
+  'campaign-competitor': competitor,
+  'campaign-cta': ctaClosing,
 };
 
 export const TEMPLATE_LIST = Object.values(TEMPLATES).map((t) => t.config);
