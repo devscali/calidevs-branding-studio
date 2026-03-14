@@ -12,7 +12,7 @@
 ### Lo que esta live y funcionando:
 - **Landing** (`/`) — Hero con BoldBlaze flame + wordmark + 2 cards (Gallery, Studio)
 - **Gallery** (`/gallery`) — 8 brand HTML files con iframe viewer, fullscreen, download
-- **Studio** (`/studio`) — 15 templates con editor de 2 paneles (form + live preview)
+- **Studio** (`/studio`) — 22 templates con editor de 2 paneles (form + live preview)
 - **Export API** — JPG/PNG/SVG/PDF a 6 tamanos (IG Square/Story/Landscape, OG, Twitter, LinkedIn)
 - **Iconos** — Lucide React (profesionales, stroke-based, dark theme optimized)
 - **Preview dinamico** — Cambia aspect ratio cuando seleccionas otro Export Size
@@ -53,7 +53,7 @@ viewBox: 0 0 60 76
 
 ---
 
-## 15 Templates Disponibles
+## 22 Templates Disponibles
 
 ### Terminal (5):
 1. **Insight Post** (`terminal-insight`) — Terminal-style insight con command prompt
@@ -76,6 +76,23 @@ viewBox: 0 0 60 76
 14. **Code Review** (`dev-review`) — Testimonial como PR review
 15. **Deploy Card** (`dev-deploy-card`) — Notificacion estilo Vercel
 
+### Campaign — Canada (7):
+16. **Brand Hook** (`campaign-brand-hook`) — Story 01: "Born in Tijuana. Conquering Canada."
+17. **Package Base** (`campaign-package-base`) — Story 02: 5 services + $1,200/mo pricing
+18. **Manifesto** (`campaign-manifesto`) — Story 03: Border origin story, violet accents
+19. **Full Package** (`campaign-full-package`) — Story 04: 6 services + "everything custom. nothing generic."
+20. **Tagline** (`campaign-tagline`) — "Mexican work ethic. California quality. Canadian ambition."
+21. **Competitor Hook** (`campaign-competitor`) — "Your competitors just hired a tech team." + CTA
+22. **CTA Closing** (`campaign-cta`) — Closing slide con wordmark grande + book a call
+
+**Todas las campaign templates:**
+- Fondo `#0d0d0d` (dark minimal)
+- Acento violet `#a78bfa`
+- Wordmark con flame: top=violet variant, footer=standard ignite variant
+- Default size: IG Story (1080x1920)
+- Service dots con colores unicos por servicio
+- Todo el copy es editable desde el Studio
+
 ---
 
 ## PENDIENTES
@@ -85,16 +102,19 @@ viewBox: 0 0 60 76
 
 La campana de Canada tiene todo el copy listo. Se necesita:
 
-- [ ] **4 Instagram Stories** (dark minimal, 1080x1920)
-  - Story 01: Brand/Hook — "Born in Tijuana. Conquering Canada."
-  - Story 02: Paquete Base + Precio ($1,200/mo, 5 servicios)
-  - Story 03: Manifesto — "We were born on the border..." (acento violeta `#a78bfa`)
-  - Story 04: Full Package (6 servicios + "everything custom. nothing generic.")
+- [x] **4 Instagram Stories** (dark minimal, 1080x1920) **DONE — 7 templates totales**
+  - Story 01: Brand/Hook — "Born in Tijuana. Conquering Canada." ✓
+  - Story 02: Paquete Base + Precio ($1,200/mo, 5 servicios) ✓
+  - Story 03: Manifesto — "We were born on the border..." (acento violeta `#a78bfa`) ✓
+  - Story 04: Full Package (6 servicios + "everything custom. nothing generic.") ✓
+  - EXTRA: Tagline — "Mexican work ethic. California quality. Canadian ambition." ✓
+  - EXTRA: Competitor Hook — "Your competitors just hired a tech team." ✓
+  - EXTRA: CTA Closing — Book a call + price badge ✓
 - [ ] **Decisiones de diseno pendientes:**
   - Paleta: fondo `#0d0d0d`, acento violeta `#a78bfa` (diferente de la paleta Ignite habitual)
   - Puntos de servicio: colores variados (teal, violeta, amber, coral, azul)
   - Foto de fondo Tijuana/border con overlay oscuro? (propuesta alternativa para stories 01 y 03)
-- [ ] **Crear templates en Studio** para las stories de Canada (o hacerlas como HTMLs custom)
+- [x] **Crear templates en Studio** para las stories de Canada **DONE — 7 templates en categoria Campaign**
 - [ ] **Meta Ads** — 2 variantes (Hook A: competencia, Hook B: urgencia)
 - [ ] **Google Ads** — Search copy (headlines + description)
 - [ ] **LinkedIn Ad** — Copy para SMBs canadienses
@@ -103,11 +123,10 @@ La campana de Canada tiene todo el copy listo. Se necesita:
 - [ ] **Video/Reel** — Script 30 segundos listo
 
 ### P2 — Studio Enhancements
-- [ ] **Mas templates para Canada:** Story templates con la paleta violeta/dark
-- [ ] **Story 3 y 4 como nuevos templates** (los mockups ya existen, ver screenshots)
-  - Story 3: Manifesto con respiraciones, acento violeta en frases clave
-  - Story 4: Lista de servicios con dots de colores + tags (website, seo, ai chatbot, crm, software)
-- [ ] **Tagline Canada** como template: "Mexican work ethic. California quality. Canadian ambition."
+- [x] **Mas templates para Canada:** 7 templates con paleta violeta/dark **DONE**
+- [x] **Story 3 y 4 como nuevos templates** — Manifesto + Full Package **DONE**
+- [x] **Tagline Canada** como template **DONE**
+- [ ] **Foto de fondo Tijuana/border** con overlay oscuro para stories 01 y 03 (propuesta alternativa)
 
 ### P3 — Phase 2 (Later)
 - [ ] Video Studio con Remotion (motion templates, max 50s, export MP4)
@@ -127,12 +146,13 @@ La campana de Canada tiene todo el copy listo. Se necesita:
 ### Proyecto:
 ```
 branding-studio/
-├── src/lib/brand/constants.ts    ← Source of truth (colores, fonts, flame paths)
-├── src/lib/brand/flame.tsx       ← BoldBlaze component (3 capas)
-├── src/lib/brand/wordmark.tsx    ← 4 variantes del wordmark
-├── src/lib/brand/fonts.ts        ← Font loading para Satori
+├── src/lib/brand/constants.ts    ← Source of truth (colores, fonts, flame paths, Canada palette)
+├── src/lib/brand/flame.tsx       ← BoldBlaze component (3 capas) + BoldBlazeSatori
+├── src/lib/brand/wordmark.tsx    ← 4 variantes del wordmark + WordmarkSatori
+├── src/lib/brand/fonts.ts        ← Font loading para Satori (TTF → ArrayBuffer)
 ├── src/lib/brand/gallery-items.ts← 8 items de gallery con Lucide icons
-├── src/lib/templates/registry.ts ← Registro de los 15 templates
+├── src/lib/templates/registry.ts ← Registro de los 22 templates (4 categories)
+├── src/lib/templates/campaign/   ← 7 Canada campaign templates
 ├── src/lib/export/satori-renderer.ts ← Pipeline core de render
 ├── src/components/studio/template-editor.tsx ← Editor de 2 paneles
 └── public/brand-files/           ← 8 HTMLs de brand identity
@@ -187,4 +207,4 @@ branding-studio/
 
 ---
 
-*Generado 2026-03-14 · Calidevs Branding Studio v1.0*
+*Actualizado 2026-03-14 · Calidevs Branding Studio v1.1 (22 templates, Canada Campaign)*
