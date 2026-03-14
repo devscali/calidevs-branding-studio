@@ -66,7 +66,7 @@ export function PreviewTemplate({ values }: { values: TemplateValues }) {
   const hashes = ['a3f9c2d', 'b7e1f0a', 'c4d8e3b'];
 
   return (
-    <div className="flex flex-col w-full aspect-square bg-charcoal p-8 font-mono text-sm rounded-lg">
+    <div className="flex flex-col w-full aspect-auto h-full bg-charcoal p-8 font-mono text-sm rounded-lg">
       <div className="flex gap-1.5 mb-4">
         <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
         <div className="w-3 h-3 rounded-full bg-[#febc2e]" />

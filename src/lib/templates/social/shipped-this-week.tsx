@@ -68,7 +68,7 @@ export function PreviewTemplate({ values }: { values: TemplateValues }) {
   ].filter(Boolean);
 
   return (
-    <div className="flex flex-col w-full aspect-square bg-charcoal p-8 rounded-lg">
+    <div className="flex flex-col w-full aspect-auto h-full bg-charcoal p-8 rounded-lg">
       <div className="font-mono text-xs text-muted mb-4">{values.week || config.fields[3].default}</div>
       <div className="text-xl font-bold text-ignite mb-6">Shipped this week</div>
       <div className="flex-1 flex flex-col justify-center gap-4">

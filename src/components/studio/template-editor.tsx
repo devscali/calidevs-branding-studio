@@ -112,7 +112,15 @@ export function TemplateEditor({ template }: TemplateEditorProps) {
       {/* Right panel: Preview */}
       <div className="flex flex-1 items-center justify-center bg-charcoal/30 p-8">
         <div className="w-full max-w-lg">
-          <PreviewTemplate values={values} />
+          <div
+            className="overflow-hidden rounded-lg transition-all duration-300"
+            style={{ aspectRatio: `${EXPORT_SIZES[size].width} / ${EXPORT_SIZES[size].height}` }}
+          >
+            <PreviewTemplate values={values} />
+          </div>
+          <p className="mt-3 text-center text-xs text-muted">
+            {EXPORT_SIZES[size].label} — {EXPORT_SIZES[size].width}x{EXPORT_SIZES[size].height}
+          </p>
         </div>
       </div>
     </div>

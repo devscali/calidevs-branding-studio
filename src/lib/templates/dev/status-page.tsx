@@ -83,7 +83,7 @@ export function PreviewTemplate({ values }: { values: TemplateValues }) {
   ];
 
   return (
-    <div className="flex flex-col w-full aspect-square bg-charcoal p-8 rounded-lg">
+    <div className="flex flex-col w-full aspect-auto h-full bg-charcoal p-8 rounded-lg">
       <div className="font-mono text-xs text-muted mb-6">status.calidevs.com</div>
       <div className="flex-1 flex flex-col justify-center gap-4">
         <div className="flex items-center gap-2 mb-4">

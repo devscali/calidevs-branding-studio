@@ -64,7 +64,7 @@ export function PreviewTemplate({ values }: { values: TemplateValues }) {
   const envColor = env === 'Production' ? '#28c840' : env === 'Preview' ? '#F5A623' : '#888888';
 
   return (
-    <div className="flex flex-col w-full aspect-square bg-charcoal p-8 rounded-lg">
+    <div className="flex flex-col w-full aspect-auto h-full bg-charcoal p-8 rounded-lg">
       <div className="flex items-center justify-between mb-6">
         <span className="text-white text-sm font-bold">calidevs</span>
         <div className="flex items-center gap-1 bg-surface px-2 py-0.5 rounded-full">

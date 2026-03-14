@@ -78,7 +78,7 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
 export function PreviewTemplate({ values }: { values: TemplateValues }) {
   const keywords = (values.keywords || config.fields[3].default).split(',').map(k => k.trim());
   return (
-    <div className="flex flex-col w-full aspect-square bg-charcoal p-8 font-mono text-xs rounded-lg">
+    <div className="flex flex-col w-full aspect-auto h-full bg-charcoal p-8 font-mono text-xs rounded-lg">
       <div className="flex gap-1.5 mb-4">
         <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
         <div className="w-3 h-3 rounded-full bg-[#febc2e]" />

@@ -44,7 +44,7 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
 
 export function PreviewTemplate({ values }: { values: TemplateValues }) {
   return (
-    <div className="flex flex-col w-full aspect-square bg-charcoal p-8 rounded-lg items-center justify-center text-center">
+    <div className="flex flex-col w-full aspect-auto h-full bg-charcoal p-8 rounded-lg items-center justify-center text-center">
       <div className="flex-1 flex flex-col justify-center items-center">
         <div className="text-5xl font-bold text-ignite">{values.stat || config.fields[0].default}</div>
         <div className="text-lg text-white mt-3">{values.label || config.fields[1].default}</div>
