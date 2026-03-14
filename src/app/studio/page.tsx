@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Terminal, Share2, Wrench } from 'lucide-react';
+import { Terminal, Share2, Wrench, Megaphone } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { TEMPLATE_LIST, CATEGORIES, getTemplatesByCategory, type Category } from '@/lib/templates/registry';
 
@@ -11,18 +11,21 @@ const CATEGORY_LABELS: Record<Category, string> = {
   terminal: 'Terminal',
   social: 'Social',
   dev: 'Dev',
+  campaign: 'Campaign',
 };
 
 const CATEGORY_ICONS: Record<string, LucideIcon> = {
   terminal: Terminal,
   social: Share2,
   dev: Wrench,
+  campaign: Megaphone,
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
   terminal: 'text-ignite',
   social: 'text-amber',
   dev: 'text-muted',
+  campaign: 'text-[#a78bfa]',
 };
 
 export default function StudioPage() {

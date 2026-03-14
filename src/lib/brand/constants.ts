@@ -65,3 +65,24 @@ export const EXPORT_SIZES = {
 } as const;
 
 export type ExportSize = keyof typeof EXPORT_SIZES;
+
+// ═══════════════════════════════════════════════════════════════
+// CANADA CAMPAIGN — Alternate palette (dark minimal + violet)
+// ═══════════════════════════════════════════════════════════════
+export const CANADA_COLORS = {
+  bg: '#0d0d0d',
+  violet: '#a78bfa',
+  teal: '#5dcaa5',
+  coral: '#f0997b',
+  blue: '#85b7eb',
+  campaignAmber: '#ef9f27',
+} as const;
+
+export const SERVICE_DOTS = [
+  { color: COLORS.white, label: 'Website' },
+  { color: CANADA_COLORS.teal, label: 'SEO' },
+  { color: CANADA_COLORS.violet, label: 'AI Chatbot' },
+  { color: CANADA_COLORS.campaignAmber, label: 'CRM' },
+  { color: CANADA_COLORS.coral, label: 'Custom Software' },
+  { color: CANADA_COLORS.blue, label: 'Tech Consulting' },
+] as const;

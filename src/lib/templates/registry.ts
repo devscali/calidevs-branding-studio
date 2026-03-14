@@ -21,6 +21,12 @@ import * as statusPage from './dev/status-page';
 import * as codeReview from './dev/code-review';
 import * as deployCard from './dev/deploy-card';
 
+// Campaign templates
+import * as brandHook from './campaign/brand-hook';
+import * as packageBase from './campaign/package-base';
+import * as manifesto from './campaign/manifesto';
+import * as fullPackage from './campaign/full-package';
+
 export const TEMPLATES: Record<string, TemplateModule> = {
   'terminal-insight': insightPost,
   'terminal-deploy': deployPost,
@@ -37,11 +43,15 @@ export const TEMPLATES: Record<string, TemplateModule> = {
   'dev-status': statusPage,
   'dev-review': codeReview,
   'dev-deploy-card': deployCard,
+  'campaign-brand-hook': brandHook,
+  'campaign-package-base': packageBase,
+  'campaign-manifesto': manifesto,
+  'campaign-full-package': fullPackage,
 };
 
 export const TEMPLATE_LIST = Object.values(TEMPLATES).map((t) => t.config);
 
-export const CATEGORIES = ['all', 'terminal', 'social', 'dev'] as const;
+export const CATEGORIES = ['all', 'terminal', 'social', 'dev', 'campaign'] as const;
 export type Category = (typeof CATEGORIES)[number];
 
 export function getTemplatesByCategory(category: Category) {

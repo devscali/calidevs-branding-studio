@@ -14,7 +14,7 @@ export interface TemplateField {
 export interface TemplateConfig {
   id: string;
   name: string;
-  category: 'terminal' | 'social' | 'dev';
+  category: 'terminal' | 'social' | 'dev' | 'campaign';
   description: string;
   fields: TemplateField[];
   defaultSize: 'ig-square' | 'ig-story';
