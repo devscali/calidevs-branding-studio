@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>calidevs — Sales Deck 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --ignite: #E8501A;
+      --amber: #F5A623;
+      --charcoal: #161618;
+      --white: #FFFFFF;
+      --light-sand: #F8F5F0;
+      --sand: #F1EBE2;
+      --dark-sand: #E4D9C8;
+      --slate: #3A3A3C;
+      --warm-gray: #9E9590;
+      --green: #2E7D32;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --hand: 'Kalam', cursive;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--charcoal);
+      color: var(--charcoal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══ SLIDE SYSTEM ═══ */
+    .slide {
+      min-height: 100vh;
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-footer {
+      position: absolute;
+      bottom: 40px;
+      left: 80px;
+      right: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+    }
+
+    .slide-footer .page-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+    }
+
+    /* ═══ WORDMARK ═══ */
+    .wm {
+      display: inline-flex;
+      align-items: baseline;
+      font-family: var(--sans);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .wm .c { color: inherit; }
+    .wm .d { color: var(--ignite); }
+    .wm .f {
+      display: inline-block;
+      width: 0.22em;
+      height: 0.22em;
+      margin-left: 0.02em;
+      align-self: flex-end;
+      margin-bottom: 0.05em;
+      position: relative;
+    }
+    .wm .f svg { width: 100%; height: auto; position: absolute; bottom: 0; left: 0; }
+
+    /* Flame SVG inline helper */
+    .flame-svg { display: inline; }
+
+    /* ═══ SECTION HELPERS ═══ */
+    .label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--ignite);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .title {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .body-text {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--slate);
+      max-width: 600px;
+      font-weight: 400;
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      padding: 5px 12px;
+      border-radius: 100px;
+      letter-spacing: 0.08em;
+    }
+    .tag-sand { background: var(--sand); color: var(--slate); }
+    .tag-dark { background: var(--slate); color: var(--white); }
+    .tag-ignite { background: var(--ignite); color: var(--white); }
+
+    /* ═══ UTILITY ═══ */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .mt-48 { margin-top: 48px; }
+    .mt-32 { margin-top: 32px; }
+    .center { text-align: center; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+
+    /* ═══ 01. COVER ═══ */
+    .slide-cover {
+      background: var(--charcoal);
+      color: var(--white);
+      text-align: center;
+    }
+    .cover-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,80,26,0.06) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+    }
+    .cover-z { position: relative; z-index: 2; }
+
+    /* ═══ DIVIDERS ═══ */
+    .slide-div {
+      background: var(--charcoal);
+      color: var(--white);
+    }
+    .div-num {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--ignite);
+      margin-bottom: 20px;
+      letter-spacing: 0.1em;
+    }
+    .div-title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 400;
+      line-height: 1.05;
+    }
+    .div-line {
+      width: 60px; height: 3px;
+      background: var(--ignite);
+      margin-top: 32px;
+    }
+
+    /* ═══ CONTENT ═══ */
+    .slide-light { background: var(--light-sand); }
+    .slide-sand { background: var(--sand); }
+    .slide-dark { background: var(--charcoal); color: var(--white); }
+    .slide-dark .label { color: var(--ignite); }
+    .slide-dark .body-text { color: var(--warm-gray); }
+
+    /* ═══ STAT CARDS ═══ */
+    .stat-card {
+      padding: 40px 32px;
+      border-radius: 20px;
+      text-align: center;
+    }
+    .stat-card-dark { background: var(--charcoal); color: var(--white); }
+    .stat-card-light { background: var(--white); border: 1px solid var(--dark-sand); }
+    .stat-number {
+      font-family: var(--serif);
+      font-size: 3.5rem;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-number .accent { color: var(--ignite); }
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--warm-gray);
+      font-weight: 500;
+    }
+
+    /* ═══ SERVICE CARDS ═══ */
+    .service-card {
+      padding: 40px;
+      border-radius: 20px;
+      background: var(--white);
+      border: 1px solid var(--dark-sand);
+      transition: transform 0.2s;
+    }
+    .service-card:hover { transform: translateY(-4px); }
+    .service-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      font-size: 1.4rem;
+    }
+    .si-ignite { background: rgba(232,80,26,0.1); color: var(--ignite); }
+    .si-charcoal { background: rgba(22,22,24,0.08); color: var(--charcoal); }
+    .si-amber { background: rgba(245,166,35,0.15); color: var(--amber); }
+    .service-card h3 {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+    .service-card p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--slate);
+    }
+    .service-tags { margin-top: 16px; display: flex; gap: 6px; flex-wrap: wrap; }
+
+    /* ═══ PROCESS ═══ */
+    .process-step {
+      display: flex;
+      gap: 32px;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--dark-sand);
+      align-items: flex-start;
+    }
+    .process-step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--ignite);
+      background: rgba(232,80,26,0.08);
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      letter-spacing: 0.05em;
+    }
+    .step-content h3 {
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+    .step-content p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--slate);
+    }
+    .step-duration {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--warm-gray);
+      margin-top: 8px;
+      letter-spacing: 0.08em;
+    }
+
+    /* ═══ CASE STUDY CARDS ═══ */
+    .case-card {
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--white);
+      border: 1px solid var(--dark-sand);
+    }
+    .case-visual {
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .case-info { padding: 28px; }
+    .case-info h3 {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+    .case-info p {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--slate);
+    }
+    .case-metrics {
+      display: flex;
+      gap: 24px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--sand);
+    }
+    .case-metric {
+      text-align: center;
+    }
+    .case-metric .val {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      color: var(--ignite);
+    }
+    .case-metric .lab {
+      font-size: 0.65rem;
+      color: var(--warm-gray);
+      margin-top: 2px;
+      font-family: var(--mono);
+      letter-spacing: 0.05em;
+    }
+
+    /* ═══ TECH STACK ═══ */
+    .tech-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 100px;
+      background: var(--white);
+      border: 1px solid var(--dark-sand);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .tech-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .td-orange { background: var(--ignite); }
+    .td-amber { background: var(--amber); }
+    .td-charcoal { background: var(--charcoal); }
+    .td-green { background: var(--green); }
+
+    /* ═══ PRICING TABLE ═══ */
+    .pricing-card {
+      border-radius: 20px;
+      padding: 48px 36px;
+      display: flex;
+      flex-direction: column;
+    }
+    .pricing-light {
+      background: var(--white);
+      border: 1px solid var(--dark-sand);
+    }
+    .pricing-featured {
+      background: var(--charcoal);
+      color: var(--white);
+      position: relative;
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -12px;
+      right: 24px;
+      background: var(--ignite);
+      color: var(--white);
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      padding: 6px 14px;
+      border-radius: 100px;
+      letter-spacing: 0.1em;
+    }
+    .pricing-tier {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--ignite);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .pricing-name {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+    .pricing-desc {
+      font-size: 0.85rem;
+      color: var(--warm-gray);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .pricing-price {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      margin-bottom: 4px;
+    }
+    .pricing-price .currency { font-size: 1.2rem; vertical-align: super; }
+    .pricing-price .period { font-size: 0.85rem; color: var(--warm-gray); font-family: var(--sans); font-weight: 400; }
+    .pricing-features {
+      list-style: none;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--dark-sand);
+      flex: 1;
+    }
+    .pricing-featured .pricing-features { border-color: var(--slate); }
+    .pricing-features li {
+      padding: 8px 0;
+      font-size: 0.85rem;
+      color: var(--slate);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pricing-featured .pricing-features li { color: var(--warm-gray); }
+    .pricing-features li::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--ignite);
+      flex-shrink: 0;
+    }
+    .pricing-cta {
+      display: block;
+      margin-top: 28px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: transform 0.2s;
+    }
+    .pricing-cta:hover { transform: translateY(-2px); }
+    .cta-outline {
+      border: 2px solid var(--charcoal);
+      color: var(--charcoal);
+      background: transparent;
+    }
+    .cta-ignite {
+      border: none;
+      background: var(--ignite);
+      color: var(--white);
+    }
+    .cta-outline-white {
+      border: 2px solid var(--white);
+      color: var(--white);
+      background: transparent;
+    }
+
+    /* ═══ TESTIMONIAL ═══ */
+    .testimonial {
+      padding: 48px;
+      background: var(--white);
+      border-radius: 20px;
+      border: 1px solid var(--dark-sand);
+    }
+    .testimonial blockquote {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.4rem;
+      line-height: 1.5;
+      color: var(--charcoal);
+      margin-bottom: 24px;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testimonial-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--sand);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--slate);
+    }
+    .testimonial-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .testimonial-role {
+      font-size: 0.75rem;
+      color: var(--warm-gray);
+    }
+
+    /* ═══ FAQ ═══ */
+    .faq-item {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--dark-sand);
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+      color: var(--charcoal);
+    }
+    .faq-a {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--slate);
+      max-width: 600px;
+    }
+
+    /* ═══ CTA BANNER ═══ */
+    .cta-banner {
+      background: var(--ignite);
+      border-radius: 24px;
+      padding: 60px;
+      text-align: center;
+      color: var(--white);
+      margin-top: 48px;
+    }
+    .cta-banner h2 {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      margin-bottom: 12px;
+    }
+    .cta-banner p {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-bottom: 28px;
+    }
+    .cta-btn-white {
+      display: inline-block;
+      padding: 14px 36px;
+      background: var(--white);
+      color: var(--ignite);
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: transform 0.2s;
+    }
+    .cta-btn-white:hover { transform: translateY(-2px); }
+
+    /* ═══ CONTACT GRID ═══ */
+    .contact-card {
+      padding: 36px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .contact-card h3 {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: var(--white);
+    }
+    .contact-card p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--warm-gray);
+    }
+    .contact-card a {
+      color: var(--ignite);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .slide { padding: 40px 24px; }
+      .slide-footer { left: 24px; right: 24px; bottom: 20px; }
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 01. COVER                                    -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-cover">
+    <div class="cover-glow"></div>
+    <div class="cover-z">
+      <div class="wm" style="font-size: clamp(4rem, 10vw, 8rem); color: var(--white);">
+        <span class="c">cali</span><span class="d">devs</span><span class="f"><svg viewBox="0 0 40 56" fill="none"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/></svg></span>
+      </div>
+      <p style="font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--warm-gray); margin-top: 20px;">Build fast, ship smart, sleep well.</p>
+      <p style="font-family: var(--mono); font-size: 0.8rem; color: var(--slate); margin-top: 16px; letter-spacing: 0.1em;">SOFTWARE STUDIO — CALIFORNIA</p>
+    </div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.2);">
+      <span>calidevs. confidential</span>
+      <span class="page-num">01</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 02. THE PROBLEM                              -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-div">
+    <div class="div-num">01</div>
+    <div class="div-title">The<br>Problem</div>
+    <div class="div-line"></div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.2);">
+      <span>calidevs.</span>
+      <span class="page-num">02</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 03. PAIN POINTS                              -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-light">
+    <div class="label">The reality</div>
+    <div class="title">Agencies are broken.</div>
+    <div class="body-text" style="margin-bottom: 40px;">
+      <p>You've been there. Slow timelines. Bloated budgets. Developers who disappear. Code that breaks on launch day. You need a team that builds like founders — fast, lean, and accountable.</p>
+    </div>
+
+    <div class="grid-3 mt-32">
+      <div style="padding: 32px; background: var(--white); border-radius: 16px; border: 1px solid var(--dark-sand);">
+        <div style="font-family: var(--serif); font-size: 2rem; color: var(--ignite); margin-bottom: 12px;">67%</div>
+        <p style="font-size: 0.85rem; color: var(--slate); line-height: 1.6;">of ecommerce projects launch late and over budget</p>
+      </div>
+      <div style="padding: 32px; background: var(--white); border-radius: 16px; border: 1px solid var(--dark-sand);">
+        <div style="font-family: var(--serif); font-size: 2rem; color: var(--ignite); margin-bottom: 12px;">3.2s</div>
+        <p style="font-size: 0.85rem; color: var(--slate); line-height: 1.6;">average Shopify store load time — every second costs 7% conversion</p>
+      </div>
+      <div style="padding: 32px; background: var(--white); border-radius: 16px; border: 1px solid var(--dark-sand);">
+        <div style="font-family: var(--serif); font-size: 2rem; color: var(--ignite); margin-bottom: 12px;">$$$</div>
+        <p style="font-size: 0.85rem; color: var(--slate); line-height: 1.6;">wasted on apps that overlap, break themes, and slow down stores</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; font-family: var(--hand); font-size: 1.1rem; color: var(--ignite);">there's a better way ^</div>
+
+    <div class="slide-footer">
+      <span>calidevs.</span>
+      <span class="page-num">03</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 04. WHO WE ARE                               -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-div">
+    <div class="div-num">02</div>
+    <div class="div-title">Who<br>We Are</div>
+    <div class="div-line"></div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.2);">
+      <span>calidevs.</span>
+      <span class="page-num">04</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 05. ABOUT                                    -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-light">
+    <div class="grid-2">
+      <div>
+        <div class="label">About us</div>
+        <div class="title">A studio that ships.</div>
+        <div class="body-text">
+          <p>calidevs is a software studio from California. We build, customize, and scale digital products — from Shopify stores to custom SaaS platforms to AI-powered tools.</p>
+          <p style="margin-top: 16px;">We're a small, senior team. No juniors learning on your dime. No layers of project managers. You talk to the people who write the code.</p>
+        </div>
+      </div>
+      <div>
+        <div class="grid-2" style="gap: 20px;">
+          <div class="stat-card stat-card-dark">
+            <div class="stat-number"><span class="accent">50</span>+</div>
+            <div class="stat-label">Projects shipped</div>
+          </div>
+          <div class="stat-card stat-card-dark">
+            <div class="stat-number"><span class="accent">8</span>yr</div>
+            <div class="stat-label">Average experience</div>
+          </div>
+          <div class="stat-card stat-card-dark">
+            <div class="stat-number"><span class="accent">1.2</span>s</div>
+            <div class="stat-label">Avg. load time</div>
+          </div>
+          <div class="stat-card stat-card-dark">
+            <div class="stat-number"><span class="accent">98</span>%</div>
+            <div class="stat-label">Client retention</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>calidevs.</span>
+      <span class="page-num">05</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 06. SERVICES DIVIDER                         -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-div">
+    <div class="div-num">03</div>
+    <div class="div-title">What<br>We Do</div>
+    <div class="div-line"></div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.2);">
+      <span>calidevs.</span>
+      <span class="page-num">06</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 07. SERVICES                                 -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-light">
+    <div class="label">Services</div>
+    <div class="title">Core capabilities</div>
+
+    <div class="grid-3 mt-32">
+      <div class="service-card">
+        <div class="service-icon si-ignite">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        </div>
+        <h3>Shopify Development</h3>
+        <p>Custom themes, Liquid 2.0, headless with Hydrogen, app development, checkout extensions, and performance optimization.</p>
+        <div class="service-tags">
+          <span class="tag tag-sand">LIQUID</span>
+          <span class="tag tag-sand">HYDROGEN</span>
+          <span class="tag tag-sand">APPS</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon si-charcoal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>Custom Software</h3>
+        <p>SaaS platforms, APIs, dashboards, and internal tools. Built with React, Node, Python — whatever the job needs.</p>
+        <div class="service-tags">
+          <span class="tag tag-sand">REACT</span>
+          <span class="tag tag-sand">NODE</span>
+          <span class="tag tag-sand">API</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon si-amber">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 0110 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2z"/><path d="M2 12h20"/><path d="M12 2a15 15 0 014 10 15 15 0 01-4 10 15 15 0 01-4-10 15 15 0 014-10z"/></svg>
+        </div>
+        <h3>WordPress & WooCommerce</h3>
+        <p>Theme development, WooCommerce optimization, migrations, security hardening, and server management.</p>
+        <div class="service-tags">
+          <span class="tag tag-sand">THEMES</span>
+          <span class="tag tag-sand">WOOCOMMERCE</span>
+          <span class="tag tag-sand">PHP</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon si-ignite">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>UI/UX Design</h3>
+        <p>Brand identity, web design, conversion-focused landing pages, and design systems. Figma-first workflow.</p>
+        <div class="service-tags">
+          <span class="tag tag-sand">FIGMA</span>
+          <span class="tag tag-sand">BRAND</span>
+          <span class="tag tag-sand">UX</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon si-charcoal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.5 2A2.5 2.5 0 0112 4.5V5a1 1 0 001 1h1a2.5 2.5 0 010 5h-1a1 1 0 00-1 1v.5A2.5 2.5 0 019.5 15 2.5 2.5 0 017 12.5V12a1 1 0 00-1-1H5a2.5 2.5 0 010-5h1a1 1 0 001-1v-.5A2.5 2.5 0 019.5 2z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3>AI & Automation</h3>
+        <p>Custom AI agents, workflow automation, CRM integrations (GoHighLevel), chatbots, and data pipelines.</p>
+        <div class="service-tags">
+          <span class="tag tag-sand">AI AGENTS</span>
+          <span class="tag tag-sand">GHL</span>
+          <span class="tag tag-sand">AUTOMATION</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon si-amber">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+        </div>
+        <h3>SEO & Performance</h3>
+        <p>Technical SEO audits, Core Web Vitals optimization, schema markup, site speed, and search strategy.</p>
+        <div class="service-tags">
+          <span class="tag tag-sand">SEO</span>
+          <span class="tag tag-sand">SPEED</span>
+          <span class="tag tag-sand">CWV</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs.</span>
+      <span class="page-num">07</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 08. PROCESS DIVIDER                          -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-div">
+    <div class="div-num">04</div>
+    <div class="div-title">How<br>We Work</div>
+    <div class="div-line"></div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.2);">
+      <span>calidevs.</span>
+      <span class="page-num">08</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 09. PROCESS                                  -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-sand">
+    <div class="label">Process</div>
+    <div class="title">From idea to production</div>
+
+    <div class="mt-32">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Discovery Call</h3>
+          <p>We listen. You tell us what's broken, what you need, and where you want to be. We ask the hard questions early so there are no surprises later.</p>
+          <div class="step-duration">30 MIN — FREE</div>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Scope & Proposal</h3>
+          <p>Within 48 hours, you get a detailed proposal: what we'll build, how long it takes, and what it costs. Fixed-price for defined scope. No hourly surprises.</p>
+          <div class="step-duration">48 HOURS</div>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Build Sprint</h3>
+          <p>We work in focused 1-2 week sprints. You get a staging link from day one. Daily updates in Slack. You see progress in real time — not after 3 months of silence.</p>
+          <div class="step-duration">1-2 WEEK SPRINTS</div>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3>Review & QA</h3>
+          <p>We test on every device, every browser. Performance audits, accessibility checks, security review. Nothing launches until it's rock solid.</p>
+          <div class="step-duration">2-3 DAYS</div>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h3>Launch & Support</h3>
+          <p>Go live with confidence. 30 days of post-launch support included. We monitor, fix, and optimize. Then optional retainer for ongoing care.</p>
+          <div class="step-duration">LAUNCH DAY + 30 DAYS</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs.</span>
+      <span class="page-num">09</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 10. WORK DIVIDER                             -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-div">
+    <div class="div-num">05</div>
+    <div class="div-title">Our<br>Work</div>
+    <div class="div-line"></div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.2);">
+      <span>calidevs.</span>
+      <span class="page-num">10</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 11. CASE STUDIES                             -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-light">
+    <div class="label">Selected work</div>
+    <div class="title">Case Studies</div>
+
+    <div class="grid-3 mt-32">
+      <!-- Case 1 -->
+      <div class="case-card">
+        <div class="case-visual" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+          <div class="wm" style="font-size: 1.3rem; color: var(--white);">
+            <span class="c" style="color: #a78bfa;">Emotion</span><span class="d" style="color: #f472b6;">Labs</span>
+          </div>
+        </div>
+        <div class="case-info">
+          <h3>Emotion Labs</h3>
+          <p>Shopify theme customization, product page optimization, and conversion-focused UX redesign.</p>
+          <div class="case-metrics">
+            <div class="case-metric">
+              <div class="val">+40%</div>
+              <div class="lab">CONVERSION</div>
+            </div>
+            <div class="case-metric">
+              <div class="val">1.4s</div>
+              <div class="lab">LOAD TIME</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 2 -->
+      <div class="case-card">
+        <div class="case-visual" style="background: linear-gradient(135deg, #064e3b, #065f46);">
+          <div style="font-family: var(--sans); font-weight: 800; font-size: 1.3rem; color: #6ee7b7;">Loyal<span style="color: white;">VSU</span></div>
+        </div>
+        <div class="case-info">
+          <h3>Loyal VSU</h3>
+          <p>Full store audit, collection architecture, filter system rewrite, product page enhancements, and cart redesign.</p>
+          <div class="case-metrics">
+            <div class="case-metric">
+              <div class="val">640</div>
+              <div class="lab">PRODUCTS</div>
+            </div>
+            <div class="case-metric">
+              <div class="val">13→0</div>
+              <div class="lab">BUGS FIXED</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 3 -->
+      <div class="case-card">
+        <div class="case-visual" style="background: linear-gradient(135deg, #44403c, #78716c);">
+          <div style="font-family: var(--serif); font-size: 1.4rem; color: #fbbf24;">La Markesa</div>
+        </div>
+        <div class="case-info">
+          <h3>La Markesa Jewelry</h3>
+          <p>Shopify store setup, SEO optimization with PluginSEO, Google Analytics 4 + Ads integration, 354 product catalog.</p>
+          <div class="case-metrics">
+            <div class="case-metric">
+              <div class="val">354</div>
+              <div class="lab">PRODUCTS</div>
+            </div>
+            <div class="case-metric">
+              <div class="val">88</div>
+              <div class="lab">COLLECTIONS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs.</span>
+      <span class="page-num">11</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 12. TECH STACK                               -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-sand">
+    <div class="label">Tech stack</div>
+    <div class="title">Tools we trust</div>
+    <div class="body-text" style="margin-bottom: 40px;">
+      <p>We're platform-agnostic. We pick the right tool for the job — not the tool we're most comfortable with.</p>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <p style="font-family: var(--mono); font-size: 0.7rem; color: var(--warm-gray); letter-spacing: 0.15em; margin-bottom: 16px;">ECOMMERCE</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <span class="tech-pill"><span class="tech-dot td-orange"></span>Shopify</span>
+          <span class="tech-pill"><span class="tech-dot td-orange"></span>Hydrogen</span>
+          <span class="tech-pill"><span class="tech-dot td-amber"></span>WooCommerce</span>
+          <span class="tech-pill"><span class="tech-dot td-charcoal"></span>Liquid 2.0</span>
+          <span class="tech-pill"><span class="tech-dot td-green"></span>Storefront API</span>
+        </div>
+
+        <p style="font-family: var(--mono); font-size: 0.7rem; color: var(--warm-gray); letter-spacing: 0.15em; margin-bottom: 16px; margin-top: 32px;">FRONTEND</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <span class="tech-pill"><span class="tech-dot td-orange"></span>React</span>
+          <span class="tech-pill"><span class="tech-dot td-charcoal"></span>Next.js</span>
+          <span class="tech-pill"><span class="tech-dot td-amber"></span>Remix</span>
+          <span class="tech-pill"><span class="tech-dot td-green"></span>TypeScript</span>
+          <span class="tech-pill"><span class="tech-dot td-charcoal"></span>Tailwind</span>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-family: var(--mono); font-size: 0.7rem; color: var(--warm-gray); letter-spacing: 0.15em; margin-bottom: 16px;">BACKEND</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <span class="tech-pill"><span class="tech-dot td-green"></span>Node.js</span>
+          <span class="tech-pill"><span class="tech-dot td-orange"></span>Python</span>
+          <span class="tech-pill"><span class="tech-dot td-charcoal"></span>PostgreSQL</span>
+          <span class="tech-pill"><span class="tech-dot td-amber"></span>GraphQL</span>
+          <span class="tech-pill"><span class="tech-dot td-green"></span>REST APIs</span>
+        </div>
+
+        <p style="font-family: var(--mono); font-size: 0.7rem; color: var(--warm-gray); letter-spacing: 0.15em; margin-bottom: 16px; margin-top: 32px;">PLATFORMS & TOOLS</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <span class="tech-pill"><span class="tech-dot td-orange"></span>GoHighLevel</span>
+          <span class="tech-pill"><span class="tech-dot td-charcoal"></span>Figma</span>
+          <span class="tech-pill"><span class="tech-dot td-amber"></span>Claude AI</span>
+          <span class="tech-pill"><span class="tech-dot td-green"></span>Vercel</span>
+          <span class="tech-pill"><span class="tech-dot td-charcoal"></span>GitHub</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs.</span>
+      <span class="page-num">12</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 13. TESTIMONIALS                             -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-light">
+    <div class="label">What they say</div>
+    <div class="title">Client love</div>
+
+    <div class="grid-2 mt-32">
+      <div class="testimonial">
+        <blockquote>"They don't just build what you ask for — they build what you actually need. The attention to detail is insane."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">AM</div>
+          <div>
+            <div class="testimonial-name">Ashley Manzo</div>
+            <div class="testimonial-role">Owner, La Markesa Jewelry</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <blockquote>"13 bugs found and fixed in one audit. They shipped more in one week than our previous agency did in three months."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">GR</div>
+          <div>
+            <div class="testimonial-name">Giselle R.</div>
+            <div class="testimonial-role">Operations, Loyal VSU</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs.</span>
+      <span class="page-num">13</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 14. PRICING DIVIDER                          -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-div">
+    <div class="div-num">06</div>
+    <div class="div-title">Pricing</div>
+    <div class="div-line"></div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.2);">
+      <span>calidevs.</span>
+      <span class="page-num">14</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 15. PRICING                                  -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-light">
+    <div class="label">Investment</div>
+    <div class="title">Transparent pricing</div>
+    <div class="body-text" style="margin-bottom: 40px;">
+      <p>No hidden fees. No scope creep surprises. Pick a plan or get a custom quote.</p>
+    </div>
+
+    <div class="grid-3 mt-32">
+      <div class="pricing-card pricing-light">
+        <div class="pricing-tier">STARTER</div>
+        <div class="pricing-name">Quick Fix</div>
+        <div class="pricing-desc">Bug fixes, small customizations, one-off tasks. Perfect for stores that need a tune-up.</div>
+        <div class="pricing-price"><span class="currency">$</span>500 <span class="period">/ project</span></div>
+        <ul class="pricing-features">
+          <li>Up to 8 hours of work</li>
+          <li>1 round of revisions</li>
+          <li>48-hour turnaround</li>
+          <li>Slack communication</li>
+          <li>7-day post-delivery support</li>
+        </ul>
+        <a href="#" class="pricing-cta cta-outline">Get started</a>
+      </div>
+
+      <div class="pricing-card pricing-featured">
+        <div class="pricing-badge">MOST POPULAR</div>
+        <div class="pricing-tier">GROWTH</div>
+        <div class="pricing-name">Build Sprint</div>
+        <div class="pricing-desc">Full feature builds, redesigns, migrations. For brands ready to level up.</div>
+        <div class="pricing-price" style="color: var(--white);"><span class="currency">$</span>2,500 <span class="period">/ sprint</span></div>
+        <ul class="pricing-features">
+          <li>2-week focused sprint</li>
+          <li>Custom theme / feature dev</li>
+          <li>Performance optimization</li>
+          <li>Daily Slack updates</li>
+          <li>Staging environment</li>
+          <li>30-day post-launch support</li>
+        </ul>
+        <a href="#" class="pricing-cta cta-ignite">Let's build</a>
+      </div>
+
+      <div class="pricing-card pricing-light">
+        <div class="pricing-tier">SCALE</div>
+        <div class="pricing-name">Retainer</div>
+        <div class="pricing-desc">Ongoing development, maintenance, and strategic support. Your dev team on call.</div>
+        <div class="pricing-price"><span class="currency">$</span>4,000 <span class="period">/ month</span></div>
+        <ul class="pricing-features">
+          <li>40 hours / month</li>
+          <li>Priority response (same day)</li>
+          <li>Proactive monitoring</li>
+          <li>Monthly strategy call</li>
+          <li>Rollover unused hours</li>
+          <li>Dedicated Slack channel</li>
+        </ul>
+        <a href="#" class="pricing-cta cta-outline">Talk to us</a>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 32px;">
+      <p style="font-size: 0.85rem; color: var(--warm-gray);">Need something custom? <span style="color: var(--ignite); font-weight: 600;">Let's talk.</span> Every project is different.</p>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs.</span>
+      <span class="page-num">15</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 16. FAQ                                      -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-sand">
+    <div class="label">FAQ</div>
+    <div class="title">Common questions</div>
+
+    <div class="grid-2 mt-32">
+      <div>
+        <div class="faq-item">
+          <div class="faq-q">How fast can you start?</div>
+          <div class="faq-a">Most projects kick off within 3-5 business days. Rush projects (48-hour start) available for retainer clients.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do you work with Shopify only?</div>
+          <div class="faq-a">No. Shopify is our specialty, but we also build on WordPress, WooCommerce, custom React/Node apps, and SaaS platforms.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What if I'm not happy with the work?</div>
+          <div class="faq-a">Every project includes revision rounds. We don't mark anything as done until you sign off. Period.</div>
+        </div>
+      </div>
+      <div>
+        <div class="faq-item">
+          <div class="faq-q">Do you offer ongoing support?</div>
+          <div class="faq-a">Yes. Our retainer plan gives you a dedicated team on call. For one-off projects, 30 days of post-launch support is always included.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Where are you based?</div>
+          <div class="faq-a">California. We work PST hours but accommodate EST and international clients regularly.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can you help with SEO?</div>
+          <div class="faq-a">Absolutely. Technical SEO, schema markup, Core Web Vitals, site speed — it's baked into everything we build.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs.</span>
+      <span class="page-num">16</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 17. CTA + CONTACT                            -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-dark">
+    <div class="label">Let's talk</div>
+    <div class="title" style="color: var(--white);">Ready to build<br>something great?</div>
+
+    <div class="cta-banner" style="margin-top: 32px;">
+      <h2>Book a free discovery call</h2>
+      <p>30 minutes. No pitch, no pressure. Just a real conversation about your project.</p>
+      <a href="#" class="cta-btn-white">Schedule a call</a>
+    </div>
+
+    <div class="grid-3 mt-48">
+      <div class="contact-card">
+        <h3>Email</h3>
+        <p><a href="#">hello@calidevs.com</a></p>
+      </div>
+      <div class="contact-card">
+        <h3>Based in</h3>
+        <p style="color: var(--white);">California, USA<br><span style="color: var(--warm-gray);">PST timezone</span></p>
+      </div>
+      <div class="contact-card">
+        <h3>Follow us</h3>
+        <p><a href="#">@calidevs</a></p>
+      </div>
+    </div>
+
+    <div class="slide-footer" style="color: rgba(255,255,255,0.2);">
+      <span>calidevs.</span>
+      <span class="page-num">17</span>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 18. CLOSING                                  -->
+  <!-- ════════════════════════════════════════════ -->
+  <section class="slide slide-cover">
+    <div class="cover-glow"></div>
+    <div class="cover-z">
+      <div class="wm" style="font-size: clamp(3.5rem, 9vw, 7rem); color: var(--white);">
+        <span class="c">cali</span><span class="d">devs</span><span class="f"><svg viewBox="0 0 40 56" fill="none"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/></svg></span>
+      </div>
+      <p style="font-family: var(--serif); font-style: italic; font-size: 1.3rem; color: var(--warm-gray); margin-top: 24px;">Build fast, ship smart, sleep well.</p>
+      <p style="font-family: var(--mono); font-size: 0.8rem; color: var(--ignite); margin-top: 24px; letter-spacing: 0.05em;">calidevs.com</p>
+      <p style="font-family: var(--hand); font-size: 1rem; color: var(--warm-gray); margin-top: 32px;">let's build something great together</p>
+    </div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.15);">
+      <span>calidevs. confidential — 2026</span>
+      <span class="page-num">18</span>
+    </div>
+  </section>
+
+</body>
+</html>

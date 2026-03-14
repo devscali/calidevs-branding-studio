@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>calidevs — Stationery Suite</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --ignite: #E8501A;
+      --amber: #F5A623;
+      --charcoal: #161618;
+      --white: #FFFFFF;
+      --light-sand: #F8F5F0;
+      --sand: #F1EBE2;
+      --dark-sand: #E4D9C8;
+      --slate: #3A3A3C;
+      --warm-gray: #9E9590;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --hand: 'Kalam', cursive;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--charcoal);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .slide {
+      min-height: 100vh;
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .slide-footer {
+      position: absolute;
+      bottom: 40px;
+      left: 80px;
+      right: 80px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.2);
+      font-family: var(--mono);
+      letter-spacing: 0.05em;
+    }
+    .slide-footer.dark { color: var(--warm-gray); }
+
+    .label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--ignite);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      margin-bottom: 16px;
+    }
+    .desc {
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      line-height: 1.7;
+      max-width: 500px;
+      margin-bottom: 48px;
+    }
+
+    /* ═══ WORDMARK ═══ */
+    .wm {
+      display: inline-flex;
+      align-items: baseline;
+      font-family: var(--sans);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .wm .d { color: var(--ignite); }
+    .wm .fl {
+      display: inline-block;
+      position: relative;
+      margin-left: 0.02em;
+      width: 0.28em;
+      align-self: flex-end;
+    }
+    .wm .fl svg { width: 100%; height: auto; display: block; }
+
+    .cover-glow {
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,80,26,0.06) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ═══ BUSINESS CARDS ═══ */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .bcard {
+      width: 400px;
+      height: 240px;
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .bc-front-dark {
+      background: var(--charcoal);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .bc-front-light {
+      background: var(--light-sand);
+      color: var(--charcoal);
+      border: 1px solid var(--dark-sand);
+    }
+    .bc-back-flame {
+      background: var(--charcoal);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.06);
+      align-items: center;
+      justify-content: center;
+    }
+    .bc-back-ignite {
+      background: var(--ignite);
+      color: var(--white);
+      align-items: center;
+      justify-content: center;
+    }
+    .bc-name { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; }
+    .bc-role { font-size: 0.8rem; color: var(--warm-gray); margin-top: 2px; }
+    .bc-contact { font-family: var(--mono); font-size: 0.65rem; line-height: 1.8; color: var(--warm-gray); }
+    .bc-front-light .bc-contact { color: var(--slate); }
+    .bc-stripe { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: var(--ignite); }
+
+    /* ═══ LETTERHEAD ═══ */
+    .letterhead {
+      width: 560px;
+      min-height: 780px;
+      background: var(--white);
+      border-radius: 8px;
+      padding: 48px;
+      color: var(--charcoal);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      position: relative;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .lh-header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 24px; border-bottom: 2px solid var(--charcoal); margin-bottom: 40px; }
+    .lh-sender { font-family: var(--mono); font-size: 0.6rem; color: var(--warm-gray); text-align: right; line-height: 1.8; }
+    .lh-body { flex: 1; }
+    .lh-date { font-family: var(--mono); font-size: 0.65rem; color: var(--warm-gray); margin-bottom: 28px; }
+    .lh-to { font-size: 0.8rem; color: var(--slate); margin-bottom: 28px; line-height: 1.6; }
+    .lh-greeting { font-family: var(--serif); font-size: 1.1rem; margin-bottom: 20px; }
+    .lh-text { font-size: 0.78rem; line-height: 1.8; color: var(--slate); }
+    .lh-text p + p { margin-top: 14px; }
+    .lh-signature { margin-top: 36px; }
+    .lh-sig-name { font-weight: 700; font-size: 0.85rem; color: var(--charcoal); }
+    .lh-sig-role { font-size: 0.72rem; color: var(--warm-gray); }
+    .lh-sig-hand { font-family: var(--hand); font-size: 1.4rem; color: var(--ignite); margin-bottom: 4px; }
+    .lh-footer { margin-top: auto; padding-top: 24px; border-top: 1px solid var(--sand); display: flex; justify-content: space-between; align-items: center; }
+    .lh-footer-info { font-family: var(--mono); font-size: 0.55rem; color: var(--warm-gray); line-height: 1.6; }
+
+    /* ═══ ENVELOPE ═══ */
+    .envelope {
+      width: 620px; height: 300px;
+      background: var(--light-sand);
+      border-radius: 8px;
+      padding: 40px;
+      color: var(--charcoal);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      position: relative;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--dark-sand);
+    }
+    .env-from { font-family: var(--mono); font-size: 0.6rem; color: var(--warm-gray); line-height: 1.6; }
+    .env-to { align-self: center; text-align: center; }
+    .env-to-name { font-weight: 700; font-size: 0.95rem; }
+    .env-to-addr { font-size: 0.78rem; color: var(--slate); margin-top: 4px; line-height: 1.5; }
+    .env-stamp {
+      position: absolute; top: 36px; right: 40px;
+      width: 56px; height: 64px;
+      border-radius: 8px;
+      background: var(--sand);
+      border: 2px dashed var(--dark-sand);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ═══ INVOICE ═══ */
+    .invoice {
+      width: 560px;
+      background: var(--white);
+      border-radius: 8px;
+      padding: 48px;
+      color: var(--charcoal);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      margin: 0 auto;
+    }
+    .inv-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; }
+    .inv-title { font-family: var(--serif); font-size: 2rem; }
+    .inv-meta { text-align: right; font-family: var(--mono); font-size: 0.65rem; color: var(--warm-gray); line-height: 1.8; }
+    .inv-parties { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid var(--sand); }
+    .inv-party-label { font-family: var(--mono); font-size: 0.6rem; color: var(--ignite); letter-spacing: 0.12em; margin-bottom: 8px; }
+    .inv-party-name { font-weight: 700; font-size: 0.85rem; margin-bottom: 4px; }
+    .inv-party-addr { font-size: 0.72rem; color: var(--slate); line-height: 1.6; }
+    .inv-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+    .inv-table th { font-family: var(--mono); font-size: 0.6rem; color: var(--warm-gray); letter-spacing: 0.1em; text-align: left; padding: 10px 0; border-bottom: 2px solid var(--charcoal); }
+    .inv-table th:last-child { text-align: right; }
+    .inv-table td { font-size: 0.78rem; padding: 14px 0; border-bottom: 1px solid var(--sand); color: var(--slate); }
+    .inv-table td:last-child { text-align: right; font-family: var(--mono); font-weight: 600; color: var(--charcoal); }
+    .inv-total-row { display: flex; justify-content: flex-end; gap: 40px; padding: 16px 0; align-items: baseline; }
+    .inv-total-label { font-family: var(--mono); font-size: 0.65rem; color: var(--warm-gray); letter-spacing: 0.1em; }
+    .inv-total-amount { font-family: var(--serif); font-size: 2rem; color: var(--charcoal); }
+    .inv-footer { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--sand); }
+    .inv-footer-note { font-size: 0.7rem; color: var(--warm-gray); line-height: 1.6; }
+    .inv-paid-badge { display: inline-block; font-family: var(--mono); font-size: 0.7rem; padding: 6px 16px; border-radius: 8px; background: rgba(46,125,50,0.1); color: #2E7D32; letter-spacing: 0.1em; font-weight: 600; margin-top: 12px; }
+
+    /* ═══ EMAIL SIGNATURE ═══ */
+    .email-sig-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; max-width: 900px; margin: 0 auto; }
+    .email-sig { background: var(--white); border-radius: 12px; padding: 32px; color: var(--charcoal); box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+    .es-divider { height: 2px; background: var(--ignite); width: 40px; margin: 16px 0; }
+    .es-name { font-weight: 700; font-size: 0.9rem; }
+    .es-role { font-size: 0.75rem; color: var(--warm-gray); }
+    .es-links { font-family: var(--mono); font-size: 0.6rem; color: var(--slate); line-height: 1.8; margin-top: 12px; }
+    .es-links a { color: var(--ignite); text-decoration: none; }
+
+    /* ═══ SOCIAL TEMPLATES ═══ */
+    .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 1000px; margin: 0 auto; }
+    .social-post { border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+    .sp-square { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; position: relative; }
+    .social-label { font-family: var(--mono); font-size: 0.6rem; color: var(--warm-gray); text-align: center; margin-top: 12px; letter-spacing: 0.08em; }
+
+    /* ═══ FOLDER ═══ */
+    .folder {
+      width: 500px; height: 360px;
+      background: var(--charcoal);
+      border-radius: 0 16px 16px 16px;
+      margin: 0 auto;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .folder-tab {
+      position: absolute; top: -28px; left: 0;
+      width: 160px; height: 28px;
+      background: var(--charcoal);
+      border-radius: 10px 10px 0 0;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-bottom: none;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .folder-stripe { position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: var(--ignite); border-radius: 0 0 16px 16px; }
+
+    /* ═══ NEW: PROPOSAL COVER ═══ */
+    .proposal {
+      width: 560px; min-height: 760px;
+      background: var(--charcoal);
+      border-radius: 12px;
+      padding: 56px;
+      margin: 0 auto;
+      display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.06);
+      position: relative; overflow: hidden;
+    }
+
+    /* ═══ NEW: ZOOM BG ═══ */
+    .zoom-bg {
+      width: 720px; height: 405px;
+      border-radius: 12px;
+      margin: 0 auto;
+      position: relative; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    /* ═══ NEW: THANK YOU CARD ═══ */
+    .ty-card {
+      width: 440px; height: 300px;
+      border-radius: 16px;
+      padding: 40px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      position: relative; overflow: hidden;
+    }
+
+    /* ═══ NEW: FAVICON/OG ═══ */
+    .browser-bar {
+      background: #2D2D30;
+      border-radius: 12px 12px 0 0;
+      padding: 12px 16px 8px;
+      display: flex; gap: 8px; align-items: center;
+    }
+    .browser-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .browser-tab {
+      background: #3A3A3C;
+      border-radius: 8px 8px 0 0;
+      padding: 6px 14px;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.6rem; color: var(--warm-gray);
+      margin-left: 12px;
+    }
+    .og-preview {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      max-width: 400px;
+    }
+    .og-image {
+      height: 200px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .og-text { padding: 16px 20px; }
+    .og-title { font-size: 0.85rem; font-weight: 700; color: var(--charcoal); }
+    .og-desc { font-size: 0.7rem; color: var(--warm-gray); margin-top: 4px; }
+    .og-url { font-size: 0.6rem; color: var(--slate); margin-top: 6px; font-family: var(--mono); }
+
+    /* ═══ NEW: NOTEBOOK ═══ */
+    .notebook {
+      width: 400px; height: 540px;
+      background: var(--charcoal);
+      border-radius: 4px 16px 16px 4px;
+      margin: 0 auto;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .notebook-spine {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 24px;
+      background: var(--ignite);
+      border-radius: 4px 0 0 4px;
+    }
+    .notebook-elastic {
+      position: absolute; right: 40px; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--amber);
+    }
+
+    @media (max-width: 768px) {
+      .slide { padding: 40px 24px; }
+      .cards-grid, .email-sig-container { grid-template-columns: 1fr; }
+      .bcard, .letterhead, .envelope, .invoice, .proposal, .notebook { width: 100%; }
+      .social-grid { grid-template-columns: 1fr; }
+      .zoom-bg { width: 100%; height: auto; aspect-ratio: 16/9; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 01 COVER                                    -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="text-align: center;">
+    <div class="cover-glow"></div>
+    <div style="position: relative; z-index: 2;">
+      <div class="label" style="text-align: center;">BRAND COLLATERAL</div>
+      <h1 style="font-family: var(--serif); font-size: clamp(3rem, 7vw, 5rem);">Stationery <span style="color: var(--ignite);">Suite</span></h1>
+      <p style="font-size: 0.9rem; color: var(--warm-gray); margin-top: 12px;">Flame D — Bold Blaze (locked)</p>
+      <div class="wm" style="font-size: 2rem; color: var(--white); margin-top: 32px; justify-content: center;">
+        <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+      </div>
+    </div>
+    <div class="slide-footer"><span>calidevs stationery suite</span><span>01 / 14</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 02 BUSINESS CARDS                           -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="background: var(--sand);">
+    <div class="label">01 — BUSINESS CARDS</div>
+    <div class="title" style="color: var(--charcoal);">Two sides, one brand</div>
+    <div class="desc" style="color: var(--slate);">Dark and light variants. The ignite stripe at the bottom anchors every card.</div>
+
+    <div class="cards-grid">
+      <!-- Front Dark -->
+      <div class="bcard bc-front-dark">
+        <div>
+          <div class="wm" style="font-size: 1.15rem; color: var(--white);">
+            <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+          </div>
+        </div>
+        <div>
+          <div class="bc-name">Romina Concepcion</div>
+          <div class="bc-role">Founder & Lead Developer</div>
+        </div>
+        <div class="bc-contact">romina@calidevs.com<br>calidevs.com<br>+1 (619) 555-0123</div>
+        <div class="bc-stripe"></div>
+      </div>
+
+      <!-- Back Dark — Big Flame -->
+      <div class="bcard bc-back-flame">
+        <svg width="80" height="101" viewBox="0 0 60 76" fill="none">
+          <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+          <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+          <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+        </svg>
+        <div class="bc-stripe"></div>
+      </div>
+
+      <!-- Front Light -->
+      <div class="bcard bc-front-light">
+        <div>
+          <div class="wm" style="font-size: 1.15rem; color: var(--charcoal);">
+            <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+          </div>
+        </div>
+        <div>
+          <div class="bc-name" style="color: var(--charcoal);">Romina Concepcion</div>
+          <div class="bc-role">Founder & Lead Developer</div>
+        </div>
+        <div class="bc-contact">romina@calidevs.com<br>calidevs.com<br>+1 (619) 555-0123</div>
+        <div class="bc-stripe"></div>
+      </div>
+
+      <!-- Back Ignite — White flame variant -->
+      <div class="bcard bc-back-ignite">
+        <svg width="80" height="101" viewBox="0 0 60 76" fill="none">
+          <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#FFFFFF"/>
+          <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#FFECD2"/>
+          <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFF5E6"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="slide-footer dark"><span>calidevs stationery suite</span><span>02 / 14</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 03 LETTERHEAD                               -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide">
+    <div class="label">02 — LETTERHEAD</div>
+    <div class="title">Professional correspondence</div>
+    <div class="desc">Clean header with logo + contact. Charcoal rule. Serif greeting. Bottom footer with flame.</div>
+
+    <div class="letterhead">
+      <div class="lh-header">
+        <div class="wm" style="font-size: 1.2rem; color: var(--charcoal);">
+          <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+        </div>
+        <div class="lh-sender">calidevs.com<br>hello@calidevs.com<br>California, USA</div>
+      </div>
+
+      <div class="lh-body">
+        <div class="lh-date">March 13, 2026</div>
+        <div class="lh-to">Ashley Manzo<br>La Markesa Jewelry<br>San Diego, CA</div>
+        <div class="lh-greeting">Dear Ashley,</div>
+        <div class="lh-text">
+          <p>Thank you for choosing calidevs to develop your Shopify store. We're excited to partner with La Markesa Jewelry to create a digital experience that matches the quality of your craft.</p>
+          <p>Attached you'll find our project proposal, including scope, timeline, and investment details. We've designed a solution that optimizes for mobile conversion and showcases your collection beautifully.</p>
+          <p>Looking forward to building something great together.</p>
+        </div>
+        <div class="lh-signature">
+          <div class="lh-sig-hand">Romina</div>
+          <div class="lh-sig-name">Romina Concepcion</div>
+          <div class="lh-sig-role">Founder & Lead Developer</div>
+        </div>
+      </div>
+
+      <div class="lh-footer">
+        <div class="wm" style="font-size: 0.7rem; color: var(--charcoal);">
+          <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+        </div>
+        <div class="lh-footer-info">calidevs.com &nbsp;|&nbsp; hello@calidevs.com &nbsp;|&nbsp; California, USA</div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs stationery suite</span><span>03 / 14</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 04 ENVELOPE                                 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="background: var(--slate);">
+    <div class="label">03 — ENVELOPE</div>
+    <div class="title">First impressions</div>
+    <div class="desc">Warm sand paper, logo top-left, flame stamp area, ignite stripe at bottom edge.</div>
+
+    <div class="envelope">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <div class="wm" style="font-size: 0.85rem; color: var(--charcoal);">
+            <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+          </div>
+          <div class="env-from" style="margin-top: 8px;">calidevs<br>California, USA</div>
+        </div>
+        <div class="env-stamp">
+          <svg width="20" height="25" viewBox="0 0 60 76" fill="none">
+            <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A" opacity="0.3"/>
+            <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623" opacity="0.3"/>
+            <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2" opacity="0.3"/>
+          </svg>
+        </div>
+      </div>
+      <div class="env-to">
+        <div class="env-to-name">Ashley Manzo</div>
+        <div class="env-to-addr">La Markesa Jewelry<br>1234 Main Street<br>San Diego, CA 92101</div>
+      </div>
+      <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: var(--ignite); border-radius: 0 0 8px 8px;"></div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs stationery suite</span><span>04 / 14</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 05 INVOICE                                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide">
+    <div class="label">04 — INVOICE</div>
+    <div class="title">Get paid in style</div>
+    <div class="desc">Clean, professional invoicing. Serif title, monospace data, ignite accent on labels.</div>
+
+    <div class="invoice">
+      <div class="inv-header">
+        <div>
+          <div class="wm" style="font-size: 1.1rem; color: var(--charcoal);">
+            <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+          </div>
+          <div class="inv-title" style="margin-top: 16px;">Invoice</div>
+        </div>
+        <div class="inv-meta">INV-2026-0042<br>March 13, 2026<br>Due: April 12, 2026<br>NET 30</div>
+      </div>
+
+      <div class="inv-parties">
+        <div>
+          <div class="inv-party-label">FROM</div>
+          <div class="inv-party-name">calidevs</div>
+          <div class="inv-party-addr">California, USA<br>hello@calidevs.com<br>calidevs.com</div>
+        </div>
+        <div>
+          <div class="inv-party-label">BILL TO</div>
+          <div class="inv-party-name">La Markesa Jewelry</div>
+          <div class="inv-party-addr">Ashley Manzo<br>1234 Main Street<br>San Diego, CA 92101</div>
+        </div>
+      </div>
+
+      <table class="inv-table">
+        <thead><tr><th>DESCRIPTION</th><th>QTY</th><th>AMOUNT</th></tr></thead>
+        <tbody>
+          <tr><td>Shopify Theme Customization — Build Sprint</td><td>1</td><td>$2,500.00</td></tr>
+          <tr><td>SEO Technical Audit + Implementation</td><td>1</td><td>$800.00</td></tr>
+          <tr><td>Google Analytics 4 + Ads Setup</td><td>1</td><td>$400.00</td></tr>
+        </tbody>
+      </table>
+
+      <div style="border-top: 2px solid var(--charcoal); padding-top: 16px;">
+        <div class="inv-total-row">
+          <span class="inv-total-label">SUBTOTAL</span>
+          <span style="font-family: var(--mono); font-size: 0.85rem;">$3,700.00</span>
+        </div>
+        <div class="inv-total-row" style="padding-top: 8px;">
+          <span class="inv-total-label">TOTAL DUE</span>
+          <span class="inv-total-amount">$3,700<span style="font-size: 1rem;">.00</span></span>
+        </div>
+      </div>
+
+      <div class="inv-footer">
+        <div class="inv-footer-note">Payment via wire transfer or Stripe. Please include invoice number in reference.<br>Thank you for your business!</div>
+        <div class="inv-paid-badge">PAID</div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs stationery suite</span><span>05 / 14</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 06 EMAIL SIGNATURE                          -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="background: var(--sand);">
+    <div class="label">05 — EMAIL SIGNATURE</div>
+    <div class="title" style="color: var(--charcoal);">Every email, on brand</div>
+    <div class="desc" style="color: var(--slate);">Two variants: compact (daily use) and extended (new contacts).</div>
+
+    <div class="email-sig-container">
+      <!-- Compact -->
+      <div>
+        <div class="email-sig">
+          <div class="wm" style="font-size: 0.9rem; color: var(--charcoal);">
+            <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+          </div>
+          <div class="es-divider"></div>
+          <div class="es-name">Romina Concepcion</div>
+          <div class="es-role">Founder & Lead Developer</div>
+          <div class="es-links"><a href="#">calidevs.com</a> &nbsp;|&nbsp; romina@calidevs.com</div>
+        </div>
+        <div class="social-label">COMPACT</div>
+      </div>
+
+      <!-- Extended -->
+      <div>
+        <div class="email-sig">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <div style="width: 48px; height: 48px; border-radius: 12px; background: var(--charcoal); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg width="22" height="28" viewBox="0 0 60 76" fill="none">
+                <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+                <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+                <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+              </svg>
+            </div>
+            <div>
+              <div class="es-name">Romina Concepcion</div>
+              <div class="es-role">Founder & Lead Developer</div>
+              <div class="es-divider"></div>
+              <div class="es-links">
+                <a href="#">calidevs.com</a><br>romina@calidevs.com<br>+1 (619) 555-0123<br>California, USA
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--sand);">
+            <span style="font-family: var(--serif); font-style: italic; font-size: 0.7rem; color: var(--warm-gray);">Build fast, ship smart, sleep well.</span>
+          </div>
+        </div>
+        <div class="social-label">EXTENDED</div>
+      </div>
+    </div>
+
+    <div class="slide-footer dark"><span>calidevs stationery suite</span><span>06 / 14</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 07 SOCIAL MEDIA                             -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide">
+    <div class="label">06 — SOCIAL MEDIA</div>
+    <div class="title">Feed-ready templates</div>
+    <div class="desc">Square posts and profile avatars. Always on brand, always recognizable.</div>
+
+    <div class="social-grid">
+      <!-- Post 1: Quote -->
+      <div>
+        <div class="social-post">
+          <div class="sp-square" style="background: var(--charcoal);">
+            <div style="font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--white); line-height: 1.5; max-width: 220px;">"Your store loads in 1.2 seconds. Here's how."</div>
+            <div style="margin-top: 20px;">
+              <div class="wm" style="font-size: 0.75rem; color: var(--white);">
+                <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+              </div>
+            </div>
+            <div style="position: absolute; top: 20px; right: 20px;">
+              <svg width="16" height="20" viewBox="0 0 60 76" fill="none">
+                <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+                <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+                <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="social-label">QUOTE POST</div>
+      </div>
+
+      <!-- Post 2: Service — on ignite -->
+      <div>
+        <div class="social-post">
+          <div class="sp-square" style="background: var(--ignite);">
+            <div style="font-family: var(--mono); font-size: 0.6rem; color: rgba(255,255,255,0.6); letter-spacing: 0.15em; margin-bottom: 12px;">SERVICES</div>
+            <div style="font-family: var(--serif); font-size: 1.8rem; color: var(--white); line-height: 1.2;">Shopify<br>Development</div>
+            <div style="margin-top: 16px; font-size: 0.7rem; color: rgba(255,255,255,0.7);">Themes &bull; Apps &bull; Headless &bull; Speed</div>
+            <div style="position: absolute; bottom: 20px;">
+              <div class="wm" style="font-size: 0.7rem; color: var(--amber);">
+                <span>cali</span><span style="color: var(--white);">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#FFFFFF"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#FFECD2"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFF5E6"/></svg></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="social-label">SERVICE POST</div>
+      </div>
+
+      <!-- Post 3: Stat — on light -->
+      <div>
+        <div class="social-post">
+          <div class="sp-square" style="background: var(--light-sand);">
+            <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--ignite); letter-spacing: 0.15em; margin-bottom: 8px;">CASE STUDY</div>
+            <div style="font-family: var(--serif); font-size: 3rem; color: var(--charcoal); line-height: 1;">+40%</div>
+            <div style="font-size: 0.85rem; color: var(--slate); margin-top: 8px;">conversion rate increase</div>
+            <div style="position: absolute; bottom: 20px;">
+              <div class="wm" style="font-size: 0.7rem; color: var(--charcoal);">
+                <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="social-label">STAT POST</div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs stationery suite</span><span>07 / 14</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 08 PROPOSAL COVER (NEW)                     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="background: var(--sand);">
+    <div class="label">07 — PROPOSAL COVER</div>
+    <div class="title" style="color: var(--charcoal);">Win the deal</div>
+    <div class="desc" style="color: var(--slate);">Dark cover page with flame glow, project title, client name, and date. Sets the tone from page one.</div>
+
+    <div class="proposal">
+      <div style="position: absolute; bottom: -100px; right: -100px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(232,80,26,0.08) 0%, transparent 70%);"></div>
+      <div>
+        <div class="wm" style="font-size: 1.4rem; color: var(--white);">
+          <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+      <div style="position: relative; z-index: 2;">
+        <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--ignite); letter-spacing: 0.15em; margin-bottom: 12px;">PROJECT PROPOSAL</div>
+        <div style="font-family: var(--serif); font-size: 2.4rem; color: var(--white); line-height: 1.15; margin-bottom: 16px;">Shopify Store<br>Redesign &<br>Optimization</div>
+        <div style="height: 3px; width: 48px; background: var(--ignite); margin-bottom: 20px;"></div>
+        <div style="font-size: 0.85rem; color: var(--warm-gray);">Prepared for</div>
+        <div style="font-weight: 700; font-size: 1.1rem; color: var(--white); margin-top: 4px;">Ashley Manzo — La Markesa Jewelry</div>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 2;">
+        <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--warm-gray); line-height: 1.8;">
+          March 2026<br>CONFIDENTIAL
+        </div>
+        <div style="font-family: var(--serif); font-style: italic; font-size: 0.7rem; color: var(--warm-gray);">Build fast, ship smart, sleep well.</div>
+      </div>
+    </div>
+
+    <div class="slide-footer dark"><span>calidevs stationery suite</span><span>08 / 14</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 09 ZOOM VIRTUAL BACKGROUND (NEW)            -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide">
+    <div class="label">08 — ZOOM BACKGROUND</div>
+    <div class="title">Video calls, on brand</div>
+    <div class="desc">16:9 virtual background for Zoom, Meet, or Teams. Subtle, professional, recognizable.</div>
+
+    <div class="zoom-bg" style="background: var(--charcoal);">
+      <div style="position: absolute; bottom: -80px; right: -80px; width: 350px; height: 350px; border-radius: 50%; background: radial-gradient(circle, rgba(232,80,26,0.05) 0%, transparent 70%);"></div>
+      <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.03;">
+        <svg width="300" height="380" viewBox="0 0 60 76" fill="none">
+          <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+          <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+          <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+        </svg>
+      </div>
+      <div style="position: absolute; bottom: 32px; left: 40px;">
+        <div class="wm" style="font-size: 1rem; color: var(--white);">
+          <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+      <div style="position: absolute; bottom: 32px; right: 40px; font-family: var(--mono); font-size: 0.55rem; color: rgba(255,255,255,0.2); letter-spacing: 0.1em;">calidevs.com</div>
+      <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--ignite); border-radius: 0 0 12px 12px;"></div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs stationery suite</span><span>09 / 14</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 10 THANK YOU CARD (NEW)                     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="background: var(--slate);">
+    <div class="label">09 — THANK YOU CARD</div>
+    <div class="title">Post-project warmth</div>
+    <div class="desc">Sent after project delivery. Handwritten feel, professional finish.</div>
+
+    <div style="display: flex; gap: 40px; justify-content: center; align-items: center;">
+      <!-- Front -->
+      <div>
+        <div class="ty-card" style="background: var(--charcoal); border: 1px solid rgba(255,255,255,0.06);">
+          <div class="wm" style="font-size: 0.85rem; color: var(--white);">
+            <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+          </div>
+          <div>
+            <div style="font-family: var(--hand); font-size: 2rem; color: var(--white); line-height: 1.2;">Thank you<br>for trusting us</div>
+            <div style="font-family: var(--hand); font-size: 1.1rem; color: var(--ignite); margin-top: 8px;">— Romina & team</div>
+          </div>
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: var(--ignite); border-radius: 0 0 16px 16px;"></div>
+        </div>
+        <div class="social-label">FRONT</div>
+      </div>
+
+      <!-- Back -->
+      <div>
+        <div class="ty-card" style="background: var(--light-sand); border: 1px solid var(--dark-sand);">
+          <div></div>
+          <div style="text-align: center;">
+            <svg width="40" height="50" viewBox="0 0 60 76" fill="none" style="margin-bottom: 12px;">
+              <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+              <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+              <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+            </svg>
+            <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--warm-gray); line-height: 1.8;">
+              calidevs.com<br>hello@calidevs.com<br>California, USA
+            </div>
+          </div>
+          <div style="font-family: var(--serif); font-style: italic; font-size: 0.65rem; color: var(--warm-gray); text-align: center;">Build fast, ship smart, sleep well.</div>
+        </div>
+        <div class="social-label">BACK</div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs stationery suite</span><span>10 / 14</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 11 FAVICON & OG IMAGE (NEW)                 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="background: var(--sand);">
+    <div class="label">10 — FAVICON & OG IMAGE</div>
+    <div class="title" style="color: var(--charcoal);">Digital presence</div>
+    <div class="desc" style="color: var(--slate);">Browser tab favicon, Open Graph preview card for link sharing, and app icon.</div>
+
+    <div style="display: flex; gap: 48px; justify-content: center; align-items: flex-start; flex-wrap: wrap;">
+      <!-- Browser tab mockup -->
+      <div>
+        <div style="width: 400px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+          <div class="browser-bar">
+            <div class="browser-dot" style="background: #FF5F57;"></div>
+            <div class="browser-dot" style="background: #FEBC2E;"></div>
+            <div class="browser-dot" style="background: #28C840;"></div>
+            <div class="browser-tab">
+              <svg width="10" height="13" viewBox="0 0 60 76" fill="none">
+                <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+                <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+                <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+              </svg>
+              <span>calidevs — Build fast</span>
+            </div>
+          </div>
+          <div style="background: #1E1E1E; height: 200px; display: flex; align-items: center; justify-content: center;">
+            <div class="wm" style="font-size: 1.8rem; color: var(--white);">
+              <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="social-label">BROWSER TAB + FAVICON</div>
+      </div>
+
+      <!-- OG preview card -->
+      <div>
+        <div class="og-preview">
+          <div class="og-image" style="background: var(--charcoal);">
+            <div style="text-align: center;">
+              <div class="wm" style="font-size: 1.6rem; color: var(--white);">
+                <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+              </div>
+              <div style="font-family: var(--serif); font-style: italic; font-size: 0.75rem; color: var(--warm-gray); margin-top: 8px;">Build fast, ship smart, sleep well.</div>
+            </div>
+          </div>
+          <div class="og-text">
+            <div class="og-title">calidevs — Software Development Studio</div>
+            <div class="og-desc">Shopify, custom software, and AI solutions. California-based dev studio.</div>
+            <div class="og-url">calidevs.com</div>
+          </div>
+        </div>
+        <div class="social-label">OG / LINK PREVIEW</div>
+
+        <!-- App icon -->
+        <div style="display: flex; gap: 16px; margin-top: 24px; justify-content: center;">
+          <div>
+            <div style="width: 60px; height: 60px; border-radius: 14px; background: var(--charcoal); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+              <svg width="28" height="35" viewBox="0 0 60 76" fill="none">
+                <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+                <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+                <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+              </svg>
+            </div>
+            <div style="font-family: var(--mono); font-size: 0.45rem; color: var(--slate); text-align: center; margin-top: 6px;">APP ICON</div>
+          </div>
+          <div>
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: var(--charcoal); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+              <svg width="14" height="18" viewBox="0 0 60 76" fill="none">
+                <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+                <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+                <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+              </svg>
+            </div>
+            <div style="font-family: var(--mono); font-size: 0.45rem; color: var(--slate); text-align: center; margin-top: 6px;">FAVICON</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer dark"><span>calidevs stationery suite</span><span>11 / 14</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 12 NOTEBOOK (NEW)                           -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide">
+    <div class="label">11 — NOTEBOOK</div>
+    <div class="title">Ideas deserve good paper</div>
+    <div class="desc">Branded Moleskine-style notebook. Orange spine, amber elastic, flame on cover.</div>
+
+    <div class="notebook">
+      <div class="notebook-spine"></div>
+      <div class="notebook-elastic"></div>
+      <div style="text-align: center; margin-left: 12px;">
+        <svg width="50" height="63" viewBox="0 0 60 76" fill="none" style="margin-bottom: 20px; filter: drop-shadow(0 2px 8px rgba(232,80,26,0.2));">
+          <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+          <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+          <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+        </svg>
+        <div class="wm" style="font-size: 1.2rem; color: var(--white);">
+          <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+        </div>
+        <div style="font-family: var(--serif); font-style: italic; font-size: 0.7rem; color: var(--warm-gray); margin-top: 12px;">Build fast, ship smart, sleep well.</div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs stationery suite</span><span>12 / 14</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 13 FOLDER & MERCH                           -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="background: var(--slate);">
+    <div class="label">12 — FOLDER & MERCH</div>
+    <div class="title">Physical touchpoints</div>
+    <div class="desc">Presentation folder, sticker, and apparel mockups.</div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 900px; margin: 0 auto;">
+      <!-- Folder -->
+      <div>
+        <div class="folder">
+          <div class="folder-tab">
+            <div class="wm" style="font-size: 0.6rem; color: var(--white);">
+              <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+            </div>
+          </div>
+          <svg width="60" height="76" viewBox="0 0 60 76" fill="none">
+            <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+            <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+            <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+          </svg>
+          <div class="folder-stripe"></div>
+        </div>
+        <div class="social-label">PRESENTATION FOLDER</div>
+      </div>
+
+      <!-- Merch items -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <!-- Sticker -->
+        <div>
+          <div style="aspect-ratio: 1; border-radius: 50%; background: var(--charcoal); border: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center;">
+            <svg width="40" height="50" viewBox="0 0 60 76" fill="none">
+              <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+              <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+              <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+            </svg>
+          </div>
+          <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--warm-gray); text-align: center; margin-top: 10px;">STICKER</div>
+        </div>
+
+        <!-- Cap -->
+        <div>
+          <div style="aspect-ratio: 1; border-radius: 16px; background: var(--charcoal); border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
+            <svg width="24" height="30" viewBox="0 0 60 76" fill="none">
+              <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+              <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+              <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+            </svg>
+            <div class="wm" style="font-size: 0.55rem; color: var(--white);">
+              <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+            </div>
+          </div>
+          <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--warm-gray); text-align: center; margin-top: 10px;">CAP</div>
+        </div>
+
+        <!-- Tee -->
+        <div>
+          <div style="aspect-ratio: 1; border-radius: 16px; background: var(--light-sand); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;">
+            <svg width="32" height="40" viewBox="0 0 60 76" fill="none">
+              <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+              <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+              <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+            </svg>
+            <div class="wm" style="font-size: 0.5rem; color: var(--charcoal);">
+              <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+            </div>
+          </div>
+          <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--warm-gray); text-align: center; margin-top: 10px;">TEE (LIGHT)</div>
+        </div>
+
+        <!-- Hoodie -->
+        <div>
+          <div style="aspect-ratio: 1; border-radius: 16px; background: #0D0D0F; border: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;">
+            <svg width="32" height="40" viewBox="0 0 60 76" fill="none">
+              <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+              <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+              <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+            </svg>
+            <div class="wm" style="font-size: 0.5rem; color: var(--white);">
+              <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+            </div>
+          </div>
+          <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--warm-gray); text-align: center; margin-top: 10px;">HOODIE (DARK)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs stationery suite</span><span>13 / 14</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 14 CLOSING                                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="text-align: center;">
+    <div class="cover-glow"></div>
+    <div style="position: relative; z-index: 2;">
+      <svg width="80" height="101" viewBox="0 0 60 76" fill="none" style="margin-bottom: 24px; filter: drop-shadow(0 4px 20px rgba(232,80,26,0.3));">
+        <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+        <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+        <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+      </svg>
+      <div class="wm" style="font-size: clamp(3rem, 8vw, 6rem); color: var(--white); justify-content: center;">
+        <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+      </div>
+      <p style="font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--warm-gray); margin-top: 16px;">Build fast, ship smart, sleep well.</p>
+      <p style="font-family: var(--hand); font-size: 1rem; color: var(--warm-gray); margin-top: 32px;">every touchpoint, on fire</p>
+    </div>
+    <div class="slide-footer"><span>calidevs stationery suite — v2.0</span><span>14 / 14</span></div>
+  </section>
+
+</body>
+</html>

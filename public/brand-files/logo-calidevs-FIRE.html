@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>calidevs — FIRE Edition by Elena 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&family=Karla:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0A0806;
+      --surface: #141210;
+      --surface-2: #1C1916;
+      --ember: #FF6B2C;
+      --flame: #FF8A1F;
+      --lava: #E8451A;
+      --magma: #C62D0E;
+      --solar: #FFBA08;
+      --ash: #2C2824;
+      --smoke: #6B6058;
+      --cloud: #F0EEE9;
+      --warm-white: #FFF5EB;
+    }
+
+    body {
+      font-family: 'Karla', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--cloud);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Grain */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Ambient ember glow */
+    .ember-glow {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ember-glow.g1 {
+      top: -200px;
+      right: -100px;
+      background: var(--ember);
+      animation: pulse-glow 8s ease-in-out infinite;
+    }
+
+    .ember-glow.g2 {
+      bottom: -200px;
+      left: -100px;
+      background: var(--lava);
+      animation: pulse-glow 10s ease-in-out infinite 2s;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.05; transform: scale(1); }
+      50% { opacity: 0.1; transform: scale(1.1); }
+    }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      padding: 80px 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -2px;
+      margin-bottom: 8px;
+    }
+
+    .page-header h1 .fire {
+      background: linear-gradient(135deg, var(--solar) 0%, var(--ember) 40%, var(--lava) 70%, var(--magma) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-header p {
+      font-size: 0.9rem;
+      color: var(--smoke);
+      font-weight: 300;
+    }
+
+    /* Logo Grid */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo-card {
+      background: var(--surface);
+      border: 1px solid rgba(255, 107, 44, 0.06);
+      border-radius: 24px;
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 380px;
+      position: relative;
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      overflow: hidden;
+    }
+
+    .logo-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 120%, rgba(255,107,44,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .logo-card:hover {
+      border-color: rgba(255, 107, 44, 0.15);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(255, 107, 44, 0.08), 0 0 80px rgba(255, 107, 44, 0.03);
+    }
+
+    .logo-card.featured {
+      grid-column: span 2;
+      min-height: 480px;
+      background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+    }
+
+    .logo-card.light { background: var(--warm-white); }
+    .logo-card.light::before { background: radial-gradient(circle at 50% 120%, rgba(255,107,44,0.06) 0%, transparent 60%); }
+
+    .logo-card.dark-fire {
+      background: linear-gradient(135deg, #1A0A04 0%, #0E0806 100%);
+    }
+
+    .logo-card.ember-bg {
+      background: linear-gradient(135deg, var(--ember) 0%, var(--lava) 100%);
+    }
+
+    .logo-card.magma-bg {
+      background: linear-gradient(135deg, var(--magma) 0%, #8B1A06 100%);
+    }
+
+    /* Labels */
+    .card-label {
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--smoke);
+    }
+
+    .logo-card.light .card-label { color: #bba898; }
+    .logo-card.ember-bg .card-label,
+    .logo-card.magma-bg .card-label { color: rgba(255,255,255,0.4); }
+
+    .card-number {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 0.65rem;
+      font-weight: 300;
+      color: var(--smoke);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .logo-card.light .card-number { color: #ccc; }
+    .logo-card.ember-bg .card-number,
+    .logo-card.magma-bg .card-number { color: rgba(255,255,255,0.35); }
+
+    /* ═══════════════════════════════════
+       CONCEPT 1: Flame Gradient Wordmark
+    ═══════════════════════════════════ */
+    .logo-flame {
+      text-align: center;
+    }
+
+    .logo-flame .wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 4rem;
+      font-weight: 700;
+      letter-spacing: -3px;
+      background: linear-gradient(135deg, var(--solar) 0%, var(--flame) 25%, var(--ember) 50%, var(--lava) 75%, var(--magma) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      filter: drop-shadow(0 0 30px rgba(255,107,44,0.3));
+    }
+
+    .logo-flame .tagline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--smoke);
+      margin-top: 12px;
+    }
+
+    /* ═══════════════════════════════════
+       CONCEPT 2: Fire Icon + Type
+    ═══════════════════════════════════ */
+    .logo-icon-fire {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .fire-icon {
+      width: 72px;
+      height: 72px;
+      position: relative;
+    }
+
+    .fire-icon svg { width: 100%; height: 100%; }
+
+    .logo-icon-fire .text-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-icon-fire .wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: -2px;
+      color: var(--cloud);
+      line-height: 1;
+    }
+
+    .logo-icon-fire .wordmark .hot {
+      background: linear-gradient(90deg, var(--flame), var(--ember));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo-icon-fire .sub {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--smoke);
+      margin-top: 4px;
+    }
+
+    /* ═══════════════════════════════════
+       CONCEPT 3: Ember Terminal
+    ═══════════════════════════════════ */
+    .logo-terminal {
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .logo-terminal .prompt-line {
+      font-size: 0.8rem;
+      color: var(--smoke);
+      margin-bottom: 6px;
+    }
+
+    .logo-terminal .prompt-line .path { color: var(--ember); }
+
+    .logo-terminal .wordmark {
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: var(--cloud);
+      line-height: 1;
+      position: relative;
+    }
+
+    .logo-terminal .wordmark .dot {
+      background: linear-gradient(180deg, var(--solar), var(--ember));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo-terminal .cursor {
+      display: inline-block;
+      width: 3px;
+      height: 40px;
+      background: var(--ember);
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+      box-shadow: 0 0 12px var(--ember), 0 0 24px rgba(255,107,44,0.3);
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .logo-terminal .status {
+      font-size: 0.6rem;
+      color: var(--smoke);
+      margin-top: 10px;
+      letter-spacing: 2px;
+    }
+
+    .logo-terminal .status .online {
+      color: #4ADE80;
+    }
+
+    /* ═══════════════════════════════════
+       CONCEPT 4: Stacked Fire Type
+    ═══════════════════════════════════ */
+    .logo-stacked {
+      text-align: center;
+    }
+
+    .logo-stacked .wordmark {
+      font-family: 'Inter', sans-serif;
+      font-size: 5rem;
+      font-weight: 900;
+      letter-spacing: -5px;
+      line-height: 0.85;
+      text-transform: uppercase;
+    }
+
+    .logo-stacked .line-1 {
+      color: white;
+      display: block;
+    }
+
+    .logo-stacked .line-2 {
+      display: block;
+      background: linear-gradient(90deg, var(--solar), var(--flame), var(--ember), var(--lava));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% 100%;
+      animation: fire-shift 4s ease-in-out infinite;
+    }
+
+    @keyframes fire-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .logo-stacked .fire-bar {
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--solar), var(--ember), var(--lava));
+      margin: 20px auto 16px;
+      border-radius: 2px;
+      box-shadow: 0 0 20px rgba(255,107,44,0.4);
+    }
+
+    .logo-stacked .tagline {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ═══════════════════════════════════
+       CONCEPT 5: White Hot on Ember
+    ═══════════════════════════════════ */
+    .logo-white-hot {
+      text-align: center;
+    }
+
+    .logo-white-hot .wordmark {
+      font-family: 'Sora', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: -3px;
+      color: white;
+      line-height: 1;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+
+    .logo-white-hot .wordmark .dot {
+      color: var(--solar);
+      text-shadow: 0 0 20px rgba(255,186,8,0.5);
+    }
+
+    .logo-white-hot .sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-top: 10px;
+    }
+
+    /* ═══════════════════════════════════
+       CONCEPT 6: Slash Inferno
+    ═══════════════════════════════════ */
+    .logo-slash-fire {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-slash-fire .slash {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 5rem;
+      font-weight: 300;
+      line-height: 1;
+      background: linear-gradient(180deg, var(--solar) 0%, var(--ember) 40%, var(--lava) 80%, var(--magma) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      transform: skewX(-10deg);
+      filter: drop-shadow(0 0 15px rgba(255,107,44,0.4));
+    }
+
+    .logo-slash-fire .text-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-slash-fire .wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      letter-spacing: -2px;
+      color: var(--cloud);
+      line-height: 1;
+    }
+
+    .logo-slash-fire .sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--smoke);
+      letter-spacing: 2px;
+      margin-top: 6px;
+    }
+
+    .logo-slash-fire .sub .ember-text { color: var(--ember); }
+
+    /* ═══════════════════════════════════
+       CONCEPT 7: HERO — The One
+    ═══════════════════════════════════ */
+    .logo-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .hero-mark {
+      width: 100px;
+      height: 100px;
+      position: relative;
+    }
+
+    .hero-mark svg { width: 100%; height: 100%; }
+
+    /* Fire particle animation */
+    .hero-mark .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--ember);
+      border-radius: 50%;
+      animation: rise 2s ease-out infinite;
+    }
+
+    .hero-mark .particle:nth-child(2) {
+      left: 30%;
+      animation-delay: 0.5s;
+      width: 3px;
+      height: 3px;
+      background: var(--flame);
+    }
+
+    .hero-mark .particle:nth-child(3) {
+      left: 60%;
+      animation-delay: 1s;
+      width: 2px;
+      height: 2px;
+      background: var(--solar);
+    }
+
+    .hero-mark .particle:nth-child(4) {
+      left: 80%;
+      animation-delay: 1.5s;
+      width: 3px;
+      height: 3px;
+      background: var(--lava);
+    }
+
+    @keyframes rise {
+      0% { bottom: 10px; opacity: 1; transform: translateX(0); }
+      100% { bottom: 60px; opacity: 0; transform: translateX(-10px); }
+    }
+
+    .logo-hero .wordmark-wrap {
+      text-align: center;
+    }
+
+    .logo-hero .wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 5rem;
+      font-weight: 700;
+      letter-spacing: -4px;
+      line-height: 1;
+      color: var(--cloud);
+    }
+
+    .logo-hero .wordmark .devs {
+      background: linear-gradient(135deg, var(--solar) 0%, var(--flame) 30%, var(--ember) 60%, var(--lava) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 20px rgba(255,107,44,0.3));
+    }
+
+    .logo-hero .wordmark .dot {
+      background: linear-gradient(180deg, var(--solar), var(--ember));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 5.5rem;
+    }
+
+    .logo-hero .tagline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--smoke);
+      margin-top: 12px;
+    }
+
+    .logo-hero .tagline .sep {
+      color: var(--ember);
+      margin: 0 4px;
+    }
+
+    /* Fire underline animation */
+    .fire-underline {
+      width: 180px;
+      height: 3px;
+      margin: 0 auto;
+      background: linear-gradient(90deg, transparent, var(--solar), var(--ember), var(--lava), transparent);
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .fire-underline::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 200%; }
+    }
+
+    /* ═══ VARIATIONS ═══ */
+    .section-title {
+      text-align: center;
+      padding: 60px 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-title h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      color: var(--cloud);
+    }
+
+    .section-title p {
+      font-size: 0.8rem;
+      color: var(--smoke);
+      font-weight: 300;
+      margin-top: 4px;
+    }
+
+    /* Variations grid */
+    .var-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .var-card {
+      border-radius: 16px;
+      padding: 44px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,107,44,0.04);
+      transition: all 0.3s;
+    }
+
+    .var-card:hover { border-color: rgba(255,107,44,0.12); }
+
+    .var-card.on-dark { background: var(--surface); }
+    .var-card.on-light { background: var(--warm-white); }
+    .var-card.on-ember { background: linear-gradient(135deg, var(--ember), var(--lava)); }
+    .var-card.on-black { background: #000000; }
+
+    .var-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+    }
+
+    .var-logo.on-dark-text { color: var(--cloud); }
+    .var-logo.on-dark-text .v-accent {
+      background: linear-gradient(90deg, var(--flame), var(--ember));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .var-logo.on-light-text { color: var(--bg); }
+    .var-logo.on-light-text .v-accent { color: var(--ember); -webkit-text-fill-color: var(--ember); }
+
+    .var-logo.on-white-text { color: white; }
+    .var-logo.on-white-text .v-accent { color: var(--solar); -webkit-text-fill-color: var(--solar); }
+
+    /* ═══ PALETTE ═══ */
+    .palette-grid {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 40px 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .color-chip {
+      text-align: center;
+    }
+
+    .chip-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      position: relative;
+    }
+
+    .chip-circle.has-glow::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: inherit;
+      filter: blur(12px);
+      opacity: 0.4;
+      z-index: -1;
+    }
+
+    .chip-name {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--cloud);
+      margin-bottom: 2px;
+    }
+
+    .chip-hex {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--smoke);
+    }
+
+    /* ═══ TYPOGRAPHY ═══ */
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .type-card {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid rgba(255,107,44,0.04);
+      text-align: center;
+    }
+
+    .type-sample {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+      color: var(--cloud);
+    }
+
+    .type-card .font-name {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--ember);
+      margin-bottom: 4px;
+    }
+
+    .type-card .font-use {
+      font-size: 0.7rem;
+      color: var(--smoke);
+      font-weight: 300;
+    }
+
+    /* ═══ MOCKUPS ═══ */
+    .mockup-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .mockup-card {
+      background: var(--surface);
+      border: 1px solid rgba(255,107,44,0.04);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s;
+    }
+
+    .mockup-card:hover {
+      border-color: rgba(255,107,44,0.1);
+      transform: translateY(-2px);
+    }
+
+    .mockup-browser {
+      background: var(--surface-2);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255,107,44,0.04);
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .browser-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--ash);
+    }
+
+    .browser-dots span:first-child { background: #FF5F56; }
+    .browser-dots span:nth-child(2) { background: #FFBD2E; }
+    .browser-dots span:nth-child(3) { background: #27C93F; }
+
+    .browser-url {
+      flex: 1;
+      background: rgba(255,255,255,0.03);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--smoke);
+      margin-left: 8px;
+    }
+
+    .mockup-content {
+      padding: 40px;
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Dark website mockup */
+    .mockup-dark .mockup-content {
+      background: linear-gradient(180deg, #0C0806 0%, #141210 100%);
+    }
+
+    /* Light website mockup */
+    .mockup-light .mockup-content {
+      background: var(--warm-white);
+    }
+
+    /* Business card mockup */
+    .biz-card {
+      width: 340px;
+      height: 200px;
+      background: linear-gradient(135deg, #0E0A08 0%, #1A1512 100%);
+      border-radius: 12px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,107,44,0.08);
+    }
+
+    .biz-card .biz-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: var(--cloud);
+    }
+
+    .biz-card .biz-logo .biz-accent {
+      background: linear-gradient(90deg, var(--flame), var(--ember));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .biz-card .biz-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .biz-card .biz-name {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--cloud);
+    }
+
+    .biz-card .biz-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--ember);
+      letter-spacing: 1px;
+    }
+
+    .biz-card .biz-contact {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--smoke);
+    }
+
+    /* Social avatar mockup */
+    .social-avatar {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--ember), var(--lava), var(--magma));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 40px rgba(255,107,44,0.2), 0 0 80px rgba(255,107,44,0.1);
+      position: relative;
+    }
+
+    .social-avatar .avatar-inner {
+      width: 168px;
+      height: 168px;
+      border-radius: 50%;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .social-avatar .avatar-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -2px;
+      background: linear-gradient(135deg, var(--solar), var(--ember));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Credits */
+    .credits {
+      text-align: center;
+      padding: 40px;
+      color: var(--smoke);
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .credits strong {
+      background: linear-gradient(90deg, var(--flame), var(--ember));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .logo-grid { grid-template-columns: 1fr; }
+      .logo-card.featured { grid-column: span 1; }
+      .var-grid { grid-template-columns: repeat(2, 1fr); }
+      .type-grid { grid-template-columns: 1fr; }
+      .mockup-grid { grid-template-columns: 1fr; }
+      .logo-hero .wordmark { font-size: 3rem; }
+      .logo-stacked .wordmark { font-size: 3.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient glow -->
+  <div class="ember-glow g1"></div>
+  <div class="ember-glow g2"></div>
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1>calidevs — <span class="fire">FIRE edition</span></h1>
+    <p>7 conceptos con fuego real | diseñado por Elena 2026</p>
+  </div>
+
+  <!-- Logo Grid -->
+  <div class="logo-grid">
+
+    <!-- CONCEPT 1: Flame Gradient -->
+    <div class="logo-card">
+      <span class="card-label">concept 1 — flame gradient</span>
+      <span class="card-number">01/07</span>
+      <div class="logo-flame">
+        <div class="wordmark">calidevs.</div>
+        <div class="tagline">we code with fire</div>
+      </div>
+    </div>
+
+    <!-- CONCEPT 2: Fire Icon -->
+    <div class="logo-card">
+      <span class="card-label">concept 2 — fire mark</span>
+      <span class="card-number">02/07</span>
+      <div class="logo-icon-fire">
+        <div class="fire-icon">
+          <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Fire shape -->
+            <path d="M 36 6 C 36 6, 52 20, 56 36 C 60 52, 50 66, 36 66 C 22 66, 12 52, 16 36 C 18 28, 26 24, 28 30 C 30 36, 24 40, 28 46 C 32 52, 40 52, 44 46 C 48 40, 46 30, 36 22 C 34 20, 36 6, 36 6 Z" fill="url(#fireGrad1)"/>
+            <!-- Inner flame -->
+            <path d="M 36 28 C 36 28, 44 36, 44 44 C 44 52, 40 56, 36 56 C 32 56, 28 52, 28 44 C 28 40, 32 38, 33 42 C 34 46, 38 46, 38 42 C 38 38, 36 28, 36 28 Z" fill="url(#fireGrad2)"/>
+            <defs>
+              <linearGradient id="fireGrad1" x1="36" y1="6" x2="36" y2="66" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FFBA08"/>
+                <stop offset="40%" stop-color="#FF8A1F"/>
+                <stop offset="70%" stop-color="#FF6B2C"/>
+                <stop offset="100%" stop-color="#C62D0E"/>
+              </linearGradient>
+              <linearGradient id="fireGrad2" x1="36" y1="28" x2="36" y2="56" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FFF5EB"/>
+                <stop offset="50%" stop-color="#FFBA08"/>
+                <stop offset="100%" stop-color="#FF8A1F"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="text-group">
+          <div class="wordmark">cali<span class="hot">devs</span></div>
+          <div class="sub">development on fire</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCEPT 3: Ember Terminal -->
+    <div class="logo-card dark-fire">
+      <span class="card-label">concept 3 — ember terminal</span>
+      <span class="card-number">03/07</span>
+      <div class="logo-terminal">
+        <div class="prompt-line">$ <span class="path">~/calidevs</span> &gt; ignite</div>
+        <div class="wordmark">calidevs<span class="dot">.</span><span class="cursor"></span></div>
+        <div class="status">status: <span class="online">on fire</span></div>
+      </div>
+    </div>
+
+    <!-- CONCEPT 4: Stacked Fire Type -->
+    <div class="logo-card">
+      <span class="card-label">concept 4 — stacked inferno</span>
+      <span class="card-number">04/07</span>
+      <div class="logo-stacked">
+        <div class="wordmark">
+          <span class="line-1">CALI</span>
+          <span class="line-2">DEVS</span>
+        </div>
+        <div class="fire-bar"></div>
+        <div class="tagline">ignite your code</div>
+      </div>
+    </div>
+
+    <!-- CONCEPT 5: White Hot on Ember -->
+    <div class="logo-card ember-bg">
+      <span class="card-label">concept 5 — white hot</span>
+      <span class="card-number">05/07</span>
+      <div class="logo-white-hot">
+        <div class="wordmark">calidevs<span class="dot">.</span></div>
+        <div class="sub">where code burns bright</div>
+      </div>
+    </div>
+
+    <!-- CONCEPT 6: Slash Inferno -->
+    <div class="logo-card">
+      <span class="card-label">concept 6 — slash inferno</span>
+      <span class="card-number">06/07</span>
+      <div class="logo-slash-fire">
+        <div class="slash">//</div>
+        <div class="text-block">
+          <div class="wordmark">calidevs</div>
+          <div class="sub"><span class="ember-text">//</span> forged in fire</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCEPT 7: HERO — The One -->
+    <div class="logo-card featured">
+      <span class="card-label">concept 7 — hero (recomendado)</span>
+      <span class="card-number">07/07</span>
+      <div class="logo-hero">
+        <div class="hero-mark">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer ring with fire gradient -->
+            <circle cx="50" cy="50" r="46" stroke="url(#heroRing)" stroke-width="2.5" opacity="0.3"/>
+            <!-- C bracket - hot side -->
+            <path d="M 62 24 L 44 24 C 30 24, 20 34, 20 50 C 20 66, 30 76, 44 76 L 62 76" stroke="url(#heroC)" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <!-- Fire core dot -->
+            <circle cx="52" cy="50" r="7" fill="url(#heroDot)"/>
+            <!-- Code slash -->
+            <line x1="56" y1="38" x2="46" y2="62" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="heroRing" x1="50" y1="4" x2="50" y2="96">
+                <stop offset="0%" stop-color="#FFBA08"/>
+                <stop offset="100%" stop-color="#C62D0E"/>
+              </linearGradient>
+              <linearGradient id="heroC" x1="20" y1="24" x2="62" y2="76">
+                <stop offset="0%" stop-color="#FFBA08"/>
+                <stop offset="35%" stop-color="#FF8A1F"/>
+                <stop offset="65%" stop-color="#FF6B2C"/>
+                <stop offset="100%" stop-color="#E8451A"/>
+              </linearGradient>
+              <radialGradient id="heroDot" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#FFF5EB"/>
+                <stop offset="60%" stop-color="#FFBA08"/>
+                <stop offset="100%" stop-color="#FF6B2C"/>
+              </radialGradient>
+            </defs>
+          </svg>
+          <!-- Fire particles -->
+          <span class="particle" style="left:20%;"></span>
+          <span class="particle" style="left:40%;"></span>
+          <span class="particle" style="left:55%;"></span>
+          <span class="particle" style="left:75%;"></span>
+        </div>
+        <div class="wordmark-wrap">
+          <div class="wordmark">cali<span class="devs">devs</span><span class="dot">.</span></div>
+          <div class="tagline">code <span class="sep">/</span> create <span class="sep">/</span> ignite</div>
+          <div class="fire-underline"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Variations -->
+  <div class="section-title">
+    <h2>variaciones de fondo</h2>
+    <p>el logo funciona en cualquier contexto</p>
+  </div>
+
+  <div class="var-grid">
+    <div class="var-card on-dark">
+      <span class="var-logo on-dark-text">cali<span class="v-accent">devs</span>.</span>
+    </div>
+    <div class="var-card on-light">
+      <span class="var-logo on-light-text">cali<span class="v-accent">devs</span>.</span>
+    </div>
+    <div class="var-card on-ember">
+      <span class="var-logo on-white-text">cali<span class="v-accent">devs</span>.</span>
+    </div>
+    <div class="var-card on-black">
+      <span class="var-logo on-dark-text">cali<span class="v-accent">devs</span>.</span>
+    </div>
+  </div>
+
+  <!-- Palette -->
+  <div class="section-title">
+    <h2>paleta de fuego</h2>
+  </div>
+
+  <div class="palette-grid">
+    <div class="color-chip">
+      <div class="chip-circle has-glow" style="background: #FFBA08;"></div>
+      <div class="chip-name">Solar</div>
+      <div class="chip-hex">#FFBA08</div>
+    </div>
+    <div class="color-chip">
+      <div class="chip-circle has-glow" style="background: #FF8A1F;"></div>
+      <div class="chip-name">Flame</div>
+      <div class="chip-hex">#FF8A1F</div>
+    </div>
+    <div class="color-chip">
+      <div class="chip-circle has-glow" style="background: #FF6B2C;"></div>
+      <div class="chip-name">Ember</div>
+      <div class="chip-hex">#FF6B2C</div>
+    </div>
+    <div class="color-chip">
+      <div class="chip-circle has-glow" style="background: #E8451A;"></div>
+      <div class="chip-name">Lava</div>
+      <div class="chip-hex">#E8451A</div>
+    </div>
+    <div class="color-chip">
+      <div class="chip-circle has-glow" style="background: #C62D0E;"></div>
+      <div class="chip-name">Magma</div>
+      <div class="chip-hex">#C62D0E</div>
+    </div>
+    <div class="color-chip">
+      <div class="chip-circle" style="background: #0A0806; border: 2px solid rgba(255,107,44,0.15);"></div>
+      <div class="chip-name">Void</div>
+      <div class="chip-hex">#0A0806</div>
+    </div>
+    <div class="color-chip">
+      <div class="chip-circle" style="background: #F0EEE9;"></div>
+      <div class="chip-name">Cloud</div>
+      <div class="chip-hex">#F0EEE9</div>
+    </div>
+  </div>
+
+  <!-- Typography -->
+  <div class="section-title">
+    <h2>tipografía de marca</h2>
+  </div>
+
+  <div class="type-grid">
+    <div class="type-card">
+      <div class="type-sample" style="font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-1px;">Aa</div>
+      <div class="font-name">Space Grotesk</div>
+      <div class="font-use">Logotipo + headings</div>
+    </div>
+    <div class="type-card">
+      <div class="type-sample" style="font-family:'JetBrains Mono',monospace; font-weight:500;">Aa</div>
+      <div class="font-name">JetBrains Mono</div>
+      <div class="font-use">Código + taglines</div>
+    </div>
+    <div class="type-card">
+      <div class="type-sample" style="font-family:'Karla',sans-serif; font-weight:400;">Aa</div>
+      <div class="font-name">Karla</div>
+      <div class="font-use">Body + UI general</div>
+    </div>
+  </div>
+
+  <!-- Mockups -->
+  <div class="section-title">
+    <h2>aplicaciones</h2>
+    <p>cómo se ve en contexto real</p>
+  </div>
+
+  <div class="mockup-grid">
+    <!-- Browser mockup dark -->
+    <div class="mockup-card mockup-dark">
+      <div class="mockup-browser">
+        <div class="browser-dots"><span></span><span></span><span></span></div>
+        <div class="browser-url">calidevs.com</div>
+      </div>
+      <div class="mockup-content">
+        <div class="logo-flame">
+          <div class="wordmark" style="font-size:2.5rem;">calidevs.</div>
+          <div class="tagline" style="font-size:0.55rem;">we code with fire</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Browser mockup light -->
+    <div class="mockup-card mockup-light">
+      <div class="mockup-browser">
+        <div class="browser-dots"><span></span><span></span><span></span></div>
+        <div class="browser-url">calidevs.com/about</div>
+      </div>
+      <div class="mockup-content">
+        <div style="text-align:center;">
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:2rem; font-weight:700; letter-spacing:-2px; color:#0A0806;">cali<span style="color:#FF6B2C;">devs</span>.</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.5rem; letter-spacing:3px; color:#999; margin-top:6px;">DEVELOPMENT STUDIO</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Business card -->
+    <div class="mockup-card">
+      <div class="mockup-browser">
+        <div class="browser-dots"><span></span><span></span><span></span></div>
+        <div class="browser-url">tarjeta de presentación</div>
+      </div>
+      <div class="mockup-content">
+        <div class="biz-card">
+          <div class="biz-logo">cali<span class="biz-accent">devs</span>.</div>
+          <div class="biz-info">
+            <div class="biz-name">Tu Nombre</div>
+            <div class="biz-role">FULL STACK DEVELOPER</div>
+            <div class="biz-contact">hola@calidevs.com &bull; calidevs.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social avatar -->
+    <div class="mockup-card">
+      <div class="mockup-browser">
+        <div class="browser-dots"><span></span><span></span><span></span></div>
+        <div class="browser-url">avatar redes sociales</div>
+      </div>
+      <div class="mockup-content">
+        <div class="social-avatar">
+          <div class="avatar-inner">
+            <span class="avatar-text">cd.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Credits -->
+  <div class="credits">
+    diseñado por <strong>Elena</strong> — FIRE edition 2026 &bull; Space Grotesk + JetBrains Mono &bull; paleta Solar→Magma &bull; con mucho fuego
+  </div>
+
+</body>
+</html>

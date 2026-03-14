@@ -1,0 +1,74 @@
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { TEMPLATE_LIST, CATEGORIES, getTemplatesByCategory, type Category } from '@/lib/templates/registry';
+
+const CATEGORY_LABELS: Record<Category, string> = {
+  all: 'All',
+  terminal: 'Terminal',
+  social: 'Social',
+  dev: 'Dev',
+};
+
+const CATEGORY_ICONS: Record<string, string> = {
+  terminal: '💻',
+  social: '📱',
+  dev: '🔧',
+};
+
+export default function StudioPage() {
+  const [category, setCategory] = useState<Category>('all');
+  const templates = getTemplatesByCategory(category);
+
+  return (
+    <div className="mx-auto max-w-6xl px-6 py-12">
+      <h1 className="mb-2 font-serif text-3xl">Studio</h1>
+      <p className="mb-8 text-muted">Choose a template to start creating.</p>
+
+      {/* Category filter */}
+      <div className="mb-8 flex gap-2">
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setCategory(cat)}
+            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+              category === cat
+                ? 'bg-ignite text-white'
+                : 'bg-surface border border-border text-muted hover:text-foreground'
+            }`}
+          >
+            {CATEGORY_LABELS[cat]}
+            {cat !== 'all' && (
+              <span className="ml-1 text-xs opacity-70">
+                ({TEMPLATE_LIST.filter((t) => t.category === cat).length})
+              </span>
+            )}
+          </button>
+        ))}
+      </div>
+
+      {/* Template grid */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {templates.map((template) => (
+          <Link
+            key={template.id}
+            href={`/studio/${template.id}`}
+            className="group rounded-2xl border border-border bg-surface p-6 transition-all hover:border-ignite/30 hover:shadow-lg hover:shadow-ignite/5"
+          >
+            <div className="mb-3 flex items-center gap-2">
+              <span>{CATEGORY_ICONS[template.category]}</span>
+              <span className="rounded-full bg-border px-2 py-0.5 text-xs uppercase tracking-wider text-muted">
+                {template.category}
+              </span>
+            </div>
+            <h2 className="mb-1 text-lg font-bold group-hover:text-ignite transition-colors">
+              {template.name}
+            </h2>
+            <p className="text-sm text-muted">{template.description}</p>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}

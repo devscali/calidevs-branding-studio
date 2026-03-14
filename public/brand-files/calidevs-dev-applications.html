@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>calidevs — Developer Applications</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --ignite: #E8501A;
+      --amber: #F5A623;
+      --charcoal: #161618;
+      --deep: #0D0D0F;
+      --white: #FFFFFF;
+      --light-sand: #F8F5F0;
+      --sand: #F1EBE2;
+      --dark-sand: #E4D9C8;
+      --slate: #3A3A3C;
+      --warm-gray: #9E9590;
+      --terminal-bg: #1A1A1E;
+      --terminal-border: rgba(255,255,255,0.06);
+      --line-gray: #4A4A4E;
+      --comment: #6A6A6E;
+      --string-green: #8FBF7F;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --hand: 'Kalam', cursive;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--deep);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .slide {
+      min-height: 100vh;
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .slide-footer {
+      position: absolute;
+      bottom: 40px;
+      left: 80px;
+      right: 80px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.15);
+      font-family: var(--mono);
+      letter-spacing: 0.05em;
+    }
+    .slide-footer.on-light { color: var(--warm-gray); }
+
+    .label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--ignite);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .desc {
+      font-size: 0.85rem;
+      color: var(--warm-gray);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 48px;
+    }
+
+    /* Wordmark */
+    .wm {
+      display: inline-flex;
+      align-items: baseline;
+      font-family: var(--sans);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .wm .d { color: var(--ignite); }
+    .wm .fl {
+      display: inline-block;
+      position: relative;
+      margin-left: 0.02em;
+      width: 0.28em;
+      align-self: flex-end;
+    }
+    .wm .fl svg { width: 100%; height: auto; display: block; }
+
+    .cover-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,80,26,0.04) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ═══ TERMINAL WINDOW ═══ */
+    .term {
+      background: var(--terminal-bg);
+      border: 1px solid var(--terminal-border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .term-bar {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid var(--terminal-border);
+    }
+    .term-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .term-dot-r { background: #FF5F57; }
+    .term-dot-y { background: #FEBC2E; }
+    .term-dot-g { background: #28C840; }
+    .term-title {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--comment);
+      margin-left: 8px;
+    }
+    .term-body {
+      padding: 24px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.9;
+    }
+    .t-prompt { color: var(--warm-gray); }
+    .t-cmd { color: var(--white); }
+    .t-path { color: var(--amber); }
+    .t-flag { color: var(--ignite); }
+    .t-string { color: var(--string-green); }
+    .t-comment { color: var(--comment); }
+    .t-output { color: var(--warm-gray); }
+    .t-success { color: #8FBF7F; }
+    .t-fire { color: var(--ignite); }
+    .t-dim { color: rgba(255,255,255,0.2); }
+    .t-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 16px;
+      background: var(--ignite);
+      opacity: 0.8;
+      animation: blink 1.2s ease-in-out infinite;
+      vertical-align: text-bottom;
+      margin-left: 2px;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 0.8; }
+      51%, 100% { opacity: 0; }
+    }
+
+    /* ═══ SOCIAL CARD ═══ */
+    .social-card {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+    .sc-square {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px;
+      position: relative;
+    }
+
+    /* ═══ GIT LOG ═══ */
+    .git-line {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 12px 0;
+    }
+    .git-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+    .git-connector {
+      position: relative;
+    }
+    .git-connector::after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 15px;
+      bottom: -12px;
+      width: 2px;
+      background: rgba(255,255,255,0.06);
+    }
+    .git-hash {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--amber);
+    }
+    .git-msg {
+      font-size: 0.8rem;
+      color: var(--white);
+      margin-top: 2px;
+    }
+    .git-meta {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--comment);
+      margin-top: 4px;
+    }
+
+    /* ═══ STATUS PAGE ═══ */
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .status-name {
+      font-size: 0.8rem;
+      color: var(--white);
+    }
+    .status-badge {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+    .status-ok { background: rgba(143,191,127,0.12); color: #8FBF7F; }
+    .status-fire { background: rgba(232,80,26,0.12); color: var(--ignite); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .slide { padding: 40px 24px; }
+      .term, .social-card { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- COVER                                       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="text-align: center;">
+    <div class="cover-glow"></div>
+    <div style="position: relative; z-index: 2;">
+      <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--comment); margin-bottom: 24px;">$ ~/calidevs > <span style="color: var(--ignite);">init</span> <span style="color: var(--warm-gray);">--brand-extensions</span></div>
+      <h1 style="font-family: var(--serif); font-size: clamp(3rem, 7vw, 5rem);">Developer <span style="color: var(--ignite);">Applications</span></h1>
+      <p style="font-size: 0.85rem; color: var(--warm-gray); margin-top: 12px; max-width: 400px; margin-left: auto; margin-right: auto;">Where terminal meets taste. Dev culture without the cringe.</p>
+      <div class="wm" style="font-size: 2rem; color: var(--white); margin-top: 32px; justify-content: center;">
+        <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+      </div>
+    </div>
+    <div class="slide-footer"><span>calidevs developer applications</span><span>01 / 12</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 02 TERMINAL SOCIAL POSTS                    -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide">
+    <div class="label">01 — TERMINAL POSTS</div>
+    <div class="title">Content that speaks dev</div>
+    <div class="desc">Social media posts styled as terminal output. Subtle enough to be elegant, technical enough to be credible.</div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 1060px; margin: 0 auto;">
+
+      <!-- Post 1: Quote / Tip -->
+      <div>
+        <div class="social-card">
+          <div class="sc-square" style="background: var(--terminal-bg);">
+            <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment); margin-bottom: 16px;">$ ~/calidevs > <span class="t-fire">insight</span></div>
+            <div style="font-family: var(--serif); font-size: 1.15rem; color: var(--white); line-height: 1.5; margin-bottom: 20px;">"Speed is not a feature.<br>It's the feature."</div>
+            <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment);">
+              <span class="t-output">— optimized 47 stores</span><br>
+              <span class="t-output">— avg load time: 1.2s</span>
+            </div>
+            <div style="position: absolute; bottom: 20px; left: 40px;">
+              <div class="wm" style="font-size: 0.65rem; color: var(--white);">
+                <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment); text-align: center; margin-top: 10px;">INSIGHT POST</div>
+      </div>
+
+      <!-- Post 2: Deploy announcement -->
+      <div>
+        <div class="social-card">
+          <div class="sc-square" style="background: var(--charcoal);">
+            <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment); margin-bottom: 20px;">$ <span class="t-cmd">deploy</span> <span style="color: var(--amber);">--prod</span></div>
+            <div style="font-family: var(--mono); font-size: 0.6rem; line-height: 2; color: var(--warm-gray);">
+              <span class="t-success">&#10003;</span> Building assets...<br>
+              <span class="t-success">&#10003;</span> Optimizing images...<br>
+              <span class="t-success">&#10003;</span> Running tests...<br>
+              <span class="t-success">&#10003;</span> Deploying to production...<br>
+            </div>
+            <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--terminal-border);">
+              <div style="font-family: var(--mono); font-size: 0.7rem; color: var(--ignite);">&#9679; Live</div>
+              <div style="font-family: var(--serif); font-size: 1.1rem; color: var(--white); margin-top: 4px;">Another store, shipped.</div>
+            </div>
+            <div style="position: absolute; bottom: 20px; right: 20px;">
+              <svg width="16" height="20" viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg>
+            </div>
+          </div>
+        </div>
+        <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment); text-align: center; margin-top: 10px;">DEPLOY POST</div>
+      </div>
+
+      <!-- Post 3: Before/After -->
+      <div>
+        <div class="social-card">
+          <div class="sc-square" style="background: var(--deep);">
+            <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment); margin-bottom: 16px;">$ <span class="t-cmd">diff</span> <span style="color: var(--amber);">--before --after</span></div>
+            <div style="font-family: var(--mono); font-size: 0.7rem; line-height: 1.9;">
+              <div style="color: #BF6060; margin-bottom: 4px;"><span style="opacity: 0.5;">-</span> load_time: <span style="text-decoration: line-through;">4.8s</span></div>
+              <div style="color: #8FBF7F; margin-bottom: 4px;"><span style="opacity: 0.5;">+</span> load_time: <span style="font-weight: 600;">1.2s</span></div>
+              <div style="height: 1px; background: var(--terminal-border); margin: 12px 0;"></div>
+              <div style="color: #BF6060; margin-bottom: 4px;"><span style="opacity: 0.5;">-</span> conversion: <span style="text-decoration: line-through;">1.4%</span></div>
+              <div style="color: #8FBF7F;"><span style="opacity: 0.5;">+</span> conversion: <span style="font-weight: 600;">3.8%</span></div>
+            </div>
+            <div style="position: absolute; bottom: 20px; left: 40px; right: 40px; display: flex; justify-content: space-between; align-items: center;">
+              <div class="wm" style="font-size: 0.6rem; color: var(--white);">
+                <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+              </div>
+              <span style="font-family: var(--mono); font-size: 0.5rem; color: var(--comment);">real results</span>
+            </div>
+          </div>
+        </div>
+        <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment); text-align: center; margin-top: 10px;">DIFF POST</div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs developer applications</span><span>02 / 12</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 03 CLI BUSINESS CARD                        -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="background: var(--charcoal);">
+    <div class="label">02 — CLI BUSINESS CARD</div>
+    <div class="title">Contact info, your way</div>
+    <div class="desc">Run <span style="font-family: var(--mono); color: var(--ignite);">npx calidevs</span> and get everything you need. Business card as a terminal command.</div>
+
+    <div class="term" style="max-width: 560px; margin: 0 auto;">
+      <div class="term-bar">
+        <div class="term-dot term-dot-r"></div>
+        <div class="term-dot term-dot-y"></div>
+        <div class="term-dot term-dot-g"></div>
+        <div class="term-title">calidevs — contact</div>
+      </div>
+      <div class="term-body">
+        <div><span class="t-prompt">$</span> <span class="t-cmd">npx</span> <span class="t-flag">calidevs</span></div>
+        <br>
+        <div style="color: var(--white); font-weight: 600; font-size: 0.9rem;">
+          &nbsp;&nbsp;Romina Concepcion
+        </div>
+        <div class="t-output">&nbsp;&nbsp;Founder & Lead Developer @ calidevs</div>
+        <br>
+        <div class="t-dim">&nbsp;&nbsp;───────────────────────────────────</div>
+        <br>
+        <div>
+          <span class="t-comment">&nbsp;&nbsp;web</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-fire">calidevs.com</span>
+        </div>
+        <div>
+          <span class="t-comment">&nbsp;&nbsp;email</span>&nbsp;&nbsp;&nbsp;<span class="t-output">romina@calidevs.com</span>
+        </div>
+        <div>
+          <span class="t-comment">&nbsp;&nbsp;github</span>&nbsp;&nbsp;<span class="t-output">github.com/calidevs</span>
+        </div>
+        <div>
+          <span class="t-comment">&nbsp;&nbsp;phone</span>&nbsp;&nbsp;&nbsp;<span class="t-output">+1 (619) 555-0123</span>
+        </div>
+        <div>
+          <span class="t-comment">&nbsp;&nbsp;loc</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-output">California, USA</span>
+        </div>
+        <br>
+        <div>
+          <span class="t-comment">&nbsp;&nbsp;stack</span>&nbsp;&nbsp;&nbsp;<span class="t-path">Shopify</span> · <span class="t-path">React</span> · <span class="t-path">Node</span> · <span class="t-path">AI</span>
+        </div>
+        <div>
+          <span class="t-comment">&nbsp;&nbsp;motto</span>&nbsp;&nbsp;&nbsp;<span class="t-string">"Build fast, ship smart, sleep well."</span>
+        </div>
+        <br>
+        <div><span class="t-prompt">$</span> <span class="t-cursor"></span></div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs developer applications</span><span>03 / 12</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 04 GIT LOG BRAND STORY                      -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide">
+    <div class="label">03 — GIT LOG</div>
+    <div class="title">History, in commits</div>
+    <div class="desc">Brand milestones told as a git log. The story of calidevs, one commit at a time.</div>
+
+    <div class="term" style="max-width: 620px; margin: 0 auto;">
+      <div class="term-bar">
+        <div class="term-dot term-dot-r"></div>
+        <div class="term-dot term-dot-y"></div>
+        <div class="term-dot term-dot-g"></div>
+        <div class="term-title">git log --oneline --graph</div>
+      </div>
+      <div class="term-body" style="padding: 28px 32px;">
+        <div class="git-line">
+          <div class="git-connector"><div class="git-dot" style="background: var(--ignite);"></div></div>
+          <div>
+            <div class="git-hash">e8501a — <span style="color: var(--ignite); font-size: 0.6rem; padding: 1px 6px; background: rgba(232,80,26,0.12); border-radius: 4px;">HEAD</span></div>
+            <div class="git-msg">feat: launched developer applications</div>
+            <div class="git-meta">Romina · March 2026 · brand/extensions</div>
+          </div>
+        </div>
+
+        <div class="git-line">
+          <div class="git-connector"><div class="git-dot" style="background: var(--amber);"></div></div>
+          <div>
+            <div class="git-hash">f5a623</div>
+            <div class="git-msg">feat: complete brand identity system</div>
+            <div class="git-meta">Elena · March 2026 · brand/identity</div>
+          </div>
+        </div>
+
+        <div class="git-line">
+          <div class="git-connector"><div class="git-dot" style="background: var(--warm-gray);"></div></div>
+          <div>
+            <div class="git-hash">a3c8d1</div>
+            <div class="git-msg">fix: La Markesa SEO + GA4 integration</div>
+            <div class="git-meta">Romina · Feb 2026 · client/la-markesa</div>
+          </div>
+        </div>
+
+        <div class="git-line">
+          <div class="git-connector"><div class="git-dot" style="background: var(--warm-gray);"></div></div>
+          <div>
+            <div class="git-hash">7b2f90</div>
+            <div class="git-msg">feat: Loyal VSU full store rebuild</div>
+            <div class="git-meta">Romina · Feb 2026 · client/loyal-vsu</div>
+          </div>
+        </div>
+
+        <div class="git-line">
+          <div class="git-connector"><div class="git-dot" style="background: var(--warm-gray);"></div></div>
+          <div>
+            <div class="git-hash">2d4e88</div>
+            <div class="git-msg">feat: Emotion Labs Shopify launch</div>
+            <div class="git-meta">Romina · Jan 2026 · client/emotion-labs</div>
+          </div>
+        </div>
+
+        <div class="git-line">
+          <div><div class="git-dot" style="background: var(--slate);"></div></div>
+          <div>
+            <div class="git-hash">000001</div>
+            <div class="git-msg">init: calidevs founded</div>
+            <div class="git-meta">Romina · 2018 · origin/main</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs developer applications</span><span>04 / 12</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 05 DEPLOY NOTIFICATION                      -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="background: var(--charcoal);">
+    <div class="label">04 — DEPLOY NOTIFICATIONS</div>
+    <div class="title">Ship it, announce it</div>
+    <div class="desc">Project launch announcements styled as deploy notifications. For social, Slack, or email.</div>
+
+    <div style="display: flex; gap: 32px; justify-content: center; align-items: flex-start; flex-wrap: wrap;">
+      <!-- Deploy card — Success -->
+      <div style="width: 380px;">
+        <div style="background: var(--terminal-bg); border: 1px solid var(--terminal-border); border-radius: 16px; padding: 36px; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--ignite), var(--amber));"></div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+            <div style="width: 8px; height: 8px; border-radius: 50%; background: #8FBF7F; box-shadow: 0 0 8px rgba(143,191,127,0.4);"></div>
+            <span style="font-family: var(--mono); font-size: 0.65rem; color: #8FBF7F; letter-spacing: 0.05em;">SUCCESSFULLY DEPLOYED</span>
+          </div>
+          <div style="font-family: var(--serif); font-size: 1.6rem; color: var(--white); line-height: 1.2; margin-bottom: 12px;">La Markesa<br>Jewelry</div>
+          <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--warm-gray); line-height: 1.8;">
+            environment: <span style="color: var(--white);">production</span><br>
+            load time: <span style="color: #8FBF7F;">1.2s</span><br>
+            lighthouse: <span style="color: #8FBF7F;">96</span><br>
+            deployed by: <span style="color: var(--amber);">romina</span>
+          </div>
+          <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--terminal-border); display: flex; justify-content: space-between; align-items: center;">
+            <div class="wm" style="font-size: 0.65rem; color: var(--white);">
+              <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+            </div>
+            <span style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment);">March 14, 2026</span>
+          </div>
+        </div>
+        <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment); text-align: center; margin-top: 10px;">PROJECT LAUNCH</div>
+      </div>
+
+      <!-- Deploy card — Milestone -->
+      <div style="width: 380px;">
+        <div style="background: var(--ignite); border-radius: 16px; padding: 36px; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.05);"></div>
+          <div style="font-family: var(--mono); font-size: 0.6rem; color: rgba(255,255,255,0.6); letter-spacing: 0.15em; margin-bottom: 20px;">MILESTONE</div>
+          <div style="font-family: var(--serif); font-size: 3.5rem; color: var(--white); line-height: 1;">50+</div>
+          <div style="font-size: 1rem; color: rgba(255,255,255,0.8); margin-top: 4px;">projects shipped</div>
+          <div style="margin-top: 24px; font-family: var(--mono); font-size: 0.6rem; color: rgba(255,255,255,0.5); line-height: 1.8;">
+            stores: 32 &nbsp;|&nbsp; apps: 8 &nbsp;|&nbsp; sites: 12<br>
+            avg satisfaction: 98%
+          </div>
+          <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.15);">
+            <div class="wm" style="font-size: 0.65rem; color: var(--amber);">
+              <span>cali</span><span style="color: var(--white);">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#FFFFFF"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#FFECD2"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFF5E6"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment); text-align: center; margin-top: 10px;">MILESTONE POST</div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs developer applications</span><span>05 / 12</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 06 CODE REVIEW TESTIMONIALS                 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide">
+    <div class="label">05 — CODE REVIEW TESTIMONIALS</div>
+    <div class="title">Approved & merged</div>
+    <div class="desc">Client testimonials styled as pull request approvals. Because good work deserves a green check.</div>
+
+    <div style="display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;">
+      <!-- PR Review 1 -->
+      <div style="width: 420px; background: var(--terminal-bg); border: 1px solid var(--terminal-border); border-radius: 12px; overflow: hidden;">
+        <div style="padding: 20px 24px; border-bottom: 1px solid var(--terminal-border); display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--ignite); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700;">AM</div>
+            <div>
+              <div style="font-size: 0.78rem; font-weight: 600;">Ashley Manzo</div>
+              <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment);">La Markesa Jewelry</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px; background: rgba(143,191,127,0.1); padding: 4px 10px; border-radius: 6px;">
+            <span style="color: #8FBF7F;">&#10003;</span>
+            <span style="font-family: var(--mono); font-size: 0.6rem; color: #8FBF7F;">APPROVED</span>
+          </div>
+        </div>
+        <div style="padding: 24px;">
+          <div style="font-family: var(--serif); font-style: italic; font-size: 0.9rem; color: var(--white); line-height: 1.6;">"They transformed my Shopify store completely. Sales are up 40% and the site loads instantly. Best investment I've made for my business."</div>
+          <div style="margin-top: 16px; font-family: var(--mono); font-size: 0.55rem; color: var(--comment);">reviewed 3 weeks ago · San Diego, CA</div>
+        </div>
+      </div>
+
+      <!-- PR Review 2 -->
+      <div style="width: 420px; background: var(--terminal-bg); border: 1px solid var(--terminal-border); border-radius: 12px; overflow: hidden;">
+        <div style="padding: 20px 24px; border-bottom: 1px solid var(--terminal-border); display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--amber); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; color: var(--charcoal);">GR</div>
+            <div>
+              <div style="font-size: 0.78rem; font-weight: 600;">Giselle R.</div>
+              <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment);">Loyal VSU</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px; background: rgba(143,191,127,0.1); padding: 4px 10px; border-radius: 6px;">
+            <span style="color: #8FBF7F;">&#10003;</span>
+            <span style="font-family: var(--mono); font-size: 0.6rem; color: #8FBF7F;">APPROVED</span>
+          </div>
+        </div>
+        <div style="padding: 24px;">
+          <div style="font-family: var(--serif); font-style: italic; font-size: 0.9rem; color: var(--white); line-height: 1.6;">"They fixed issues other devs couldn't even find. Our store went from broken to beautiful in one sprint. Absolute professionals."</div>
+          <div style="margin-top: 16px; font-family: var(--mono); font-size: 0.55rem; color: var(--comment);">reviewed 1 week ago · San Diego, CA</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs developer applications</span><span>06 / 12</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 07 STATUS PAGE                              -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="background: var(--charcoal);">
+    <div class="label">06 — STATUS PAGE</div>
+    <div class="title">All systems operational</div>
+    <div class="desc">Client-facing status dashboard. Clean, informative, always on brand.</div>
+
+    <div style="max-width: 560px; margin: 0 auto;">
+      <div style="background: var(--terminal-bg); border: 1px solid var(--terminal-border); border-radius: 16px; padding: 36px; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: #8FBF7F;"></div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px;">
+          <div class="wm" style="font-size: 1rem; color: var(--white);">
+            <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <div style="width: 8px; height: 8px; border-radius: 50%; background: #8FBF7F; box-shadow: 0 0 6px rgba(143,191,127,0.4);"></div>
+            <span style="font-family: var(--mono); font-size: 0.65rem; color: #8FBF7F;">ALL OPERATIONAL</span>
+          </div>
+        </div>
+
+        <div class="status-row">
+          <div class="status-name">Shopify Stores</div>
+          <div class="status-badge status-ok">OPERATIONAL</div>
+        </div>
+        <div class="status-row">
+          <div class="status-name">Client Dashboards</div>
+          <div class="status-badge status-ok">OPERATIONAL</div>
+        </div>
+        <div class="status-row">
+          <div class="status-name">API Services</div>
+          <div class="status-badge status-ok">OPERATIONAL</div>
+        </div>
+        <div class="status-row">
+          <div class="status-name">Deployment Pipeline</div>
+          <div class="status-badge status-fire">DEPLOYING</div>
+        </div>
+        <div class="status-row" style="border-bottom: none;">
+          <div class="status-name">Support</div>
+          <div class="status-badge status-ok">ONLINE</div>
+        </div>
+
+        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--terminal-border);">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment);">99.9% uptime — last 90 days</span>
+            <span style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment);">updated 2m ago</span>
+          </div>
+          <!-- Uptime bars -->
+          <div style="display: flex; gap: 2px; margin-top: 10px;">
+            <div style="flex: 1; height: 16px; background: #8FBF7F; border-radius: 2px; opacity: 0.7;"></div>
+            <div style="flex: 1; height: 16px; background: #8FBF7F; border-radius: 2px; opacity: 0.7;"></div>
+            <div style="flex: 1; height: 16px; background: #8FBF7F; border-radius: 2px; opacity: 0.7;"></div>
+            <div style="flex: 1; height: 16px; background: #8FBF7F; border-radius: 2px; opacity: 0.7;"></div>
+            <div style="flex: 1; height: 16px; background: #8FBF7F; border-radius: 2px; opacity: 0.7;"></div>
+            <div style="flex: 1; height: 16px; background: #8FBF7F; border-radius: 2px; opacity: 0.7;"></div>
+            <div style="flex: 1; height: 16px; background: var(--amber); border-radius: 2px; opacity: 0.7;"></div>
+            <div style="flex: 1; height: 16px; background: #8FBF7F; border-radius: 2px; opacity: 0.7;"></div>
+            <div style="flex: 1; height: 16px; background: #8FBF7F; border-radius: 2px; opacity: 0.7;"></div>
+            <div style="flex: 1; height: 16px; background: #8FBF7F; border-radius: 2px; opacity: 0.7;"></div>
+            <div style="flex: 1; height: 16px; background: #8FBF7F; border-radius: 2px; opacity: 0.7;"></div>
+            <div style="flex: 1; height: 16px; background: #8FBF7F; border-radius: 2px; opacity: 0.7;"></div>
+            <div style="flex: 1; height: 16px; background: var(--ignite); border-radius: 2px; opacity: 0.7;"></div>
+            <div style="flex: 1; height: 16px; background: #8FBF7F; border-radius: 2px; opacity: 0.7;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs developer applications</span><span>07 / 12</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 08 RELEASE NOTES / CHANGELOG                -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide">
+    <div class="label">07 — RELEASE NOTES</div>
+    <div class="title">Changelog as content</div>
+    <div class="desc">Project updates and changelogs styled as semantic versioning. Perfect for client updates or social content.</div>
+
+    <div style="display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;">
+      <!-- Changelog card -->
+      <div style="width: 420px; background: var(--terminal-bg); border: 1px solid var(--terminal-border); border-radius: 16px; padding: 36px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px;">
+          <div>
+            <span style="font-family: var(--mono); font-size: 1.4rem; font-weight: 700; color: var(--white);">v2.4.0</span>
+            <span style="font-family: var(--mono); font-size: 0.6rem; color: var(--ignite); background: rgba(232,80,26,0.12); padding: 2px 8px; border-radius: 4px; margin-left: 8px;">LATEST</span>
+          </div>
+          <span style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment);">Mar 14</span>
+        </div>
+
+        <div style="font-family: var(--mono); font-size: 0.7rem; line-height: 2.2;">
+          <div style="color: #8FBF7F; margin-bottom: 4px;">NEW</div>
+          <div style="color: var(--warm-gray); padding-left: 16px;">+ Mobile category navigation</div>
+          <div style="color: var(--warm-gray); padding-left: 16px;">+ Dynamic stock indicators</div>
+          <div style="color: var(--warm-gray); padding-left: 16px;">+ Filter & sort drawer</div>
+          <br>
+          <div style="color: var(--amber); margin-bottom: 4px;">IMPROVED</div>
+          <div style="color: var(--warm-gray); padding-left: 16px;">~ Cart page redesigned</div>
+          <div style="color: var(--warm-gray); padding-left: 16px;">~ Product page sticky buy bar</div>
+          <br>
+          <div style="color: var(--ignite); margin-bottom: 4px;">FIXED</div>
+          <div style="color: var(--warm-gray); padding-left: 16px;">! Variant selector sold-out state</div>
+          <div style="color: var(--warm-gray); padding-left: 16px;">! Notify-me dynamic rendering</div>
+        </div>
+
+        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--terminal-border);">
+          <div class="wm" style="font-size: 0.6rem; color: var(--white);">
+            <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social version of changelog -->
+      <div style="width: 340px;">
+        <div class="social-card">
+          <div class="sc-square" style="background: var(--deep); padding: 36px;">
+            <div style="width: 100%; text-align: left;">
+              <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--ignite); letter-spacing: 0.15em; margin-bottom: 12px;">SHIPPED THIS WEEK</div>
+              <div style="font-family: var(--mono); font-size: 2rem; font-weight: 700; color: var(--white); margin-bottom: 4px;">v2.4.0</div>
+              <div style="font-family: var(--serif); font-size: 1rem; color: var(--warm-gray); margin-bottom: 20px;">Loyal VSU — Full rebuild</div>
+              <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--comment); line-height: 2;">
+                <span style="color: #8FBF7F;">3</span> new features<br>
+                <span style="color: var(--amber);">2</span> improvements<br>
+                <span style="color: var(--ignite);">2</span> bug fixes<br>
+                <span style="color: var(--warm-gray);">640</span> products live
+              </div>
+            </div>
+            <div style="position: absolute; bottom: 20px; right: 20px;">
+              <svg width="20" height="25" viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg>
+            </div>
+          </div>
+        </div>
+        <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment); text-align: center; margin-top: 10px;">SOCIAL VERSION</div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs developer applications</span><span>08 / 12</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 09 PACKAGE.JSON IDENTITY                    -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="background: var(--charcoal);">
+    <div class="label">08 — PACKAGE.JSON</div>
+    <div class="title">Brand as code</div>
+    <div class="desc">The entire brand identity expressed as a package.json. For the people who get it.</div>
+
+    <div class="term" style="max-width: 520px; margin: 0 auto;">
+      <div class="term-bar">
+        <div class="term-dot term-dot-r"></div>
+        <div class="term-dot term-dot-y"></div>
+        <div class="term-dot term-dot-g"></div>
+        <div class="term-title">package.json</div>
+      </div>
+      <div class="term-body" style="font-size: 0.75rem; line-height: 1.85;">
+        <div style="color: var(--white);">{</div>
+        <div>&nbsp;&nbsp;<span class="t-fire">"name"</span>: <span class="t-string">"calidevs"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="t-fire">"version"</span>: <span class="t-string">"2026.3.14"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="t-fire">"description"</span>: <span class="t-string">"Build fast, ship smart, sleep well."</span>,</div>
+        <div>&nbsp;&nbsp;<span class="t-fire">"author"</span>: <span class="t-string">"Romina Concepcion"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="t-fire">"location"</span>: <span class="t-string">"California, USA"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="t-fire">"license"</span>: <span class="t-string">"proprietary"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="t-fire">"scripts"</span>: {</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-path">"build"</span>: <span class="t-string">"design → develop → deploy"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-path">"test"</span>: <span class="t-string">"obsessive QA"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-path">"ship"</span>: <span class="t-string">"with confidence"</span></div>
+        <div>&nbsp;&nbsp;},</div>
+        <div>&nbsp;&nbsp;<span class="t-fire">"expertise"</span>: [</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-string">"shopify"</span>, <span class="t-string">"react"</span>, <span class="t-string">"node"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-string">"wordpress"</span>, <span class="t-string">"ai"</span>, <span class="t-string">"ui/ux"</span></div>
+        <div>&nbsp;&nbsp;],</div>
+        <div>&nbsp;&nbsp;<span class="t-fire">"stats"</span>: {</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-path">"projects"</span>: <span style="color: var(--amber);">50</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-path">"avgLoadTime"</span>: <span class="t-string">"1.2s"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-path">"clientRetention"</span>: <span class="t-string">"98%"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-path">"vibes"</span>: <span class="t-string">"on fire"</span></div>
+        <div>&nbsp;&nbsp;}</div>
+        <div style="color: var(--white);">}</div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs developer applications</span><span>09 / 12</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 10 404 PAGE                                 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide">
+    <div class="label">09 — 404 PAGE</div>
+    <div class="title">Even errors look good</div>
+    <div class="desc">Branded error page. Because even a 404 is a branding opportunity.</div>
+
+    <div style="max-width: 600px; margin: 0 auto; text-align: center; background: var(--terminal-bg); border: 1px solid var(--terminal-border); border-radius: 16px; padding: 60px 48px;">
+      <div style="font-family: var(--mono); font-size: 6rem; font-weight: 700; color: var(--charcoal); line-height: 1; position: relative;">
+        <span style="color: rgba(255,255,255,0.04); font-size: 8rem;">404</span>
+      </div>
+      <div style="margin-top: -20px;">
+        <svg width="48" height="60" viewBox="0 0 60 76" fill="none" style="filter: drop-shadow(0 4px 16px rgba(232,80,26,0.3));">
+          <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+          <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+          <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+        </svg>
+      </div>
+      <div style="font-family: var(--serif); font-size: 1.6rem; color: var(--white); margin-top: 20px;">This page burned out</div>
+      <div style="font-size: 0.85rem; color: var(--warm-gray); margin-top: 8px; max-width: 320px; margin-left: auto; margin-right: auto;">The page you're looking for doesn't exist or has been moved to a hotter location.</div>
+      <div style="margin-top: 28px;">
+        <div style="display: inline-block; padding: 12px 32px; background: var(--ignite); border-radius: 8px; font-family: var(--mono); font-size: 0.75rem; color: var(--white); letter-spacing: 0.05em;">cd ~/home</div>
+      </div>
+      <div style="margin-top: 24px;">
+        <div class="wm" style="font-size: 0.7rem; color: var(--white); justify-content: center;">
+          <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs developer applications</span><span>10 / 12</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 11 DEVELOPER WALLPAPERS                     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="background: var(--charcoal);">
+    <div class="label">10 — WALLPAPERS</div>
+    <div class="title">Screen real estate</div>
+    <div class="desc">Desktop and mobile wallpapers. Minimal, dark, unmistakably calidevs.</div>
+
+    <div style="display: flex; gap: 32px; justify-content: center; align-items: flex-end;">
+      <!-- Desktop -->
+      <div>
+        <div style="width: 480px; height: 300px; border-radius: 12px; background: var(--deep); border: 1px solid var(--terminal-border); position: relative; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+          <div style="position: absolute; bottom: -100px; right: -100px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(232,80,26,0.04) 0%, transparent 70%);"></div>
+          <!-- Subtle grid -->
+          <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px); background-size: 40px 40px;"></div>
+          <div style="position: absolute; bottom: 28px; left: 32px;">
+            <div style="font-family: var(--mono); font-size: 0.5rem; color: rgba(255,255,255,0.12); margin-bottom: 6px;">$ ~/calidevs > <span style="color: rgba(232,80,26,0.3);">status</span></div>
+            <div class="wm" style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">
+              <span>cali</span><span style="color: rgba(232,80,26,0.6);">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A" opacity="0.6"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623" opacity="0.6"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2" opacity="0.6"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment); text-align: center; margin-top: 10px;">DESKTOP — MINIMAL DARK</div>
+      </div>
+
+      <!-- Phone -->
+      <div>
+        <div style="width: 160px; height: 340px; border-radius: 24px; background: var(--deep); border: 2px solid var(--terminal-border); position: relative; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+          <!-- Notch -->
+          <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 20px; background: var(--deep); border-radius: 0 0 12px 12px; border: 2px solid var(--terminal-border); border-top: none; z-index: 2;"></div>
+          <div style="position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%); width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(232,80,26,0.06) 0%, transparent 70%);"></div>
+          <div style="position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%); text-align: center;">
+            <svg width="28" height="35" viewBox="0 0 60 76" fill="none" style="filter: drop-shadow(0 2px 8px rgba(232,80,26,0.2));">
+              <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+              <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+              <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+            </svg>
+            <div style="font-family: var(--mono); font-size: 0.4rem; color: rgba(255,255,255,0.2); margin-top: 6px; letter-spacing: 0.1em;">calidevs.com</div>
+          </div>
+          <!-- Home bar -->
+          <div style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); width: 60px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.15);"></div>
+        </div>
+        <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--comment); text-align: center; margin-top: 10px;">MOBILE</div>
+      </div>
+    </div>
+
+    <div class="slide-footer"><span>calidevs developer applications</span><span>11 / 12</span></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 12 CLOSING                                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="slide" style="text-align: center;">
+    <div class="cover-glow"></div>
+    <div style="position: relative; z-index: 2;">
+      <div style="font-family: var(--mono); font-size: 0.7rem; color: var(--comment); margin-bottom: 32px;">
+        <span class="t-prompt">$</span> <span class="t-cmd">echo</span> <span class="t-string">"that's a wrap"</span>
+      </div>
+      <svg width="80" height="101" viewBox="0 0 60 76" fill="none" style="margin-bottom: 24px; filter: drop-shadow(0 4px 20px rgba(232,80,26,0.3));">
+        <path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/>
+        <path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/>
+        <path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/>
+      </svg>
+      <div class="wm" style="font-size: clamp(3rem, 8vw, 6rem); color: var(--white); justify-content: center;">
+        <span>cali</span><span class="d">devs</span><span class="fl"><svg viewBox="0 0 60 76" fill="none"><path d="M30 0C30 0 8 24 4 42C0 60 12 76 30 76C48 76 60 60 56 42C52 24 30 0 30 0Z" fill="#E8501A"/><path d="M30 24C30 24 16 40 14 50C12 60 20 70 30 70C40 70 48 60 46 50C44 40 30 24 30 24Z" fill="#F5A623"/><path d="M30 42C30 42 22 52 22 58C22 64 26 68 30 68C34 68 38 64 38 58C38 52 30 42 30 42Z" fill="#FFECD2"/></svg></span>
+      </div>
+      <p style="font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--warm-gray); margin-top: 16px;">Build fast, ship smart, sleep well.</p>
+      <p style="font-family: var(--mono); font-size: 0.7rem; color: var(--comment); margin-top: 32px;">
+        status: <span class="t-fire">on fire</span> <span class="t-cursor"></span>
+      </p>
+    </div>
+    <div class="slide-footer"><span>calidevs developer applications — v1.0</span><span>12 / 12</span></div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>calidevs — Brand Guidelines</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Kalam:wght@300;400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      /* Primary */
+      --ignite: #E8501A;
+      --amber: #F5A623;
+      --charcoal: #161618;
+      --white: #FFFFFF;
+      --light-sand: #F8F5F0;
+
+      /* Secondary */
+      --sand: #F1EBE2;
+      --dark-sand: #E4D9C8;
+      --slate: #3A3A3C;
+      --warm-gray: #9E9590;
+
+      /* Fonts */
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --hand: 'Kalam', cursive;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--charcoal);
+      color: var(--charcoal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══ SLIDE SYSTEM ═══ */
+    .slide {
+      min-height: 100vh;
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .slide-footer {
+      position: absolute;
+      bottom: 40px;
+      left: 80px;
+      right: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--warm-gray);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+
+    .slide-footer .page-num {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+    }
+
+    /* ═══ THE WORDMARK (SVG-like with CSS) ═══ */
+    .wordmark {
+      display: inline-flex;
+      align-items: baseline;
+      font-family: var(--sans);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .wordmark .cali { color: inherit; }
+    .wordmark .devs { color: var(--ignite); }
+    .wordmark .flame-dot {
+      display: inline-block;
+      position: relative;
+      width: 0.22em;
+      height: 0.22em;
+      margin-left: 0.02em;
+      align-self: flex-end;
+      margin-bottom: 0.05em;
+    }
+
+    .wordmark .flame-dot svg {
+      width: 100%;
+      height: auto;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    /* Variant: on dark */
+    .wm-on-dark .cali { color: var(--white); }
+    .wm-on-dark .devs { color: var(--ignite); }
+
+    /* Variant: on light */
+    .wm-on-light .cali { color: var(--charcoal); }
+    .wm-on-light .devs { color: var(--ignite); }
+
+    /* Variant: on orange */
+    .wm-on-orange .cali { color: var(--amber); }
+    .wm-on-orange .devs { color: var(--white); }
+
+    /* Variant: mono dark */
+    .wm-mono-dark .cali { color: var(--ignite); }
+    .wm-mono-dark .devs { color: var(--amber); }
+
+    /* ═══ COVER ═══ */
+    .slide-cover {
+      background: var(--charcoal);
+      color: var(--white);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .cover-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cover-wordmark {
+      font-size: clamp(4rem, 10vw, 9rem);
+    }
+
+    .cover-subtitle {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--warm-gray);
+      margin-top: 24px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .cover-year {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--slate);
+      margin-top: 16px;
+      letter-spacing: 0.1em;
+    }
+
+    /* Subtle glow behind wordmark */
+    .cover-glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,80,26,0.08) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
+
+    /* ═══ DIVIDER SLIDES ═══ */
+    .slide-divider {
+      background: var(--charcoal);
+      color: var(--white);
+    }
+
+    .divider-number {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--ignite);
+      margin-bottom: 20px;
+      letter-spacing: 0.1em;
+    }
+
+    .divider-title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 400;
+      line-height: 1.05;
+    }
+
+    .divider-line {
+      width: 60px;
+      height: 3px;
+      background: var(--ignite);
+      margin-top: 32px;
+    }
+
+    /* ═══ CONTENT SLIDES ═══ */
+    .slide-content {
+      background: var(--light-sand);
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--ignite);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 32px;
+      max-width: 700px;
+    }
+
+    .section-body {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--slate);
+      max-width: 600px;
+      font-weight: 400;
+    }
+
+    .section-body p + p {
+      margin-top: 16px;
+    }
+
+    /* ═══ CONTENTS ═══ */
+    .contents-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      margin-top: 48px;
+      max-width: 700px;
+    }
+
+    .contents-item {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--dark-sand);
+      font-size: 1.05rem;
+    }
+
+    .contents-item .num {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--ignite);
+      min-width: 28px;
+    }
+
+    /* ═══ LOGO SHOWCASE ═══ */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .logo-card {
+      aspect-ratio: 16/10;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-card .wordmark {
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+    }
+
+    .logo-card-label {
+      position: absolute;
+      bottom: 16px;
+      left: 20px;
+      font-size: 0.7rem;
+      font-family: var(--mono);
+      letter-spacing: 0.08em;
+      opacity: 0.5;
+    }
+
+    .lc-dark {
+      background: var(--charcoal);
+      color: var(--white);
+    }
+    .lc-dark .logo-card-label { color: var(--warm-gray); }
+
+    .lc-light {
+      background: var(--light-sand);
+      border: 1px solid var(--dark-sand);
+      color: var(--charcoal);
+    }
+    .lc-light .logo-card-label { color: var(--warm-gray); }
+
+    .lc-orange {
+      background: var(--ignite);
+      color: var(--white);
+    }
+    .lc-orange .logo-card-label { color: rgba(255,255,255,0.5); }
+
+    .lc-black {
+      background: #000000;
+      color: var(--white);
+    }
+    .lc-black .logo-card-label { color: rgba(255,255,255,0.3); }
+
+    /* ═══ FLAME DOT DETAIL ═══ */
+    .flame-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-top: 48px;
+      align-items: center;
+    }
+
+    .flame-showcase {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--charcoal);
+      border-radius: 24px;
+      padding: 80px;
+      aspect-ratio: 1;
+    }
+
+    .flame-showcase svg {
+      width: 180px;
+      height: auto;
+    }
+
+    .flame-annotations {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--slate);
+    }
+
+    .flame-annotations h3 {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      color: var(--charcoal);
+      margin-bottom: 20px;
+    }
+
+    .flame-annotations ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .flame-annotations li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--dark-sand);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .flame-annotations li::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ignite);
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+
+    /* ═══ CLEAR SPACE ═══ */
+    .clearspace-demo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 48px;
+      padding: 80px;
+      background: var(--white);
+      border-radius: 20px;
+      border: 1px solid var(--dark-sand);
+      position: relative;
+    }
+
+    .clearspace-box {
+      border: 2px dashed var(--ignite);
+      padding: 40px 56px;
+      position: relative;
+      border-radius: 12px;
+    }
+
+    .clearspace-label {
+      position: absolute;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--ignite);
+      letter-spacing: 0.1em;
+    }
+
+    .cs-top { top: -20px; left: 50%; transform: translateX(-50%); }
+    .cs-bottom { bottom: -20px; left: 50%; transform: translateX(-50%); }
+    .cs-left { left: -50px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
+    .cs-right { right: -50px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+
+    /* ═══ COLOR PALETTE ═══ */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .color-card {
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .color-swatch {
+      height: 180px;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+
+    .color-info {
+      padding: 20px;
+      background: var(--white);
+    }
+
+    .color-name {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .color-hex {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--warm-gray);
+    }
+
+    .color-role {
+      font-size: 0.75rem;
+      color: var(--warm-gray);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    /* Big statement */
+    .color-statement {
+      margin-top: 48px;
+      padding: 60px;
+      background: var(--charcoal);
+      border-radius: 20px;
+      text-align: center;
+    }
+
+    .color-statement p {
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      color: var(--white);
+      line-height: 1.4;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .color-statement .highlight {
+      color: var(--ignite);
+    }
+
+    /* ═══ TYPOGRAPHY ═══ */
+    .type-specimen {
+      margin-top: 48px;
+    }
+
+    .type-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 40px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--dark-sand);
+      align-items: baseline;
+    }
+
+    .type-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--warm-gray);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .type-label .font-name {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--charcoal);
+      margin-top: 4px;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .type-sample-serif {
+      font-family: var(--serif);
+      font-size: 3.5rem;
+      line-height: 1.1;
+    }
+
+    .type-sample-sans {
+      font-family: var(--sans);
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .type-sample-mono {
+      font-family: var(--mono);
+      font-size: 1.6rem;
+      line-height: 1.4;
+      color: var(--slate);
+    }
+
+    .type-sample-hand {
+      font-family: var(--hand);
+      font-size: 2.4rem;
+      line-height: 1.3;
+      color: var(--ignite);
+    }
+
+    /* Hierarchy */
+    .hierarchy-demo {
+      margin-top: 48px;
+      padding: 60px;
+      background: var(--white);
+      border-radius: 20px;
+      border: 1px solid var(--dark-sand);
+    }
+
+    .hier-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 40px;
+      padding: 20px 0;
+      align-items: baseline;
+      border-bottom: 1px solid var(--sand);
+    }
+
+    .hier-row:last-child { border-bottom: none; }
+
+    .hier-meta {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--warm-gray);
+      letter-spacing: 0.08em;
+    }
+
+    .hier-meta span {
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* ═══ TONE OF VOICE ═══ */
+    .tone-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .tone-card {
+      padding: 40px;
+      background: var(--white);
+      border-radius: 20px;
+      border: 1px solid var(--dark-sand);
+    }
+
+    .tone-card h3 {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      margin-bottom: 16px;
+    }
+
+    .tone-card p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--slate);
+    }
+
+    .tone-do-dont {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .tone-do, .tone-dont {
+      padding: 32px;
+      border-radius: 16px;
+    }
+
+    .tone-do {
+      background: #f0faf0;
+      border: 1px solid #c8e6c9;
+    }
+
+    .tone-dont {
+      background: #fef2f0;
+      border: 1px solid #f5c6c2;
+    }
+
+    .tone-do h4, .tone-dont h4 {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .tone-do h4 { color: #2e7d32; }
+    .tone-dont h4 { color: #c62828; }
+
+    .tone-do p, .tone-dont p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--slate);
+    }
+
+    /* ═══ VALUES ═══ */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .value-card {
+      padding: 48px 36px;
+      background: var(--charcoal);
+      border-radius: 20px;
+      color: var(--white);
+    }
+
+    .value-number {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--ignite);
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+
+    .value-card h3 {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+
+    .value-card p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--warm-gray);
+    }
+
+    /* ═══ APPLICATIONS ═══ */
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .app-card {
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--white);
+      border: 1px solid var(--dark-sand);
+    }
+
+    /* Browser mockup */
+    .browser-chrome {
+      background: var(--sand);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .browser-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--dark-sand);
+    }
+
+    .browser-url {
+      flex: 1;
+      background: var(--white);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--warm-gray);
+      margin-left: 8px;
+    }
+
+    .browser-body {
+      padding: 40px;
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Business card */
+    .bcard-container {
+      padding: 40px;
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+    }
+
+    .bcard {
+      width: 320px;
+      height: 190px;
+      border-radius: 12px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+
+    .bcard-front {
+      background: var(--charcoal);
+      color: var(--white);
+    }
+
+    .bcard-back {
+      background: var(--light-sand);
+      color: var(--charcoal);
+      border: 1px solid var(--dark-sand);
+    }
+
+    .bcard-name {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .bcard-role {
+      font-size: 0.8rem;
+      color: var(--warm-gray);
+    }
+
+    .bcard-contact {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--warm-gray);
+      line-height: 1.6;
+    }
+
+    /* Social avatar */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      padding: 40px;
+    }
+
+    .social-avatar {
+      aspect-ratio: 1;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .social-avatar-label {
+      position: absolute;
+      bottom: -24px;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--warm-gray);
+      text-align: center;
+      width: 100%;
+    }
+
+    /* ═══ CLOSING SLIDE ═══ */
+    .slide-closing {
+      background: var(--charcoal);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .closing-wordmark {
+      font-size: clamp(3rem, 8vw, 7rem);
+    }
+
+    .closing-tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--warm-gray);
+      margin-top: 24px;
+    }
+
+    .closing-url {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--ignite);
+      margin-top: 32px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ═══ MISC ═══ */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .quote-big {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      line-height: 1.4;
+      color: var(--charcoal);
+      max-width: 500px;
+    }
+
+    .quote-big .by {
+      display: block;
+      font-family: var(--mono);
+      font-style: normal;
+      font-size: 0.75rem;
+      color: var(--warm-gray);
+      margin-top: 16px;
+      letter-spacing: 0.1em;
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      padding: 6px 14px;
+      border-radius: 100px;
+      background: var(--sand);
+      color: var(--slate);
+      letter-spacing: 0.08em;
+    }
+
+    /* Don'ts grid */
+    .donts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .dont-card {
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid var(--dark-sand);
+      overflow: hidden;
+    }
+
+    .dont-card-visual {
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      position: relative;
+    }
+
+    .dont-card-visual::after {
+      content: '';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #c62828;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dont-card-text {
+      padding: 16px 20px;
+      font-size: 0.8rem;
+      color: var(--slate);
+      border-top: 1px solid var(--dark-sand);
+    }
+
+    /* Swatches row */
+    .swatch-row {
+      display: flex;
+      gap: 4px;
+      margin-top: 24px;
+      height: 48px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .swatch-row div {
+      flex: 1;
+    }
+
+    /* Gradient bar */
+    .gradient-bar {
+      height: 8px;
+      border-radius: 4px;
+      margin-top: 24px;
+      background: linear-gradient(90deg, var(--charcoal) 0%, var(--charcoal) 55%, var(--ignite) 55%, var(--ignite) 70%, var(--light-sand) 70%, var(--light-sand) 100%);
+    }
+
+    .gradient-labels {
+      display: flex;
+      margin-top: 8px;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--warm-gray);
+    }
+
+    .gradient-labels span:nth-child(1) { flex: 0.55; }
+    .gradient-labels span:nth-child(2) { flex: 0.15; text-align: center; }
+    .gradient-labels span:nth-child(3) { flex: 0.30; text-align: right; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .slide { padding: 40px 24px; }
+      .slide-footer { left: 24px; right: 24px; bottom: 20px; }
+      .logo-grid,
+      .color-grid,
+      .tone-grid,
+      .values-grid { grid-template-columns: 1fr; }
+      .app-grid { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; gap: 32px; }
+      .flame-detail-grid { grid-template-columns: 1fr; }
+      .contents-grid { grid-template-columns: 1fr; }
+      .donts-grid { grid-template-columns: 1fr; }
+      .type-row { grid-template-columns: 1fr; gap: 12px; }
+      .hier-row { grid-template-columns: 1fr; gap: 8px; }
+      .tone-do-dont { grid-template-columns: 1fr; }
+      .social-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 01. COVER                                     -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-cover">
+    <div class="cover-glow"></div>
+    <div class="cover-content">
+      <div class="wordmark cover-wordmark wm-on-dark">
+        <span class="cali">cali</span><span class="devs">devs</span><span class="flame-dot"><svg viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/></svg></span>
+      </div>
+      <p class="cover-subtitle">Brand Guidelines</p>
+      <p class="cover-year">v1.0 — 2026</p>
+    </div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.2);">
+      <span>calidevs. confidential</span>
+      <span class="page-num">01</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 02. CONTENTS                                  -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-content">
+    <div class="section-label">Overview</div>
+    <div class="section-title">Contents</div>
+    <div class="contents-grid">
+      <div class="contents-item"><span class="num">01</span> Cover</div>
+      <div class="contents-item"><span class="num">02</span> Contents</div>
+      <div class="contents-item"><span class="num">03</span> Introduction</div>
+      <div class="contents-item"><span class="num">04</span> Who We Are</div>
+      <div class="contents-item"><span class="num">05</span> Values</div>
+      <div class="contents-item"><span class="num">06</span> Logo</div>
+      <div class="contents-item"><span class="num">07</span> The Flame Dot</div>
+      <div class="contents-item"><span class="num">08</span> Logo Variations</div>
+      <div class="contents-item"><span class="num">09</span> Clear Space & Don'ts</div>
+      <div class="contents-item"><span class="num">10</span> Color Palette</div>
+      <div class="contents-item"><span class="num">11</span> Typography</div>
+      <div class="contents-item"><span class="num">12</span> Hierarchy & Scale</div>
+      <div class="contents-item"><span class="num">13</span> Tone of Voice</div>
+      <div class="contents-item"><span class="num">14</span> Applications</div>
+    </div>
+    <div class="slide-footer">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">02</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 03. INTRODUCTION DIVIDER                      -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-divider">
+    <div class="divider-number">01</div>
+    <div class="divider-title">Intro<br>duction</div>
+    <div class="divider-line"></div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.2);">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">03</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 04. WHO WE ARE                                -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-content">
+    <div class="two-col">
+      <div>
+        <div class="section-label">Who we are</div>
+        <div class="section-title">Build fast,<br>ship smart,<br>sleep well.</div>
+        <div class="section-body">
+          <p>calidevs is a software studio from California that builds, ships, and scales digital products. We work with startups and growing brands — ecommerce, SaaS, platforms — to turn ideas into production-ready code.</p>
+          <p>We're developers who care about craft. Clean architecture, fast load times, real results. No fluff, no filler.</p>
+        </div>
+      </div>
+      <div>
+        <div class="quote-big">
+          "We don't just write code. We build what matters — then make it fast."
+          <span class="by">— calidevs manifesto</span>
+        </div>
+        <div style="margin-top: 40px; display: flex; gap: 8px; flex-wrap: wrap;">
+          <span class="tag">SHOPIFY</span>
+          <span class="tag">HEADLESS</span>
+          <span class="tag">REACT</span>
+          <span class="tag">NODE</span>
+          <span class="tag">API DESIGN</span>
+          <span class="tag">WORDPRESS</span>
+          <span class="tag">AI AGENTS</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">04</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 05. VALUES                                    -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-content">
+    <div class="section-label">Our principles</div>
+    <div class="section-title">What we believe</div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-number">01</div>
+        <h3>Ship it.</h3>
+        <p>Done beats perfect. We move fast, deploy often, and iterate with real data. A shipped MVP teaches more than a perfect mockup.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-number">02</div>
+        <h3>Own the fire.</h3>
+        <p>We take full ownership. When something breaks at 2am, we're already on it. Our flame means we care enough to stay up.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-number">03</div>
+        <h3>Build trust.</h3>
+        <p>Transparent communication, honest timelines, clean code. Clients come back because we do what we say.</p>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">05</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 06. LOGO DIVIDER                              -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-divider">
+    <div class="divider-number">02</div>
+    <div class="divider-title">Logo</div>
+    <div class="divider-line"></div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.2);">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">06</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 07. THE WORDMARK                              -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-content">
+    <div class="section-label">Primary logo</div>
+    <div class="section-title">The Wordmark</div>
+    <div class="section-body" style="margin-bottom: 32px;">
+      <p>Our logo is a wordmark: <strong>cali</strong> in the base color and <strong>devs</strong> in Ignite orange. The period is replaced by a flame — our signature mark. Always lowercase. The color split represents the bridge between California culture and developer craft.</p>
+    </div>
+
+    <div class="logo-grid">
+      <!-- Dark background - primary -->
+      <div class="logo-card lc-dark">
+        <div class="wordmark wm-on-dark" style="font-size: 2.2rem;">
+          <span class="cali">cali</span><span class="devs">devs</span><span class="flame-dot"><svg viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/></svg></span>
+        </div>
+        <span class="logo-card-label">ON DARK</span>
+      </div>
+
+      <!-- Light background -->
+      <div class="logo-card lc-light">
+        <div class="wordmark wm-on-light" style="font-size: 2.2rem;">
+          <span class="cali">cali</span><span class="devs">devs</span><span class="flame-dot"><svg viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/></svg></span>
+        </div>
+        <span class="logo-card-label">ON LIGHT</span>
+      </div>
+
+      <!-- Orange background -->
+      <div class="logo-card lc-orange">
+        <div class="wordmark wm-on-orange" style="font-size: 2.2rem;">
+          <span class="cali">cali</span><span class="devs">devs</span><span class="flame-dot"><svg viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#FFFFFF"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#FFECD2"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#F5A623"/></svg></span>
+        </div>
+        <span class="logo-card-label">ON IGNITE</span>
+      </div>
+
+      <!-- Black background -->
+      <div class="logo-card lc-black">
+        <div class="wordmark wm-mono-dark" style="font-size: 2.2rem;">
+          <span class="cali">cali</span><span class="devs">devs</span><span class="flame-dot"><svg viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/></svg></span>
+        </div>
+        <span class="logo-card-label">WARM VARIANT</span>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">07</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 08. THE FLAME DOT                             -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-content">
+    <div class="section-label">Icon element</div>
+    <div class="section-title">The Flame Dot</div>
+
+    <div class="flame-detail-grid">
+      <div class="flame-showcase">
+        <svg viewBox="0 0 80 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M40 0C40 0 80 40 80 72C80 94.09 62.09 112 40 112C17.91 112 0 94.09 0 72C0 40 40 0 40 0Z" fill="#E8501A"/>
+          <path d="M40 56C40 56 60 76 60 88C60 99.05 51.05 108 40 108C28.95 108 20 99.05 20 88C20 76 40 56 40 56Z" fill="#F5A623"/>
+          <path d="M40 80C40 80 50 90 50 96C50 101.52 45.52 106 40 106C34.48 106 30 101.52 30 96C30 90 40 80 40 80Z" fill="#FFECD2"/>
+        </svg>
+      </div>
+
+      <div class="flame-annotations">
+        <h3>More than a dot</h3>
+        <p style="margin-bottom: 20px; color: var(--slate); line-height: 1.7;">The period at the end of "calidevs." is our signature flame. It replaces the typographic dot and becomes the mark's identity — a small but unmistakable fire that says: we're always on.</p>
+        <ul>
+          <li>Replaces the period — never use both a dot and a flame</li>
+          <li>Three-layer gradient: Ignite (outer), Amber (middle), Sand (core)</li>
+          <li>Can be used standalone as an app icon or favicon</li>
+          <li>Minimum size: 16px for digital, 5mm for print</li>
+          <li>The teardrop shape is organic — never make it perfectly round</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">08</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 09. LOGO WITH JUST THE DOT                    -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-content" style="background: var(--sand);">
+    <div class="section-label">Alternative</div>
+    <div class="section-title">Text-only variant</div>
+    <div class="section-body" style="margin-bottom: 32px;">
+      <p>When the flame is too small to render clearly (body text, email signatures, code comments), use the text-only version with a standard period. The color split remains.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
+      <!-- With flame -->
+      <div style="background: var(--charcoal); border-radius: 20px; padding: 48px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
+        <div style="font-family: var(--mono); font-size: 0.65rem; color: var(--warm-gray); letter-spacing: 0.1em;">WITH FLAME</div>
+        <div class="wordmark wm-on-dark" style="font-size: 2.8rem;">
+          <span class="cali">cali</span><span class="devs">devs</span><span class="flame-dot"><svg viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/></svg></span>
+        </div>
+        <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--warm-gray);">Primary — use when flame is ≥16px</div>
+      </div>
+      <!-- Text only -->
+      <div style="background: var(--charcoal); border-radius: 20px; padding: 48px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
+        <div style="font-family: var(--mono); font-size: 0.65rem; color: var(--warm-gray); letter-spacing: 0.1em;">TEXT-ONLY</div>
+        <div class="wordmark wm-on-dark" style="font-size: 2.8rem;">
+          <span class="cali">cali</span><span class="devs">devs</span><span style="color: var(--ignite);">.</span>
+        </div>
+        <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--warm-gray);">Fallback — inline text, small sizes</div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">09</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 10. CLEAR SPACE & DON'TS                      -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-content">
+    <div class="section-label">Logo rules</div>
+    <div class="section-title">Clear Space & Don'ts</div>
+
+    <!-- Clear space demo -->
+    <div class="clearspace-demo">
+      <div class="clearspace-box">
+        <span class="clearspace-label cs-top">1x</span>
+        <span class="clearspace-label cs-bottom">1x</span>
+        <span class="clearspace-label cs-left">1x</span>
+        <span class="clearspace-label cs-right">1x</span>
+        <div class="wordmark wm-on-light" style="font-size: 2.4rem;">
+          <span class="cali">cali</span><span class="devs">devs</span><span class="flame-dot"><svg viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align: center; font-size: 0.85rem; color: var(--warm-gray); margin-top: 20px;">Minimum clear space = height of the letter "d" on all sides</p>
+
+    <!-- Don'ts -->
+    <div class="donts-grid">
+      <div class="dont-card">
+        <div class="dont-card-visual" style="background: var(--light-sand);">
+          <div class="wordmark" style="font-size: 1.6rem; color: var(--charcoal);">
+            <span style="color: var(--charcoal);">Cali</span><span style="color: var(--ignite);">Devs</span><span style="color: var(--ignite);">.</span>
+          </div>
+        </div>
+        <div class="dont-card-text">Never capitalize. Always lowercase "calidevs."</div>
+      </div>
+      <div class="dont-card">
+        <div class="dont-card-visual" style="background: var(--light-sand);">
+          <div class="wordmark" style="font-size: 1.6rem; letter-spacing: 0.15em;">
+            <span style="color: var(--charcoal);">cali</span><span style="color: var(--ignite);">devs</span><span style="color: var(--ignite);">.</span>
+          </div>
+        </div>
+        <div class="dont-card-text">Never add extra letter-spacing to the wordmark.</div>
+      </div>
+      <div class="dont-card">
+        <div class="dont-card-visual" style="background: var(--light-sand);">
+          <div class="wordmark" style="font-size: 1.6rem;">
+            <span style="color: #3B82F6;">cali</span><span style="color: #10B981;">devs</span><span style="color: #10B981;">.</span>
+          </div>
+        </div>
+        <div class="dont-card-text">Never change the brand colors. Ignite only.</div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">10</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 11. COLOR DIVIDER                             -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-divider">
+    <div class="divider-number">03</div>
+    <div class="divider-title">Color<br>Palette</div>
+    <div class="divider-line"></div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.2);">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">11</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 12. COLOR PALETTE                             -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-content">
+    <div class="section-label">Colors</div>
+    <div class="section-title">Primary Palette</div>
+
+    <div class="color-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background: #E8501A;">
+          <span style="color: rgba(255,255,255,0.6); font-family: var(--mono); font-size: 0.7rem;">PRIMARY ACCENT</span>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Ignite</div>
+          <div class="color-hex">#E8501A</div>
+          <div class="color-role">The flame. Used for "devs", CTAs, and key accents. Sparingly.</div>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <div class="color-swatch" style="background: #F5A623;">
+          <span style="color: rgba(255,255,255,0.6); font-family: var(--mono); font-size: 0.7rem;">SECONDARY WARM</span>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Amber</div>
+          <div class="color-hex">#F5A623</div>
+          <div class="color-role">The glow. Inner flame, warm highlights, hover states.</div>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <div class="color-swatch" style="background: #161618;">
+          <span style="color: rgba(255,255,255,0.3); font-family: var(--mono); font-size: 0.7rem;">FOUNDATION</span>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Charcoal</div>
+          <div class="color-hex">#161618</div>
+          <div class="color-role">The ground. Primary text, dark backgrounds, wordmark base.</div>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <div class="color-swatch" style="background: #F8F5F0; border: 1px solid var(--dark-sand);">
+          <span style="color: var(--warm-gray); font-family: var(--mono); font-size: 0.7rem;">CANVAS</span>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Light Sand</div>
+          <div class="color-hex">#F8F5F0</div>
+          <div class="color-role">The warmth. Page backgrounds, breathing room. Never pure white.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color ratio -->
+    <div class="gradient-bar"></div>
+    <div class="gradient-labels">
+      <span>Charcoal — 55%</span>
+      <span>Ignite — 15%</span>
+      <span>Light Sand — 30%</span>
+    </div>
+
+    <!-- Statement -->
+    <div class="color-statement">
+      <p>The neutrals set the tone.<br><span class="highlight">Ignite makes the point.</span></p>
+      <p style="font-family: var(--mono); font-size: 0.75rem; color: var(--warm-gray); margin-top: 20px; font-style: normal;">If everything is orange, nothing is.</p>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">12</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 13. TYPOGRAPHY DIVIDER                        -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-divider">
+    <div class="divider-number">04</div>
+    <div class="divider-title">Typo<br>graphy</div>
+    <div class="divider-line"></div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.2);">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">13</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 14. TYPOGRAPHY                                -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-content">
+    <div class="section-label">Type system</div>
+    <div class="section-title">Four voices, one brand</div>
+
+    <div class="type-specimen">
+      <div class="type-row">
+        <div class="type-label">
+          EDITORIAL
+          <span class="font-name">DM Serif Display</span>
+        </div>
+        <div class="type-sample-serif">The quick brown fox jumps over the lazy dog.</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-label">
+          UI / WORDMARK
+          <span class="font-name">Plus Jakarta Sans</span>
+        </div>
+        <div class="type-sample-sans">calidevs builds what matters.</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-label">
+          CODE / DATA
+          <span class="font-name">JetBrains Mono</span>
+        </div>
+        <div class="type-sample-mono">const ship = () => deploy(fast);</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-label">
+          ACCENT / HUMAN
+          <span class="font-name">Kalam</span>
+        </div>
+        <div class="type-sample-hand">handwritten notes & annotations</div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">14</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 15. HIERARCHY & SCALE                         -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-content" style="background: var(--sand);">
+    <div class="section-label">Scale</div>
+    <div class="section-title">Hierarchy System</div>
+
+    <div class="hierarchy-demo">
+      <div class="hier-row">
+        <div class="hier-meta">DISPLAY<br><span>DM Serif / 56px</span></div>
+        <div style="font-family: var(--serif); font-size: 3.5rem; line-height: 1.05;">Build fast, ship smart.</div>
+      </div>
+      <div class="hier-row">
+        <div class="hier-meta">H1<br><span>DM Serif / 40px</span></div>
+        <div style="font-family: var(--serif); font-size: 2.5rem; line-height: 1.1;">We build what matters.</div>
+      </div>
+      <div class="hier-row">
+        <div class="hier-meta">H2<br><span>Jakarta / 28px / 700</span></div>
+        <div style="font-family: var(--sans); font-size: 1.75rem; font-weight: 700; line-height: 1.2;">Services & capabilities</div>
+      </div>
+      <div class="hier-row">
+        <div class="hier-meta">H3<br><span>Jakarta / 20px / 600</span></div>
+        <div style="font-family: var(--sans); font-size: 1.25rem; font-weight: 600; line-height: 1.3;">Project case study</div>
+      </div>
+      <div class="hier-row">
+        <div class="hier-meta">BODY<br><span>Jakarta / 16px / 400</span></div>
+        <div style="font-family: var(--sans); font-size: 1rem; font-weight: 400; line-height: 1.7; color: var(--slate);">We partner with ambitious teams to design, build, and scale digital products that perform. From headless Shopify to custom APIs, we write code that ships.</div>
+      </div>
+      <div class="hier-row">
+        <div class="hier-meta">LABEL<br><span>JetBrains / 12px / 500</span></div>
+        <div style="font-family: var(--mono); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ignite);">SECTION LABEL</div>
+      </div>
+      <div class="hier-row">
+        <div class="hier-meta">ANNOTATION<br><span>Kalam / 18px</span></div>
+        <div style="font-family: var(--hand); font-size: 1.125rem; color: var(--ignite);">this is the good stuff ^</div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">15</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 16. TONE DIVIDER                              -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-divider">
+    <div class="divider-number">05</div>
+    <div class="divider-title">Tone of<br>Voice</div>
+    <div class="divider-line"></div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.2);">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">16</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 17. TONE OF VOICE                             -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-content">
+    <div class="section-label">Voice</div>
+    <div class="section-title">How we sound</div>
+
+    <div class="tone-grid">
+      <div class="tone-card">
+        <h3>Direct</h3>
+        <p>We say what we mean. Short sentences. Active voice. No corporate jargon, no buzzword bingo. If we can say it in 5 words, we don't use 20.</p>
+      </div>
+      <div class="tone-card">
+        <h3>Confident</h3>
+        <p>We know our craft. We speak with authority, not arrogance. We've built this before, and we'll build it again — better.</p>
+      </div>
+      <div class="tone-card">
+        <h3>Warm</h3>
+        <p>We're technical but human. We joke in Slack, we explain in plain English, and we care about the people behind the projects.</p>
+      </div>
+    </div>
+
+    <div class="tone-do-dont">
+      <div class="tone-do">
+        <h4>Do write</h4>
+        <p>"Your store loads in 1.2 seconds. Here's how we got there."</p>
+        <p style="margin-top: 12px;">"We hit a snag with the API. Already working on a fix — ETA 2 hours."</p>
+        <p style="margin-top: 12px;">"Let's ship this."</p>
+      </div>
+      <div class="tone-dont">
+        <h4>Don't write</h4>
+        <p>"We leverage cutting-edge solutions to synergize your digital transformation journey."</p>
+        <p style="margin-top: 12px;">"Per our previous correspondence, please find attached the deliverables."</p>
+        <p style="margin-top: 12px;">"We are excited to announce..."</p>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">17</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 18. APPLICATIONS DIVIDER                      -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-divider">
+    <div class="divider-number">06</div>
+    <div class="divider-title">Brand<br>Applications</div>
+    <div class="divider-line"></div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.2);">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">18</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 19. APPLICATIONS                              -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-content">
+    <div class="section-label">In practice</div>
+    <div class="section-title">Applications</div>
+
+    <div class="app-grid">
+      <!-- Browser mockup - Dark -->
+      <div class="app-card">
+        <div class="browser-chrome">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="browser-url">calidevs.com</div>
+        </div>
+        <div class="browser-body" style="background: var(--charcoal); flex-direction: column; gap: 16px; padding: 48px;">
+          <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--ignite); letter-spacing: 0.15em;">SOFTWARE STUDIO</div>
+          <div class="wordmark wm-on-dark" style="font-size: 2rem;">
+            <span class="cali">cali</span><span class="devs">devs</span><span class="flame-dot"><svg viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/></svg></span>
+          </div>
+          <div style="font-family: var(--serif); font-style: italic; font-size: 0.85rem; color: var(--warm-gray);">Build fast, ship smart, sleep well.</div>
+        </div>
+      </div>
+
+      <!-- Browser mockup - Light -->
+      <div class="app-card">
+        <div class="browser-chrome">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="browser-url">calidevs.com/work</div>
+        </div>
+        <div class="browser-body" style="background: var(--light-sand); flex-direction: column; gap: 16px; padding: 48px; align-items: flex-start;">
+          <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--ignite); letter-spacing: 0.15em;">OUR WORK</div>
+          <div style="font-family: var(--serif); font-size: 1.8rem; color: var(--charcoal); line-height: 1.2;">Selected<br>projects</div>
+          <div style="display: flex; gap: 8px;">
+            <span class="tag" style="font-size: 0.6rem; padding: 4px 10px;">SHOPIFY</span>
+            <span class="tag" style="font-size: 0.6rem; padding: 4px 10px;">SAAS</span>
+            <span class="tag" style="font-size: 0.6rem; padding: 4px 10px;">AI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Business card -->
+      <div class="app-card">
+        <div class="bcard-container">
+          <div class="bcard bcard-front">
+            <div>
+              <div class="wordmark wm-on-dark" style="font-size: 1.1rem;">
+                <span class="cali">cali</span><span class="devs">devs</span><span class="flame-dot"><svg viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/></svg></span>
+              </div>
+            </div>
+            <div>
+              <div class="bcard-name">Romina Concepcion</div>
+              <div class="bcard-role">Founder & Lead Developer</div>
+            </div>
+            <div class="bcard-contact">
+              romina@calidevs.com<br>
+              calidevs.com
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social avatars -->
+      <div class="app-card">
+        <div class="social-grid">
+          <div>
+            <div class="social-avatar" style="background: var(--charcoal);">
+              <svg viewBox="0 0 80 112" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 32px;">
+                <path d="M40 0C40 0 80 40 80 72C80 94.09 62.09 112 40 112C17.91 112 0 94.09 0 72C0 40 40 0 40 0Z" fill="#E8501A"/>
+                <path d="M40 56C40 56 60 76 60 88C60 99.05 51.05 108 40 108C28.95 108 20 99.05 20 88C20 76 40 56 40 56Z" fill="#F5A623"/>
+                <path d="M40 80C40 80 50 90 50 96C50 101.52 45.52 106 40 106C34.48 106 30 101.52 30 96C30 90 40 80 40 80Z" fill="#FFECD2"/>
+              </svg>
+            </div>
+            <div class="social-avatar-label">ICON ONLY</div>
+          </div>
+          <div>
+            <div class="social-avatar" style="background: var(--ignite);">
+              <div class="wordmark wm-on-orange" style="font-size: 0.9rem;">
+                <span class="cali">cali</span><span class="devs">devs</span><span style="color: var(--white);">.</span>
+              </div>
+            </div>
+            <div class="social-avatar-label">BRAND</div>
+          </div>
+          <div>
+            <div class="social-avatar" style="background: var(--light-sand); border: 1px solid var(--dark-sand);">
+              <div class="wordmark wm-on-light" style="font-size: 0.9rem;">
+                <span class="cali">cali</span><span class="devs">devs</span><span class="flame-dot"><svg viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/></svg></span>
+              </div>
+            </div>
+            <div class="social-avatar-label">LIGHT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>calidevs. brand guidelines</span>
+      <span class="page-num">19</span>
+    </div>
+  </section>
+
+
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <!-- 20. CLOSING                                   -->
+  <!-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ -->
+  <section class="slide slide-closing">
+    <div class="cover-glow"></div>
+    <div class="cover-content">
+      <div class="wordmark closing-wordmark wm-on-dark">
+        <span class="cali">cali</span><span class="devs">devs</span><span class="flame-dot"><svg viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/></svg></span>
+      </div>
+      <p class="closing-tagline">Build fast, ship smart, sleep well.</p>
+      <p class="closing-url">calidevs.com</p>
+      <p style="font-family: var(--hand); font-size: 1.1rem; color: var(--warm-gray); margin-top: 40px;">now go build something great</p>
+    </div>
+    <div class="slide-footer" style="color: rgba(255,255,255,0.15);">
+      <span>calidevs. confidential — v1.0</span>
+      <span class="page-num">20</span>
+    </div>
+  </section>
+
+</body>
+</html>

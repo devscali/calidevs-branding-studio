@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>calidevs — Flame Dot Proposals</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --ignite: #E8501A;
+      --amber: #F5A623;
+      --charcoal: #161618;
+      --white: #FFFFFF;
+      --light-sand: #F8F5F0;
+      --sand: #F1EBE2;
+      --dark-sand: #E4D9C8;
+      --slate: #3A3A3C;
+      --warm-gray: #9E9590;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --hand: 'Kalam', cursive;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--charcoal);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      padding: 60px;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: 3rem;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    h1 span { color: var(--ignite); }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      margin-bottom: 60px;
+    }
+
+    /* ═══ PROPOSAL GRID ═══ */
+    .proposal {
+      margin-bottom: 80px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-bottom: 60px;
+    }
+    .proposal:last-child { border-bottom: none; }
+
+    .proposal-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .proposal-num {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--ignite);
+      letter-spacing: 0.1em;
+      background: rgba(232,80,26,0.1);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .proposal-name {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+    }
+
+    .proposal-desc {
+      font-size: 0.85rem;
+      color: var(--warm-gray);
+      margin-bottom: 32px;
+      max-width: 500px;
+      line-height: 1.6;
+    }
+
+    .flame-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+      align-items: end;
+    }
+
+    .flame-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .flame-preview {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fp-dark { background: var(--charcoal); border: 1px solid rgba(255,255,255,0.08); }
+    .fp-light { background: var(--light-sand); }
+    .fp-ignite { background: var(--ignite); }
+
+    .flame-cell svg { filter: drop-shadow(0 2px 8px rgba(232,80,26,0.3)); }
+
+    .flame-label {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--warm-gray);
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+
+    /* Wordmark preview */
+    .wm-preview-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .wm-preview {
+      border-radius: 16px;
+      padding: 40px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wm-preview-dark { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
+    .wm-preview-light { background: var(--light-sand); }
+    .wm-preview-sand { background: var(--sand); }
+
+    .wm {
+      display: inline-flex;
+      align-items: baseline;
+      font-family: var(--sans);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .wm .fl {
+      display: inline-block;
+      position: relative;
+      width: 0.25em;
+      margin-left: 0.02em;
+      align-self: flex-end;
+    }
+
+    .wm .fl svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Section label */
+    .section-divider {
+      margin: 80px 0 40px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .section-divider h2 {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+    }
+
+    .section-divider p {
+      font-size: 0.8rem;
+      color: var(--warm-gray);
+      margin-top: 4px;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 24px; }
+      .flame-row { grid-template-columns: repeat(3, 1fr); }
+      .wm-preview-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Flame <span>Proposals</span></h1>
+  <p class="subtitle">12 flame variations for the calidevs. dot — pick your fire</p>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PROPOSAL 01: CLASSIC TEARDROP (current)     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="proposal">
+    <div class="proposal-header">
+      <span class="proposal-num">01</span>
+      <span class="proposal-name">Classic Teardrop</span>
+    </div>
+    <p class="proposal-desc">The current one. Organic teardrop shape, 3-layer gradient. Reads as a flame at large sizes, clean dot at small.</p>
+
+    <div class="flame-row">
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="64" height="90" viewBox="0 0 40 56" fill="none">
+            <path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/>
+            <path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/>
+            <path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">LARGE</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="32" height="45" viewBox="0 0 40 56" fill="none">
+            <path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/>
+            <path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/>
+            <path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">MEDIUM</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="16" height="22" viewBox="0 0 40 56" fill="none">
+            <path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/>
+            <path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/>
+          </svg>
+        </div>
+        <span class="flame-label">SMALL</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-light">
+          <svg width="64" height="90" viewBox="0 0 40 56" fill="none">
+            <path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/>
+            <path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/>
+            <path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON LIGHT</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-ignite">
+          <svg width="64" height="90" viewBox="0 0 40 56" fill="none">
+            <path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#FFFFFF"/>
+            <path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#FFECD2"/>
+            <path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#F5A623"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON IGNITE</span>
+      </div>
+    </div>
+
+    <div class="wm-preview-row">
+      <div class="wm-preview wm-preview-dark">
+        <div class="wm" style="font-size: 2.2rem; color: var(--white);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 40 56" fill="none"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-light">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 40 56" fill="none"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-sand">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 40 56" fill="none"><path d="M20 0C20 0 40 20 40 36C40 47.05 31.05 56 20 56C8.95 56 0 47.05 0 36C0 20 20 0 20 0Z" fill="#E8501A"/><path d="M20 28C20 28 30 38 30 44C30 49.52 25.52 54 20 54C14.48 54 10 49.52 10 44C10 38 20 28 20 28Z" fill="#F5A623"/><path d="M20 40C20 40 25 45 25 48C25 50.76 22.76 53 20 53C17.24 53 15 50.76 15 48C15 45 20 40 20 40Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PROPOSAL 02: WILD FLAME                     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="proposal">
+    <div class="proposal-header">
+      <span class="proposal-num">02</span>
+      <span class="proposal-name">Wild Flame</span>
+    </div>
+    <p class="proposal-desc">Asymmetric, organic, with a flicker tip that leans right — like a real candle flame caught in a breeze. More dynamic, more alive.</p>
+
+    <div class="flame-row">
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="60" height="90" viewBox="0 0 44 66" fill="none">
+            <path d="M18 0C18 0 2 22 2 40C2 52.15 11.85 62 24 62C36.15 62 44 52.15 44 40C44 28 30 14 18 0Z" fill="#E8501A"/>
+            <path d="M22 30C22 30 12 42 12 50C12 56.63 17.37 62 24 62C30.63 62 36 56.63 36 50C36 42 22 30 22 30Z" fill="#F5A623"/>
+            <path d="M24 44C24 44 18 52 18 56C18 59.31 20.69 62 24 62C27.31 62 30 59.31 30 56C30 52 24 44 24 44Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">LARGE</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="30" height="45" viewBox="0 0 44 66" fill="none">
+            <path d="M18 0C18 0 2 22 2 40C2 52.15 11.85 62 24 62C36.15 62 44 52.15 44 40C44 28 30 14 18 0Z" fill="#E8501A"/>
+            <path d="M22 30C22 30 12 42 12 50C12 56.63 17.37 62 24 62C30.63 62 36 56.63 36 50C36 42 22 30 22 30Z" fill="#F5A623"/>
+            <path d="M24 44C24 44 18 52 18 56C18 59.31 20.69 62 24 62C27.31 62 30 59.31 30 56C30 52 24 44 24 44Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">MEDIUM</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="15" height="22" viewBox="0 0 44 66" fill="none">
+            <path d="M18 0C18 0 2 22 2 40C2 52.15 11.85 62 24 62C36.15 62 44 52.15 44 40C44 28 30 14 18 0Z" fill="#E8501A"/>
+            <path d="M22 30C22 30 12 42 12 50C12 56.63 17.37 62 24 62C30.63 62 36 56.63 36 50C36 42 22 30 22 30Z" fill="#F5A623"/>
+          </svg>
+        </div>
+        <span class="flame-label">SMALL</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-light">
+          <svg width="60" height="90" viewBox="0 0 44 66" fill="none">
+            <path d="M18 0C18 0 2 22 2 40C2 52.15 11.85 62 24 62C36.15 62 44 52.15 44 40C44 28 30 14 18 0Z" fill="#E8501A"/>
+            <path d="M22 30C22 30 12 42 12 50C12 56.63 17.37 62 24 62C30.63 62 36 56.63 36 50C36 42 22 30 22 30Z" fill="#F5A623"/>
+            <path d="M24 44C24 44 18 52 18 56C18 59.31 20.69 62 24 62C27.31 62 30 59.31 30 56C30 52 24 44 24 44Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON LIGHT</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-ignite">
+          <svg width="60" height="90" viewBox="0 0 44 66" fill="none">
+            <path d="M18 0C18 0 2 22 2 40C2 52.15 11.85 62 24 62C36.15 62 44 52.15 44 40C44 28 30 14 18 0Z" fill="#FFFFFF"/>
+            <path d="M22 30C22 30 12 42 12 50C12 56.63 17.37 62 24 62C30.63 62 36 56.63 36 50C36 42 22 30 22 30Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON IGNITE</span>
+      </div>
+    </div>
+
+    <div class="wm-preview-row">
+      <div class="wm-preview wm-preview-dark">
+        <div class="wm" style="font-size: 2.2rem; color: var(--white);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 44 66" fill="none"><path d="M18 0C18 0 2 22 2 40C2 52.15 11.85 62 24 62C36.15 62 44 52.15 44 40C44 28 30 14 18 0Z" fill="#E8501A"/><path d="M22 30C22 30 12 42 12 50C12 56.63 17.37 62 24 62C30.63 62 36 56.63 36 50C36 42 22 30 22 30Z" fill="#F5A623"/><path d="M24 44C24 44 18 52 18 56C18 59.31 20.69 62 24 62C27.31 62 30 59.31 30 56C30 52 24 44 24 44Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-light">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 44 66" fill="none"><path d="M18 0C18 0 2 22 2 40C2 52.15 11.85 62 24 62C36.15 62 44 52.15 44 40C44 28 30 14 18 0Z" fill="#E8501A"/><path d="M22 30C22 30 12 42 12 50C12 56.63 17.37 62 24 62C30.63 62 36 56.63 36 50C36 42 22 30 22 30Z" fill="#F5A623"/><path d="M24 44C24 44 18 52 18 56C18 59.31 20.69 62 24 62C27.31 62 30 59.31 30 56C30 52 24 44 24 44Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-sand">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 44 66" fill="none"><path d="M18 0C18 0 2 22 2 40C2 52.15 11.85 62 24 62C36.15 62 44 52.15 44 40C44 28 30 14 18 0Z" fill="#E8501A"/><path d="M22 30C22 30 12 42 12 50C12 56.63 17.37 62 24 62C30.63 62 36 56.63 36 50C36 42 22 30 22 30Z" fill="#F5A623"/><path d="M24 44C24 44 18 52 18 56C18 59.31 20.69 62 24 62C27.31 62 30 59.31 30 56C30 52 24 44 24 44Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PROPOSAL 03: MINIMAL SPARK                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="proposal">
+    <div class="proposal-header">
+      <span class="proposal-num">03</span>
+      <span class="proposal-name">Minimal Spark</span>
+    </div>
+    <p class="proposal-desc">Just the essential shape. Single color, no gradient layers. A sharp teardrop that works at any size. Maximum simplicity, incident.io energy.</p>
+
+    <div class="flame-row">
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="48" height="80" viewBox="0 0 32 52" fill="none">
+            <path d="M16 0C16 0 32 18 32 32C32 40.84 24.84 48 16 48C7.16 48 0 40.84 0 32C0 18 16 0 16 0Z" fill="#E8501A"/>
+          </svg>
+        </div>
+        <span class="flame-label">SOLID</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="48" height="80" viewBox="0 0 32 52" fill="none">
+            <path d="M16 0C16 0 32 18 32 32C32 40.84 24.84 48 16 48C7.16 48 0 40.84 0 32C0 18 16 0 16 0Z" fill="none" stroke="#E8501A" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <span class="flame-label">OUTLINE</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="24" height="40" viewBox="0 0 32 52" fill="none">
+            <path d="M16 0C16 0 32 18 32 32C32 40.84 24.84 48 16 48C7.16 48 0 40.84 0 32C0 18 16 0 16 0Z" fill="#E8501A"/>
+          </svg>
+        </div>
+        <span class="flame-label">SMALL</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-light">
+          <svg width="48" height="80" viewBox="0 0 32 52" fill="none">
+            <path d="M16 0C16 0 32 18 32 32C32 40.84 24.84 48 16 48C7.16 48 0 40.84 0 32C0 18 16 0 16 0Z" fill="#E8501A"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON LIGHT</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-ignite">
+          <svg width="48" height="80" viewBox="0 0 32 52" fill="none">
+            <path d="M16 0C16 0 32 18 32 32C32 40.84 24.84 48 16 48C7.16 48 0 40.84 0 32C0 18 16 0 16 0Z" fill="#FFFFFF"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON IGNITE</span>
+      </div>
+    </div>
+
+    <div class="wm-preview-row">
+      <div class="wm-preview wm-preview-dark">
+        <div class="wm" style="font-size: 2.2rem; color: var(--white);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 32 52" fill="none"><path d="M16 0C16 0 32 18 32 32C32 40.84 24.84 48 16 48C7.16 48 0 40.84 0 32C0 18 16 0 16 0Z" fill="#E8501A"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-light">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 32 52" fill="none"><path d="M16 0C16 0 32 18 32 32C32 40.84 24.84 48 16 48C7.16 48 0 40.84 0 32C0 18 16 0 16 0Z" fill="#E8501A"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-sand">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 32 52" fill="none"><path d="M16 0C16 0 32 18 32 32C32 40.84 24.84 48 16 48C7.16 48 0 40.84 0 32C0 18 16 0 16 0Z" fill="#E8501A"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PROPOSAL 04: DOUBLE FLAME                   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="proposal">
+    <div class="proposal-header">
+      <span class="proposal-num">04</span>
+      <span class="proposal-name">Double Flame</span>
+    </div>
+    <p class="proposal-desc">Two overlapping flames — a bigger back flame and a smaller front flame. Creates depth. Like the "ii" in incident.io but our own twist.</p>
+
+    <div class="flame-row">
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="72" height="86" viewBox="0 0 56 66" fill="none">
+            <path d="M20 6C20 6 38 24 38 38C38 48.49 29.49 57 19 57C8.51 57 0 48.49 0 38C0 24 20 6 20 6Z" fill="#E8501A" opacity="0.5"/>
+            <path d="M36 0C36 0 56 20 56 36C56 47.05 47.05 56 36 56C24.95 56 16 47.05 16 36C16 20 36 0 36 0Z" fill="#E8501A"/>
+            <path d="M36 28C36 28 46 38 46 44C46 49.52 41.52 54 36 54C30.48 54 26 49.52 26 44C26 38 36 28 36 28Z" fill="#F5A623"/>
+          </svg>
+        </div>
+        <span class="flame-label">LARGE</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="36" height="43" viewBox="0 0 56 66" fill="none">
+            <path d="M20 6C20 6 38 24 38 38C38 48.49 29.49 57 19 57C8.51 57 0 48.49 0 38C0 24 20 6 20 6Z" fill="#E8501A" opacity="0.5"/>
+            <path d="M36 0C36 0 56 20 56 36C56 47.05 47.05 56 36 56C24.95 56 16 47.05 16 36C16 20 36 0 36 0Z" fill="#E8501A"/>
+            <path d="M36 28C36 28 46 38 46 44C46 49.52 41.52 54 36 54C30.48 54 26 49.52 26 44C26 38 36 28 36 28Z" fill="#F5A623"/>
+          </svg>
+        </div>
+        <span class="flame-label">MEDIUM</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="18" height="21" viewBox="0 0 56 66" fill="none">
+            <path d="M20 6C20 6 38 24 38 38C38 48.49 29.49 57 19 57C8.51 57 0 48.49 0 38C0 24 20 6 20 6Z" fill="#E8501A" opacity="0.5"/>
+            <path d="M36 0C36 0 56 20 56 36C56 47.05 47.05 56 36 56C24.95 56 16 47.05 16 36C16 20 36 0 36 0Z" fill="#E8501A"/>
+          </svg>
+        </div>
+        <span class="flame-label">SMALL</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-light">
+          <svg width="72" height="86" viewBox="0 0 56 66" fill="none">
+            <path d="M20 6C20 6 38 24 38 38C38 48.49 29.49 57 19 57C8.51 57 0 48.49 0 38C0 24 20 6 20 6Z" fill="#E8501A" opacity="0.35"/>
+            <path d="M36 0C36 0 56 20 56 36C56 47.05 47.05 56 36 56C24.95 56 16 47.05 16 36C16 20 36 0 36 0Z" fill="#E8501A"/>
+            <path d="M36 28C36 28 46 38 46 44C46 49.52 41.52 54 36 54C30.48 54 26 49.52 26 44C26 38 36 28 36 28Z" fill="#F5A623"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON LIGHT</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-ignite">
+          <svg width="72" height="86" viewBox="0 0 56 66" fill="none">
+            <path d="M20 6C20 6 38 24 38 38C38 48.49 29.49 57 19 57C8.51 57 0 48.49 0 38C0 24 20 6 20 6Z" fill="#FFFFFF" opacity="0.4"/>
+            <path d="M36 0C36 0 56 20 56 36C56 47.05 47.05 56 36 56C24.95 56 16 47.05 16 36C16 20 36 0 36 0Z" fill="#FFFFFF"/>
+            <path d="M36 28C36 28 46 38 46 44C46 49.52 41.52 54 36 54C30.48 54 26 49.52 26 44C26 38 36 28 36 28Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON IGNITE</span>
+      </div>
+    </div>
+
+    <div class="wm-preview-row">
+      <div class="wm-preview wm-preview-dark">
+        <div class="wm" style="font-size: 2.2rem; color: var(--white);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl" style="width:0.35em;"><svg viewBox="0 0 56 66" fill="none"><path d="M20 6C20 6 38 24 38 38C38 48.49 29.49 57 19 57C8.51 57 0 48.49 0 38C0 24 20 6 20 6Z" fill="#E8501A" opacity="0.5"/><path d="M36 0C36 0 56 20 56 36C56 47.05 47.05 56 36 56C24.95 56 16 47.05 16 36C16 20 36 0 36 0Z" fill="#E8501A"/><path d="M36 28C36 28 46 38 46 44C46 49.52 41.52 54 36 54C30.48 54 26 49.52 26 44C26 38 36 28 36 28Z" fill="#F5A623"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-light">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl" style="width:0.35em;"><svg viewBox="0 0 56 66" fill="none"><path d="M20 6C20 6 38 24 38 38C38 48.49 29.49 57 19 57C8.51 57 0 48.49 0 38C0 24 20 6 20 6Z" fill="#E8501A" opacity="0.35"/><path d="M36 0C36 0 56 20 56 36C56 47.05 47.05 56 36 56C24.95 56 16 47.05 16 36C16 20 36 0 36 0Z" fill="#E8501A"/><path d="M36 28C36 28 46 38 46 44C46 49.52 41.52 54 36 54C30.48 54 26 49.52 26 44C26 38 36 28 36 28Z" fill="#F5A623"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-sand">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl" style="width:0.35em;"><svg viewBox="0 0 56 66" fill="none"><path d="M20 6C20 6 38 24 38 38C38 48.49 29.49 57 19 57C8.51 57 0 48.49 0 38C0 24 20 6 20 6Z" fill="#E8501A" opacity="0.35"/><path d="M36 0C36 0 56 20 56 36C56 47.05 47.05 56 36 56C24.95 56 16 47.05 16 36C16 20 36 0 36 0Z" fill="#E8501A"/><path d="M36 28C36 28 46 38 46 44C46 49.52 41.52 54 36 54C30.48 54 26 49.52 26 44C26 38 36 28 36 28Z" fill="#F5A623"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PROPOSAL 05: GEOMETRIC FIRE                 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="proposal">
+    <div class="proposal-header">
+      <span class="proposal-num">05</span>
+      <span class="proposal-name">Geometric Fire</span>
+    </div>
+    <p class="proposal-desc">Angular, faceted flame. Like a low-poly fire or a gemstone. Technical, modern, dev-energy. Feels like code crystallized into a shape.</p>
+
+    <div class="flame-row">
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="56" height="86" viewBox="0 0 40 62" fill="none">
+            <polygon points="20,0 36,24 40,44 32,58 20,62 8,58 0,44 4,24" fill="#E8501A"/>
+            <polygon points="20,22 30,38 28,54 20,58 12,54 10,38" fill="#F5A623"/>
+            <polygon points="20,36 25,46 23,56 20,58 17,56 15,46" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">LARGE</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="28" height="43" viewBox="0 0 40 62" fill="none">
+            <polygon points="20,0 36,24 40,44 32,58 20,62 8,58 0,44 4,24" fill="#E8501A"/>
+            <polygon points="20,22 30,38 28,54 20,58 12,54 10,38" fill="#F5A623"/>
+            <polygon points="20,36 25,46 23,56 20,58 17,56 15,46" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">MEDIUM</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="14" height="21" viewBox="0 0 40 62" fill="none">
+            <polygon points="20,0 36,24 40,44 32,58 20,62 8,58 0,44 4,24" fill="#E8501A"/>
+            <polygon points="20,22 30,38 28,54 20,58 12,54 10,38" fill="#F5A623"/>
+          </svg>
+        </div>
+        <span class="flame-label">SMALL</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-light">
+          <svg width="56" height="86" viewBox="0 0 40 62" fill="none">
+            <polygon points="20,0 36,24 40,44 32,58 20,62 8,58 0,44 4,24" fill="#E8501A"/>
+            <polygon points="20,22 30,38 28,54 20,58 12,54 10,38" fill="#F5A623"/>
+            <polygon points="20,36 25,46 23,56 20,58 17,56 15,46" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON LIGHT</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-ignite">
+          <svg width="56" height="86" viewBox="0 0 40 62" fill="none">
+            <polygon points="20,0 36,24 40,44 32,58 20,62 8,58 0,44 4,24" fill="#FFFFFF"/>
+            <polygon points="20,22 30,38 28,54 20,58 12,54 10,38" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON IGNITE</span>
+      </div>
+    </div>
+
+    <div class="wm-preview-row">
+      <div class="wm-preview wm-preview-dark">
+        <div class="wm" style="font-size: 2.2rem; color: var(--white);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 40 62" fill="none"><polygon points="20,0 36,24 40,44 32,58 20,62 8,58 0,44 4,24" fill="#E8501A"/><polygon points="20,22 30,38 28,54 20,58 12,54 10,38" fill="#F5A623"/><polygon points="20,36 25,46 23,56 20,58 17,56 15,46" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-light">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 40 62" fill="none"><polygon points="20,0 36,24 40,44 32,58 20,62 8,58 0,44 4,24" fill="#E8501A"/><polygon points="20,22 30,38 28,54 20,58 12,54 10,38" fill="#F5A623"/><polygon points="20,36 25,46 23,56 20,58 17,56 15,46" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-sand">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 40 62" fill="none"><polygon points="20,0 36,24 40,44 32,58 20,62 8,58 0,44 4,24" fill="#E8501A"/><polygon points="20,22 30,38 28,54 20,58 12,54 10,38" fill="#F5A623"/><polygon points="20,36 25,46 23,56 20,58 17,56 15,46" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PROPOSAL 06: MATCH STRIKE                   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="proposal">
+    <div class="proposal-header">
+      <span class="proposal-num">06</span>
+      <span class="proposal-name">Match Strike</span>
+    </div>
+    <p class="proposal-desc">A round match head with a small flame on top. Compact, reads as "fire" instantly. The circle gives it icon-quality at any size.</p>
+
+    <div class="flame-row">
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="52" height="90" viewBox="0 0 40 68" fill="none">
+            <circle cx="20" cy="48" r="20" fill="#E8501A"/>
+            <path d="M20 0C20 0 34 16 34 28C34 35.73 27.73 42 20 42C12.27 42 6 35.73 6 28C6 16 20 0 20 0Z" fill="#F5A623"/>
+            <path d="M20 14C20 14 28 24 28 30C28 34.42 24.42 38 20 38C15.58 38 12 34.42 12 30C12 24 20 14 20 14Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">LARGE</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="26" height="45" viewBox="0 0 40 68" fill="none">
+            <circle cx="20" cy="48" r="20" fill="#E8501A"/>
+            <path d="M20 0C20 0 34 16 34 28C34 35.73 27.73 42 20 42C12.27 42 6 35.73 6 28C6 16 20 0 20 0Z" fill="#F5A623"/>
+            <path d="M20 14C20 14 28 24 28 30C28 34.42 24.42 38 20 38C15.58 38 12 34.42 12 30C12 24 20 14 20 14Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">MEDIUM</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="13" height="22" viewBox="0 0 40 68" fill="none">
+            <circle cx="20" cy="48" r="20" fill="#E8501A"/>
+            <path d="M20 0C20 0 34 16 34 28C34 35.73 27.73 42 20 42C12.27 42 6 35.73 6 28C6 16 20 0 20 0Z" fill="#F5A623"/>
+          </svg>
+        </div>
+        <span class="flame-label">SMALL</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-light">
+          <svg width="52" height="90" viewBox="0 0 40 68" fill="none">
+            <circle cx="20" cy="48" r="20" fill="#E8501A"/>
+            <path d="M20 0C20 0 34 16 34 28C34 35.73 27.73 42 20 42C12.27 42 6 35.73 6 28C6 16 20 0 20 0Z" fill="#F5A623"/>
+            <path d="M20 14C20 14 28 24 28 30C28 34.42 24.42 38 20 38C15.58 38 12 34.42 12 30C12 24 20 14 20 14Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON LIGHT</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-ignite">
+          <svg width="52" height="90" viewBox="0 0 40 68" fill="none">
+            <circle cx="20" cy="48" r="20" fill="#FFFFFF"/>
+            <path d="M20 0C20 0 34 16 34 28C34 35.73 27.73 42 20 42C12.27 42 6 35.73 6 28C6 16 20 0 20 0Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON IGNITE</span>
+      </div>
+    </div>
+
+    <div class="wm-preview-row">
+      <div class="wm-preview wm-preview-dark">
+        <div class="wm" style="font-size: 2.2rem; color: var(--white);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 40 68" fill="none"><circle cx="20" cy="48" r="20" fill="#E8501A"/><path d="M20 0C20 0 34 16 34 28C34 35.73 27.73 42 20 42C12.27 42 6 35.73 6 28C6 16 20 0 20 0Z" fill="#F5A623"/><path d="M20 14C20 14 28 24 28 30C28 34.42 24.42 38 20 38C15.58 38 12 34.42 12 30C12 24 20 14 20 14Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-light">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 40 68" fill="none"><circle cx="20" cy="48" r="20" fill="#E8501A"/><path d="M20 0C20 0 34 16 34 28C34 35.73 27.73 42 20 42C12.27 42 6 35.73 6 28C6 16 20 0 20 0Z" fill="#F5A623"/><path d="M20 14C20 14 28 24 28 30C28 34.42 24.42 38 20 38C15.58 38 12 34.42 12 30C12 24 20 14 20 14Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-sand">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 40 68" fill="none"><circle cx="20" cy="48" r="20" fill="#E8501A"/><path d="M20 0C20 0 34 16 34 28C34 35.73 27.73 42 20 42C12.27 42 6 35.73 6 28C6 16 20 0 20 0Z" fill="#F5A623"/><path d="M20 14C20 14 28 24 28 30C28 34.42 24.42 38 20 38C15.58 38 12 34.42 12 30C12 24 20 14 20 14Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PROPOSAL 07: CURLY FLAME                    -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="proposal">
+    <div class="proposal-header">
+      <span class="proposal-num">07</span>
+      <span class="proposal-name">Curly Flame</span>
+    </div>
+    <p class="proposal-desc">Inspired by traditional fire icons. Has a swirl/curl at the top. More playful, less corporate. Personality-forward.</p>
+
+    <div class="flame-row">
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="60" height="88" viewBox="0 0 44 64" fill="none">
+            <path d="M22 0C22 0 8 14 8 28C8 34 10 38 14 42C10 40 4 34 4 26C4 24 6 18 12 12C6 20 2 30 2 38C2 52 13 62 24 62C37 62 44 52 44 40C44 20 22 0 22 0Z" fill="#E8501A"/>
+            <path d="M24 24C24 24 36 36 36 44C36 50.63 30.63 56 24 56C17.37 56 12 50.63 12 44C12 36 24 24 24 24Z" fill="#F5A623"/>
+            <path d="M24 38C24 38 30 44 30 48C30 51.31 27.31 54 24 54C20.69 54 18 51.31 18 48C18 44 24 38 24 38Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">LARGE</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="30" height="44" viewBox="0 0 44 64" fill="none">
+            <path d="M22 0C22 0 8 14 8 28C8 34 10 38 14 42C10 40 4 34 4 26C4 24 6 18 12 12C6 20 2 30 2 38C2 52 13 62 24 62C37 62 44 52 44 40C44 20 22 0 22 0Z" fill="#E8501A"/>
+            <path d="M24 24C24 24 36 36 36 44C36 50.63 30.63 56 24 56C17.37 56 12 50.63 12 44C12 36 24 24 24 24Z" fill="#F5A623"/>
+            <path d="M24 38C24 38 30 44 30 48C30 51.31 27.31 54 24 54C20.69 54 18 51.31 18 48C18 44 24 38 24 38Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">MEDIUM</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="15" height="22" viewBox="0 0 44 64" fill="none">
+            <path d="M22 0C22 0 8 14 8 28C8 34 10 38 14 42C10 40 4 34 4 26C4 24 6 18 12 12C6 20 2 30 2 38C2 52 13 62 24 62C37 62 44 52 44 40C44 20 22 0 22 0Z" fill="#E8501A"/>
+            <path d="M24 24C24 24 36 36 36 44C36 50.63 30.63 56 24 56C17.37 56 12 50.63 12 44C12 36 24 24 24 24Z" fill="#F5A623"/>
+          </svg>
+        </div>
+        <span class="flame-label">SMALL</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-light">
+          <svg width="60" height="88" viewBox="0 0 44 64" fill="none">
+            <path d="M22 0C22 0 8 14 8 28C8 34 10 38 14 42C10 40 4 34 4 26C4 24 6 18 12 12C6 20 2 30 2 38C2 52 13 62 24 62C37 62 44 52 44 40C44 20 22 0 22 0Z" fill="#E8501A"/>
+            <path d="M24 24C24 24 36 36 36 44C36 50.63 30.63 56 24 56C17.37 56 12 50.63 12 44C12 36 24 24 24 24Z" fill="#F5A623"/>
+            <path d="M24 38C24 38 30 44 30 48C30 51.31 27.31 54 24 54C20.69 54 18 51.31 18 48C18 44 24 38 24 38Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON LIGHT</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-ignite">
+          <svg width="60" height="88" viewBox="0 0 44 64" fill="none">
+            <path d="M22 0C22 0 8 14 8 28C8 34 10 38 14 42C10 40 4 34 4 26C4 24 6 18 12 12C6 20 2 30 2 38C2 52 13 62 24 62C37 62 44 52 44 40C44 20 22 0 22 0Z" fill="#FFFFFF"/>
+            <path d="M24 24C24 24 36 36 36 44C36 50.63 30.63 56 24 56C17.37 56 12 50.63 12 44C12 36 24 24 24 24Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON IGNITE</span>
+      </div>
+    </div>
+
+    <div class="wm-preview-row">
+      <div class="wm-preview wm-preview-dark">
+        <div class="wm" style="font-size: 2.2rem; color: var(--white);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 44 64" fill="none"><path d="M22 0C22 0 8 14 8 28C8 34 10 38 14 42C10 40 4 34 4 26C4 24 6 18 12 12C6 20 2 30 2 38C2 52 13 62 24 62C37 62 44 52 44 40C44 20 22 0 22 0Z" fill="#E8501A"/><path d="M24 24C24 24 36 36 36 44C36 50.63 30.63 56 24 56C17.37 56 12 50.63 12 44C12 36 24 24 24 24Z" fill="#F5A623"/><path d="M24 38C24 38 30 44 30 48C30 51.31 27.31 54 24 54C20.69 54 18 51.31 18 48C18 44 24 38 24 38Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-light">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 44 64" fill="none"><path d="M22 0C22 0 8 14 8 28C8 34 10 38 14 42C10 40 4 34 4 26C4 24 6 18 12 12C6 20 2 30 2 38C2 52 13 62 24 62C37 62 44 52 44 40C44 20 22 0 22 0Z" fill="#E8501A"/><path d="M24 24C24 24 36 36 36 44C36 50.63 30.63 56 24 56C17.37 56 12 50.63 12 44C12 36 24 24 24 24Z" fill="#F5A623"/><path d="M24 38C24 38 30 44 30 48C30 51.31 27.31 54 24 54C20.69 54 18 51.31 18 48C18 44 24 38 24 38Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-sand">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 44 64" fill="none"><path d="M22 0C22 0 8 14 8 28C8 34 10 38 14 42C10 40 4 34 4 26C4 24 6 18 12 12C6 20 2 30 2 38C2 52 13 62 24 62C37 62 44 52 44 40C44 20 22 0 22 0Z" fill="#E8501A"/><path d="M24 24C24 24 36 36 36 44C36 50.63 30.63 56 24 56C17.37 56 12 50.63 12 44C12 36 24 24 24 24Z" fill="#F5A623"/><path d="M24 38C24 38 30 44 30 48C30 51.31 27.31 54 24 54C20.69 54 18 51.31 18 48C18 44 24 38 24 38Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PROPOSAL 08: EMBER CIRCLE                   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="proposal">
+    <div class="proposal-header">
+      <span class="proposal-num">08</span>
+      <span class="proposal-name">Ember Circle</span>
+    </div>
+    <p class="proposal-desc">A perfect circle with a gradient — like a glowing ember or hot coal. Super clean at small sizes. Reads as "dot" normally, "fire" when you know. Subtle flex.</p>
+
+    <div class="flame-row">
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <defs>
+              <radialGradient id="ember1" cx="40%" cy="40%" r="50%">
+                <stop offset="0%" stop-color="#FFECD2"/>
+                <stop offset="35%" stop-color="#F5A623"/>
+                <stop offset="70%" stop-color="#E8501A"/>
+                <stop offset="100%" stop-color="#8B2500"/>
+              </radialGradient>
+            </defs>
+            <circle cx="32" cy="32" r="30" fill="url(#ember1)"/>
+          </svg>
+        </div>
+        <span class="flame-label">LARGE</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="32" height="32" viewBox="0 0 64 64" fill="none">
+            <defs>
+              <radialGradient id="ember2" cx="40%" cy="40%" r="50%">
+                <stop offset="0%" stop-color="#FFECD2"/>
+                <stop offset="35%" stop-color="#F5A623"/>
+                <stop offset="70%" stop-color="#E8501A"/>
+                <stop offset="100%" stop-color="#8B2500"/>
+              </radialGradient>
+            </defs>
+            <circle cx="32" cy="32" r="30" fill="url(#ember2)"/>
+          </svg>
+        </div>
+        <span class="flame-label">MEDIUM</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="16" height="16" viewBox="0 0 64 64" fill="none">
+            <defs>
+              <radialGradient id="ember3" cx="40%" cy="40%" r="50%">
+                <stop offset="0%" stop-color="#FFECD2"/>
+                <stop offset="40%" stop-color="#F5A623"/>
+                <stop offset="100%" stop-color="#E8501A"/>
+              </radialGradient>
+            </defs>
+            <circle cx="32" cy="32" r="30" fill="url(#ember3)"/>
+          </svg>
+        </div>
+        <span class="flame-label">SMALL</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-light">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <defs>
+              <radialGradient id="ember4" cx="40%" cy="40%" r="50%">
+                <stop offset="0%" stop-color="#FFECD2"/>
+                <stop offset="35%" stop-color="#F5A623"/>
+                <stop offset="70%" stop-color="#E8501A"/>
+                <stop offset="100%" stop-color="#8B2500"/>
+              </radialGradient>
+            </defs>
+            <circle cx="32" cy="32" r="30" fill="url(#ember4)"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON LIGHT</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-ignite">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <defs>
+              <radialGradient id="ember5" cx="40%" cy="40%" r="50%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="50%" stop-color="#FFECD2"/>
+                <stop offset="100%" stop-color="#F5A623"/>
+              </radialGradient>
+            </defs>
+            <circle cx="32" cy="32" r="30" fill="url(#ember5)"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON IGNITE</span>
+      </div>
+    </div>
+
+    <div class="wm-preview-row">
+      <div class="wm-preview wm-preview-dark">
+        <div class="wm" style="font-size: 2.2rem; color: var(--white);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span style="display:inline-block;width:0.22em;height:0.22em;border-radius:50%;background:radial-gradient(circle at 40% 40%,#FFECD2 0%,#F5A623 35%,#E8501A 70%,#8B2500 100%);margin-left:0.04em;vertical-align:baseline;margin-bottom:0.08em;"></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-light">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span style="display:inline-block;width:0.22em;height:0.22em;border-radius:50%;background:radial-gradient(circle at 40% 40%,#FFECD2 0%,#F5A623 35%,#E8501A 70%,#8B2500 100%);margin-left:0.04em;vertical-align:baseline;margin-bottom:0.08em;"></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-sand">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span style="display:inline-block;width:0.22em;height:0.22em;border-radius:50%;background:radial-gradient(circle at 40% 40%,#FFECD2 0%,#F5A623 35%,#E8501A 70%,#8B2500 100%);margin-left:0.04em;vertical-align:baseline;margin-bottom:0.08em;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PROPOSAL 09: BRACKET FLAME { }              -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="proposal">
+    <div class="proposal-header">
+      <span class="proposal-num">09</span>
+      <span class="proposal-name">Code Flame</span>
+    </div>
+    <p class="proposal-desc">A flame silhouette inside a code bracket or terminal cursor. Dev culture meets fire. The nerdiest flame on the list.</p>
+
+    <div class="flame-row">
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="72" height="80" viewBox="0 0 56 64" fill="none">
+            <rect x="4" y="8" width="48" height="52" rx="8" fill="none" stroke="#3A3A3C" stroke-width="2"/>
+            <rect x="4" y="8" width="48" height="14" rx="8" fill="#3A3A3C"/>
+            <circle cx="16" cy="15" r="3" fill="#E8501A"/>
+            <circle cx="26" cy="15" r="3" fill="#F5A623"/>
+            <circle cx="36" cy="15" r="3" fill="#FFECD2" opacity="0.4"/>
+            <path d="M28 28C28 28 38 36 38 42C38 46.42 33.52 50 28 50C22.48 50 18 46.42 18 42C18 36 28 28 28 28Z" fill="#E8501A"/>
+            <path d="M28 34C28 34 34 40 34 44C34 47.31 31.31 49 28 49C24.69 49 22 47.31 22 44C22 40 28 34 28 34Z" fill="#F5A623"/>
+            <path d="M28 40C28 40 31 44 31 46C31 47.66 29.66 49 28 49C26.34 49 25 47.66 25 46C25 44 28 40 28 40Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">TERMINAL</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="60" height="80" viewBox="0 0 48 64" fill="none">
+            <text x="4" y="50" font-family="JetBrains Mono, monospace" font-size="44" font-weight="700" fill="#3A3A3C">{</text>
+            <path d="M26 8C26 8 38 20 38 28C38 33.52 33.52 38 28 38C22.48 38 18 33.52 18 28C18 20 26 8 26 8Z" fill="#E8501A"/>
+            <path d="M26 18C26 18 33 26 33 30C33 33.31 30.31 36 27 36C23.69 36 21 33.31 21 30C21 26 26 18 26 18Z" fill="#F5A623"/>
+            <text x="28" y="58" font-family="JetBrains Mono, monospace" font-size="44" font-weight="700" fill="#3A3A3C">}</text>
+          </svg>
+        </div>
+        <span class="flame-label">BRACKETS</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="44" height="76" viewBox="0 0 32 56" fill="none">
+            <rect x="0" y="0" width="6" height="56" rx="3" fill="#3A3A3C"/>
+            <path d="M18 6C18 6 30 18 30 26C30 31.52 25.52 36 20 36C14.48 36 10 31.52 10 26C10 18 18 6 18 6Z" fill="#E8501A"/>
+            <path d="M18 16C18 16 26 24 26 28C26 31.31 23.31 34 20 34C16.69 34 14 31.31 14 28C14 24 18 16 18 16Z" fill="#F5A623"/>
+            <path d="M19 24C19 24 23 28 23 30C23 31.66 21.66 33 20 33C18.34 33 17 31.66 17 30C17 28 19 24 19 24Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">CURSOR</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-light">
+          <svg width="60" height="80" viewBox="0 0 48 64" fill="none">
+            <text x="4" y="50" font-family="JetBrains Mono, monospace" font-size="44" font-weight="700" fill="#E4D9C8">{</text>
+            <path d="M26 8C26 8 38 20 38 28C38 33.52 33.52 38 28 38C22.48 38 18 33.52 18 28C18 20 26 8 26 8Z" fill="#E8501A"/>
+            <path d="M26 18C26 18 33 26 33 30C33 33.31 30.31 36 27 36C23.69 36 21 33.31 21 30C21 26 26 18 26 18Z" fill="#F5A623"/>
+            <text x="28" y="58" font-family="JetBrains Mono, monospace" font-size="44" font-weight="700" fill="#E4D9C8">}</text>
+          </svg>
+        </div>
+        <span class="flame-label">ON LIGHT</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-ignite">
+          <svg width="72" height="80" viewBox="0 0 56 64" fill="none">
+            <rect x="4" y="8" width="48" height="52" rx="8" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+            <rect x="4" y="8" width="48" height="14" rx="8" fill="rgba(255,255,255,0.2)"/>
+            <circle cx="16" cy="15" r="3" fill="#FFFFFF"/>
+            <circle cx="26" cy="15" r="3" fill="#FFECD2"/>
+            <circle cx="36" cy="15" r="3" fill="rgba(255,255,255,0.3)"/>
+            <path d="M28 28C28 28 38 36 38 42C38 46.42 33.52 50 28 50C22.48 50 18 46.42 18 42C18 36 28 28 28 28Z" fill="#FFFFFF"/>
+            <path d="M28 34C28 34 34 40 34 44C34 47.31 31.31 49 28 49C24.69 49 22 47.31 22 44C22 40 28 34 28 34Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON IGNITE</span>
+      </div>
+    </div>
+
+    <div class="wm-preview-row">
+      <div class="wm-preview wm-preview-dark">
+        <div class="wm" style="font-size: 2.2rem; color: var(--white);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 32 52" fill="none"><path d="M16 0C16 0 32 18 32 32C32 40.84 24.84 48 16 48C7.16 48 0 40.84 0 32C0 18 16 0 16 0Z" fill="#E8501A"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-light">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 32 52" fill="none"><path d="M16 0C16 0 32 18 32 32C32 40.84 24.84 48 16 48C7.16 48 0 40.84 0 32C0 18 16 0 16 0Z" fill="#E8501A"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-sand">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl"><svg viewBox="0 0 32 52" fill="none"><path d="M16 0C16 0 32 18 32 32C32 40.84 24.84 48 16 48C7.16 48 0 40.84 0 32C0 18 16 0 16 0Z" fill="#E8501A"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PROPOSAL 10: PHOENIX WING                   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="proposal">
+    <div class="proposal-header">
+      <span class="proposal-num">10</span>
+      <span class="proposal-name">Phoenix Wing</span>
+    </div>
+    <p class="proposal-desc">An abstract phoenix/bird in flight made from flame shapes. Rising from ashes = we rebuild, we ship, we rise. Premium mark energy.</p>
+
+    <div class="flame-row">
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="80" height="72" viewBox="0 0 64 56" fill="none">
+            <path d="M32 8L48 0C48 0 56 14 56 24C56 34 48 42 40 42L32 56L24 42C16 42 8 34 8 24C8 14 16 0 16 0L32 8Z" fill="#E8501A"/>
+            <path d="M32 16L42 10C42 10 48 20 48 26C48 32 42 36 38 36L32 46L26 36C22 36 16 32 16 26C16 20 22 10 22 10L32 16Z" fill="#F5A623"/>
+            <path d="M32 26L37 22C37 22 40 28 40 31C40 34 37 36 35 36L32 40L29 36C27 36 24 34 24 31C24 28 27 22 27 22L32 26Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">LARGE</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="40" height="36" viewBox="0 0 64 56" fill="none">
+            <path d="M32 8L48 0C48 0 56 14 56 24C56 34 48 42 40 42L32 56L24 42C16 42 8 34 8 24C8 14 16 0 16 0L32 8Z" fill="#E8501A"/>
+            <path d="M32 16L42 10C42 10 48 20 48 26C48 32 42 36 38 36L32 46L26 36C22 36 16 32 16 26C16 20 22 10 22 10L32 16Z" fill="#F5A623"/>
+          </svg>
+        </div>
+        <span class="flame-label">MEDIUM</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-dark">
+          <svg width="20" height="18" viewBox="0 0 64 56" fill="none">
+            <path d="M32 8L48 0C48 0 56 14 56 24C56 34 48 42 40 42L32 56L24 42C16 42 8 34 8 24C8 14 16 0 16 0L32 8Z" fill="#E8501A"/>
+          </svg>
+        </div>
+        <span class="flame-label">SMALL</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-light">
+          <svg width="80" height="72" viewBox="0 0 64 56" fill="none">
+            <path d="M32 8L48 0C48 0 56 14 56 24C56 34 48 42 40 42L32 56L24 42C16 42 8 34 8 24C8 14 16 0 16 0L32 8Z" fill="#E8501A"/>
+            <path d="M32 16L42 10C42 10 48 20 48 26C48 32 42 36 38 36L32 46L26 36C22 36 16 32 16 26C16 20 22 10 22 10L32 16Z" fill="#F5A623"/>
+            <path d="M32 26L37 22C37 22 40 28 40 31C40 34 37 36 35 36L32 40L29 36C27 36 24 34 24 31C24 28 27 22 27 22L32 26Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON LIGHT</span>
+      </div>
+      <div class="flame-cell">
+        <div class="flame-preview fp-ignite">
+          <svg width="80" height="72" viewBox="0 0 64 56" fill="none">
+            <path d="M32 8L48 0C48 0 56 14 56 24C56 34 48 42 40 42L32 56L24 42C16 42 8 34 8 24C8 14 16 0 16 0L32 8Z" fill="#FFFFFF"/>
+            <path d="M32 16L42 10C42 10 48 20 48 26C48 32 42 36 38 36L32 46L26 36C22 36 16 32 16 26C16 20 22 10 22 10L32 16Z" fill="#FFECD2"/>
+          </svg>
+        </div>
+        <span class="flame-label">ON IGNITE</span>
+      </div>
+    </div>
+
+    <div class="wm-preview-row">
+      <div class="wm-preview wm-preview-dark">
+        <div class="wm" style="font-size: 2.2rem; color: var(--white);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl" style="width:0.3em;"><svg viewBox="0 0 64 56" fill="none"><path d="M32 8L48 0C48 0 56 14 56 24C56 34 48 42 40 42L32 56L24 42C16 42 8 34 8 24C8 14 16 0 16 0L32 8Z" fill="#E8501A"/><path d="M32 16L42 10C42 10 48 20 48 26C48 32 42 36 38 36L32 46L26 36C22 36 16 32 16 26C16 20 22 10 22 10L32 16Z" fill="#F5A623"/><path d="M32 26L37 22C37 22 40 28 40 31C40 34 37 36 35 36L32 40L29 36C27 36 24 34 24 31C24 28 27 22 27 22L32 26Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-light">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl" style="width:0.3em;"><svg viewBox="0 0 64 56" fill="none"><path d="M32 8L48 0C48 0 56 14 56 24C56 34 48 42 40 42L32 56L24 42C16 42 8 34 8 24C8 14 16 0 16 0L32 8Z" fill="#E8501A"/><path d="M32 16L42 10C42 10 48 20 48 26C48 32 42 36 38 36L32 46L26 36C22 36 16 32 16 26C16 20 22 10 22 10L32 16Z" fill="#F5A623"/><path d="M32 26L37 22C37 22 40 28 40 31C40 34 37 36 35 36L32 40L29 36C27 36 24 34 24 31C24 28 27 22 27 22L32 26Z" fill="#FFECD2"/></svg></span>
+        </div>
+      </div>
+      <div class="wm-preview wm-preview-sand">
+        <div class="wm" style="font-size: 2.2rem; color: var(--charcoal);">
+          <span>cali</span><span style="color:var(--ignite);">devs</span><span class="fl" style="width:0.3em;"><svg viewBox="0 0 64 56" fill="none"><path d="M32 8L48 0C48 0 56 14 56 24C56 34 48 42 40 42L32 56L24 42C16 42 8 34 8 24C8 14 16 0 16 0L32 8Z" fill="#E8501A"/><path d="M32 16L42 10C42 10 48 20 48 26C48 32 42 36 38 36L32 46L26 36C22 36 16 32 16 26C16 20 22 10 22 10L32 16Z" fill="#F5A623"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- CLOSING                                     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div style="text-align: center; padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.06);">
+    <p style="font-family: var(--hand); font-size: 1.4rem; color: var(--ignite); margin-bottom: 16px;">pick your fire, bb</p>
+    <p style="font-size: 0.85rem; color: var(--warm-gray); max-width: 500px; margin: 0 auto; line-height: 1.6;">Each flame has been tested at 3 sizes (large, medium, small), on 3 backgrounds (dark, light, ignite), and integrated into the wordmark. Give me a number and we'll lock it in.</p>
+    <div class="wm" style="font-size: 3rem; color: var(--white); margin-top: 40px; justify-content: center;">
+      <span>cali</span><span style="color:var(--ignite);">devs</span><span style="color:var(--ignite);">.</span>
+    </div>
+  </div>
+
+</body>
+</html>

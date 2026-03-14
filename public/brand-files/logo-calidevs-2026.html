@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>calidevs — Logo Concepts by Elena 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Karla:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0C0C0E;
+      --surface: #161618;
+      --surface-2: #1E1E22;
+      --cloud: #F0EEE9;
+      --warm-white: #E8E4DF;
+      --gray: #6B6560;
+      --terracotta: #C4704B;
+      --mint: #7ECBA1;
+      --electric: #5B8DEF;
+      --violet: #9D7CD8;
+      --cacao: #2C2520;
+    }
+
+    body {
+      font-family: 'Karla', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--cloud);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Grain texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      padding: 80px 40px 20px;
+    }
+
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--cloud);
+      margin-bottom: 8px;
+    }
+
+    .page-header h1 em { color: var(--terracotta); font-style: italic; }
+
+    .page-header p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      font-weight: 300;
+    }
+
+    /* Logo Grid */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+
+    .logo-card {
+      background: var(--surface);
+      border: 1px solid rgba(240, 238, 233, 0.04);
+      border-radius: 24px;
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 360px;
+      position: relative;
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .logo-card:hover {
+      border-color: rgba(240, 238, 233, 0.08);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .logo-card.featured {
+      grid-column: span 2;
+      min-height: 420px;
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+    }
+
+    .logo-card.light {
+      background: var(--cloud);
+    }
+
+    .logo-card.terracotta-bg {
+      background: var(--terracotta);
+    }
+
+    .logo-card.cacao-bg {
+      background: var(--cacao);
+    }
+
+    /* Card label */
+    .card-label {
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    .logo-card.light .card-label { color: #999; }
+    .logo-card.terracotta-bg .card-label { color: rgba(255,255,255,0.5); }
+
+    .card-number {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: var(--gray);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .logo-card.light .card-number { color: #bbb; }
+    .logo-card.terracotta-bg .card-number { color: rgba(255,255,255,0.4); }
+
+    /* ═══════════════════════════════════
+       LOGO CONCEPT 1: Bold Minimal
+       Space Grotesk — Tech pero cálido
+    ═══════════════════════════════════ */
+    .logo-1 {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .logo-1 .mark {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--terracotta) 0%, #D4885E 100%);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-1 .mark::before {
+      content: '</>';
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .logo-1 .wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: -2px;
+      color: var(--cloud);
+    }
+
+    .logo-1 .wordmark .accent {
+      color: var(--terracotta);
+    }
+
+    /* ═══════════════════════════════════
+       LOGO CONCEPT 2: Monospace Dev
+       JetBrains Mono — Puro código
+    ═══════════════════════════════════ */
+    .logo-2 {
+      text-align: center;
+    }
+
+    .logo-2 .prompt {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--gray);
+      margin-bottom: 8px;
+    }
+
+    .logo-2 .prompt .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 16px;
+      background: var(--mint);
+      margin-left: 4px;
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .logo-2 .wordmark {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 3.2rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: var(--cloud);
+    }
+
+    .logo-2 .wordmark .dot { color: var(--mint); }
+    .logo-2 .wordmark .ext { color: var(--gray); font-weight: 300; font-size: 2rem; }
+
+    .logo-2 .tagline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--gray);
+      margin-top: 8px;
+      letter-spacing: 3px;
+    }
+
+    /* ═══════════════════════════════════
+       LOGO CONCEPT 3: Geometric Mark
+       Sora — Moderno y limpio
+    ═══════════════════════════════════ */
+    .logo-3 {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo-3 .geo-mark {
+      width: 64px;
+      height: 64px;
+      position: relative;
+    }
+
+    .logo-3 .geo-mark svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .logo-3 .text-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-3 .wordmark {
+      font-family: 'Sora', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: var(--cacao);
+      line-height: 1;
+    }
+
+    .logo-3 .sub {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    /* ═══════════════════════════════════
+       LOGO CONCEPT 4: Stacked
+       Inter — Tipografía como héroe
+    ═══════════════════════════════════ */
+    .logo-4 {
+      text-align: center;
+    }
+
+    .logo-4 .wordmark {
+      font-family: 'Inter', sans-serif;
+      font-size: 4.5rem;
+      font-weight: 900;
+      letter-spacing: -4px;
+      line-height: 0.9;
+      color: white;
+      text-transform: uppercase;
+    }
+
+    .logo-4 .wordmark .line-2 {
+      display: block;
+      font-size: 4.5rem;
+      -webkit-text-stroke: 2px white;
+      color: transparent;
+      letter-spacing: -3px;
+    }
+
+    .logo-4 .divider {
+      width: 60px;
+      height: 3px;
+      background: var(--terracotta);
+      margin: 16px auto;
+      border-radius: 2px;
+    }
+
+    .logo-4 .tagline {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      font-weight: 400;
+    }
+
+    /* ═══════════════════════════════════
+       LOGO CONCEPT 5: Bracket Logo
+       Code brackets como isotipo
+    ═══════════════════════════════════ */
+    .logo-5 {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .logo-5 .bracket {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 4rem;
+      font-weight: 300;
+      color: var(--terracotta);
+      line-height: 1;
+    }
+
+    .logo-5 .inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 8px;
+    }
+
+    .logo-5 .wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      color: var(--cloud);
+      line-height: 1;
+    }
+
+    .logo-5 .sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    /* ═══════════════════════════════════
+       LOGO CONCEPT 6: HERO — El favorito
+       Concepto principal recomendado
+    ═══════════════════════════════════ */
+    .logo-6 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .logo-6 .icon-mark {
+      width: 80px;
+      height: 80px;
+      position: relative;
+    }
+
+    .logo-6 .wordmark-wrap {
+      text-align: center;
+    }
+
+    .logo-6 .wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 4rem;
+      font-weight: 700;
+      letter-spacing: -3px;
+      color: var(--cloud);
+      line-height: 1;
+      position: relative;
+    }
+
+    .logo-6 .wordmark .dot {
+      color: var(--terracotta);
+      font-size: 4.5rem;
+    }
+
+    .logo-6 .tagline {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: 8px;
+      font-weight: 400;
+    }
+
+    /* ═══════════════════════════════════
+       CONCEPT 7: Inline horizontal
+    ═══════════════════════════════════ */
+    .logo-7 {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-7 .slash-mark {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      line-height: 1;
+      transform: skewX(-8deg);
+    }
+
+    .logo-7 .text-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-7 .wordmark {
+      font-family: 'Sora', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      color: white;
+      line-height: 1;
+    }
+
+    .logo-7 .sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 2px;
+      margin-top: 4px;
+    }
+
+    /* Variations section */
+    .variations {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 40px 20px;
+    }
+
+    .var-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .var-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--cloud);
+    }
+
+    .var-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .var-card {
+      border-radius: 16px;
+      padding: 40px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 140px;
+      border: 1px solid rgba(240,238,233,0.04);
+    }
+
+    .var-card.on-dark { background: var(--surface); }
+    .var-card.on-light { background: var(--cloud); }
+    .var-card.on-terra { background: var(--terracotta); }
+    .var-card.on-cacao { background: var(--cacao); }
+
+    .var-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+    }
+
+    .var-logo.dark { color: var(--cloud); }
+    .var-logo.light { color: var(--cacao); }
+    .var-logo.white { color: white; }
+    .var-logo .d { color: var(--terracotta); }
+    .var-logo.white .d { color: var(--cloud); }
+    .var-logo.light .d { color: var(--terracotta); }
+
+    /* Color palette section */
+    .palette-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+
+    .palette-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .palette-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--cloud);
+    }
+
+    .palette-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .color-chip {
+      text-align: center;
+    }
+
+    .chip-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      border: 2px solid rgba(240,238,233,0.06);
+    }
+
+    .chip-name {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--cloud);
+      margin-bottom: 2px;
+    }
+
+    .chip-hex {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--gray);
+    }
+
+    /* Typography section */
+    .type-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 40px 40px;
+    }
+
+    .type-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .type-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--cloud);
+    }
+
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .type-card {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid rgba(240,238,233,0.04);
+      text-align: center;
+    }
+
+    .type-sample {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      color: var(--cloud);
+    }
+
+    .type-card .font-name {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 4px;
+    }
+
+    .type-card .font-use {
+      font-size: 0.75rem;
+      color: var(--gray);
+      font-weight: 300;
+    }
+
+    /* Credits */
+    .credits {
+      text-align: center;
+      padding: 40px;
+      color: var(--gray);
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    .credits strong { color: var(--terracotta); font-weight: 500; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .logo-grid { grid-template-columns: 1fr; }
+      .logo-card.featured { grid-column: span 1; }
+      .var-grid { grid-template-columns: repeat(2, 1fr); }
+      .type-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1>calidevs — logo <em>concepts</em></h1>
+    <p>7 propuestas de identidad visual con tendencias 2026 | diseñado por Elena</p>
+  </div>
+
+  <!-- Logo Concepts Grid -->
+  <div class="logo-grid">
+
+    <!-- CONCEPT 1: Bold Minimal -->
+    <div class="logo-card">
+      <span class="card-label">concept 1 — bold minimal</span>
+      <span class="card-number">01/07</span>
+      <div class="logo-1">
+        <div class="mark"></div>
+        <div class="wordmark">cali<span class="accent">devs</span></div>
+      </div>
+    </div>
+
+    <!-- CONCEPT 2: Monospace Dev -->
+    <div class="logo-card">
+      <span class="card-label">concept 2 — terminal</span>
+      <span class="card-number">02/07</span>
+      <div class="logo-2">
+        <div class="prompt">$ cd ~/calidevs<span class="cursor"></span></div>
+        <div class="wordmark">calidevs<span class="dot">.</span><span class="ext">dev</span></div>
+        <div class="tagline">code &bull; build &bull; deploy</div>
+      </div>
+    </div>
+
+    <!-- CONCEPT 3: Geometric (Light) -->
+    <div class="logo-card light">
+      <span class="card-label">concept 3 — geometric</span>
+      <span class="card-number">03/07</span>
+      <div class="logo-3">
+        <div class="geo-mark">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- C + D merged geometric mark -->
+            <rect x="2" y="2" width="60" height="60" rx="16" fill="#C4704B"/>
+            <!-- Stylized CD lettermark -->
+            <path d="M 28 18 C 20 18, 14 24, 14 32 C 14 40, 20 46, 28 46" stroke="white" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <path d="M 34 18 L 34 46 C 42 46, 50 40, 50 32 C 50 24, 42 18, 34 18 Z" fill="white" opacity="0.95"/>
+          </svg>
+        </div>
+        <div class="text-group">
+          <div class="wordmark">calidevs</div>
+          <div class="sub">development studio</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCEPT 4: Typography Hero (Terracotta) -->
+    <div class="logo-card terracotta-bg">
+      <span class="card-label">concept 4 — type hero</span>
+      <span class="card-number">04/07</span>
+      <div class="logo-4">
+        <div class="wordmark">
+          CALI
+          <span class="line-2">DEVS</span>
+        </div>
+        <div class="divider"></div>
+        <div class="tagline">software studio</div>
+      </div>
+    </div>
+
+    <!-- CONCEPT 5: Bracket -->
+    <div class="logo-card">
+      <span class="card-label">concept 5 — brackets</span>
+      <span class="card-number">05/07</span>
+      <div class="logo-5">
+        <span class="bracket">{</span>
+        <div class="inner">
+          <div class="wordmark">calidevs</div>
+          <div class="sub">software &bull; hosting &bull; cloud</div>
+        </div>
+        <span class="bracket">}</span>
+      </div>
+    </div>
+
+    <!-- CONCEPT 7: Slash -->
+    <div class="logo-card cacao-bg">
+      <span class="card-label">concept 6 — slash</span>
+      <span class="card-number">06/07</span>
+      <div class="logo-7">
+        <div class="slash-mark">//</div>
+        <div class="text-block">
+          <div class="wordmark">calidevs</div>
+          <div class="sub">// we build the future</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCEPT 6: HERO — Featured -->
+    <div class="logo-card featured">
+      <span class="card-label">concept 7 — hero (recomendado)</span>
+      <span class="card-number">07/07</span>
+      <div class="logo-6">
+        <div class="icon-mark">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Abstract C made of code brackets -->
+            <circle cx="40" cy="40" r="38" stroke="#C4704B" stroke-width="2.5" opacity="0.2"/>
+            <path d="M 52 22 L 36 22 C 26 22, 18 30, 18 40 C 18 50, 26 58, 36 58 L 52 58" stroke="#C4704B" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <!-- Inner dot -->
+            <circle cx="40" cy="40" r="5" fill="#C4704B"/>
+            <!-- Code slash accent -->
+            <line x1="44" y1="32" x2="36" y2="48" stroke="#F0EEE9" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="wordmark-wrap">
+          <div class="wordmark">calidevs<span class="dot">.</span></div>
+          <div class="tagline">code &bull; create &bull; conquer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Variations on backgrounds -->
+  <div class="variations">
+    <div class="var-header">
+      <h2>variaciones de fondo</h2>
+    </div>
+    <div class="var-grid">
+      <div class="var-card on-dark">
+        <span class="var-logo dark">cali<span class="d">devs</span><span class="d">.</span></span>
+      </div>
+      <div class="var-card on-light">
+        <span class="var-logo light">cali<span class="d">devs</span><span class="d">.</span></span>
+      </div>
+      <div class="var-card on-terra">
+        <span class="var-logo white">cali<span class="d">devs</span><span class="d">.</span></span>
+      </div>
+      <div class="var-card on-cacao">
+        <span class="var-logo white">cali<span class="d">devs</span><span class="d">.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Brand Palette -->
+  <div class="palette-section">
+    <div class="palette-header">
+      <h2>paleta de marca</h2>
+    </div>
+    <div class="palette-row">
+      <div class="color-chip">
+        <div class="chip-circle" style="background: #C4704B;"></div>
+        <div class="chip-name">Terracotta</div>
+        <div class="chip-hex">#C4704B</div>
+      </div>
+      <div class="color-chip">
+        <div class="chip-circle" style="background: #0C0C0E; border-color: rgba(240,238,233,0.15);"></div>
+        <div class="chip-name">Void</div>
+        <div class="chip-hex">#0C0C0E</div>
+      </div>
+      <div class="color-chip">
+        <div class="chip-circle" style="background: #F0EEE9;"></div>
+        <div class="chip-name">Cloud</div>
+        <div class="chip-hex">#F0EEE9</div>
+      </div>
+      <div class="color-chip">
+        <div class="chip-circle" style="background: #2C2520;"></div>
+        <div class="chip-name">Cacao</div>
+        <div class="chip-hex">#2C2520</div>
+      </div>
+      <div class="color-chip">
+        <div class="chip-circle" style="background: #7ECBA1;"></div>
+        <div class="chip-name">Mint</div>
+        <div class="chip-hex">#7ECBA1</div>
+      </div>
+      <div class="color-chip">
+        <div class="chip-circle" style="background: #6B6560;"></div>
+        <div class="chip-name">Warm Gray</div>
+        <div class="chip-hex">#6B6560</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Typography -->
+  <div class="type-section">
+    <div class="type-header">
+      <h2>tipografía de marca</h2>
+    </div>
+    <div class="type-grid">
+      <div class="type-card">
+        <div class="type-sample" style="font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-1px;">Aa</div>
+        <div class="font-name">Space Grotesk</div>
+        <div class="font-use">Logotipo + headings</div>
+      </div>
+      <div class="type-card">
+        <div class="type-sample" style="font-family:'JetBrains Mono',monospace; font-weight:500;">Aa</div>
+        <div class="font-name">JetBrains Mono</div>
+        <div class="font-use">Código + detalles técnicos</div>
+      </div>
+      <div class="type-card">
+        <div class="type-sample" style="font-family:'Karla',sans-serif; font-weight:400;">Aa</div>
+        <div class="font-name">Karla</div>
+        <div class="font-use">Body text + UI general</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Credits -->
+  <div class="credits">
+    diseñado por <strong>Elena</strong> — tendencias 2026 · Space Grotesk + JetBrains Mono + Karla · Pantone Cloud Dancer · Bold Minimalism · Perfectly Imperfect
+  </div>
+
+</body>
+</html>
