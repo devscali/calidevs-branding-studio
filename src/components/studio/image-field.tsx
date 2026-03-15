@@ -56,9 +56,10 @@ export function ImageField({ value, onChange, accept, label, onBrowseLibrary }: 
       <div>
         <label className="mb-1 block text-sm font-medium text-muted">{label}</label>
         <div className="relative rounded-lg border border-border overflow-hidden bg-surface">
-          <img src={value} alt="Uploaded" className="w-full h-32 object-cover" />
+          <img src={value} alt={`${label} preview`} className="w-full h-32 object-cover" />
           <button
             onClick={() => onChange('')}
+            aria-label={`Remove ${label}`}
             className="absolute top-2 right-2 rounded-full bg-charcoal/80 p-1 text-white hover:bg-ignite transition-colors"
           >
             <X size={14} />
@@ -80,11 +81,15 @@ export function ImageField({ value, onChange, accept, label, onBrowseLibrary }: 
     <div>
       <label className="mb-1 block text-sm font-medium text-muted">{label}</label>
       <div
+        role="button"
+        tabIndex={0}
+        aria-label={`Upload ${label}`}
         onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
         onClick={() => inputRef.current?.click()}
-        className={`flex flex-col items-center justify-center rounded-lg border-2 border-dashed px-4 py-6 cursor-pointer transition-colors ${
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inputRef.current?.click(); } }}
+        className={`flex flex-col items-center justify-center rounded-lg border-2 border-dashed px-4 py-6 cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-ignite focus:ring-offset-2 focus:ring-offset-background ${
           dragOver
             ? 'border-ignite bg-ignite/5'
             : 'border-border hover:border-ignite/40 bg-surface'
@@ -111,6 +116,7 @@ export function ImageField({ value, onChange, accept, label, onBrowseLibrary }: 
           type="file"
           accept={accept || '.psd,.ai,.svg,.png,.jpg,.jpeg'}
           onChange={handleInputChange}
+          aria-label={`Choose file for ${label}`}
           className="hidden"
         />
       </div>

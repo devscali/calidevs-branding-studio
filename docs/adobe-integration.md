@@ -284,3 +284,108 @@ src/components/studio/
 | .idml | InDesign XML | 50MB | ZIP: detect structure |
 | .aep | After Effects | 50MB | Binary: project info |
 | .json | Lottie | 10MB | JSON: parse dimensions + data |
+
+---
+
+## UX/UI Improvements (Elena Audit)
+
+### Toast Notification System
+Replaced all native `alert()` calls with a custom toast system.
+
+| Component | File |
+|-----------|------|
+| ToastProvider + useToast hook | `src/components/ui/toast.tsx` |
+| App-level provider wrapper | `src/components/providers.tsx` |
+| Layout integration | `src/app/layout.tsx` |
+
+**Toast types:** success (green), error (red), warning (amber), info (ignite)
+**Features:** Auto-dismiss 4s, slide-in animation, `aria-live="polite"`, dismiss button
+
+### Accessibility Fixes (WCAG 2.1 AA)
+
+| Fix | File | Details |
+|-----|------|---------|
+| Dropzone keyboard support | `image-field.tsx` | `role="button"`, `tabIndex={0}`, Enter/Space activation, visible focus ring |
+| ARIA labels on actions | `image-field.tsx` | Remove button, file input, upload dropzone |
+| Modal focus trap | `asset-picker-modal.tsx` | Tab cycling, Escape to close, click-outside close |
+| Modal ARIA attributes | `asset-picker-modal.tsx` | `role="dialog"`, `aria-modal`, `aria-label` |
+| Auto-focus search | `asset-picker-modal.tsx` | Focus search input on modal open |
+| Descriptive alt text | `image-field.tsx` | `"{label} preview"` instead of generic "Uploaded" |
+
+### Files Modified
+- `src/components/studio/template-editor.tsx` — toast on export success/error
+- `src/components/studio/presentation-editor.tsx` — toast on export success/error
+- `src/app/assets/page.tsx` — toast on upload success/error
+- `src/components/studio/image-field.tsx` — ARIA labels + keyboard nav
+- `src/components/studio/asset-picker-modal.tsx` — focus trap + ARIA
+
+---
+
+## After Effects Integration (Local Scripting)
+
+### Connection Method
+After Effects is controlled via **ExtendScript** executed through `osascript`:
+```bash
+osascript -e 'tell application "After Effects" to DoScriptFile "/path/to/script.jsx"'
+```
+
+**Requirement:** After Effects > Settings > Scripting & Expressions > "Allow Scripts to Write Files and Access Network" must be enabled.
+
+### What's Been Created
+
+#### 1. calidevs Logo Reveal (Custom)
+- **Comp:** "CALIDEVS — Elena Reveal"
+- **Size:** 1080x1920 (story/reel)
+- **Duration:** 20 seconds, 30fps
+- **Layers:** 68
+- **5-Act Structure:**
+  1. **The Awakening** (0-5s): 12 floating particles, scan line, pulse rings
+  2. **Glitch Reveal** (4-6s): Logo "cali" + "devs" glitch entrance, flash frames, interference bars
+  3. **The Flame** (5.5-8s): Multi-layer flame icon, energy burst, 8 radial rays
+  4. **The Message** (8-14s): Headline fade-up, subtitle, accent bars, ambient grid dots
+  5. **The Brand Close** (14-20s): Branding, tagline "Built with fire. Shipped with code."
+
+#### 2. Vertical Fire Wall Logo (Envato Template)
+- **Template:** `vertical-fire-wall-logo-after-effects-2026-02-06-02-50-46-utc`
+- **Comp:** "Vertical Fire Wall Logo"
+- **Size:** 2304x4096 (hi-res vertical)
+- **Duration:** 6.4 seconds, 30fps
+- **Features:** Real fire footage, mesh warp, displacement map, fractal noise textures
+- **Customizations applied:**
+  - Logo Placeholder 01: calidevs flame icon (3-layer teardrop)
+  - Logo Placeholder 02: "cali" (white) + "devs" (ignite) wordmark + flame dot
+  - Text Placeholder: "WE BUILD WITH FIRE" (tracking 200)
+
+### ExtendScript Patterns Used
+```javascript
+// Create comp
+app.project.items.addComp(name, width, height, pixelAspect, duration, fps);
+
+// Add shape layers
+var layer = comp.layers.addShape();
+var grp = layer.property("Contents").addProperty("ADBE Vector Group");
+grp.property("Contents").addProperty("ADBE Vector Shape - Rect");
+grp.property("Contents").addProperty("ADBE Vector Graphic - Fill");
+
+// Add text
+var txt = comp.layers.addText("content");
+var doc = txt.property("Source Text").value;
+doc.fontSize = 120;
+doc.fillColor = [1, 1, 1];
+txt.property("Source Text").setValue(doc);
+
+// Keyframe animation
+prop.setValueAtTime(time, value);
+
+// File I/O for verification
+var f = new File("/tmp/output.txt");
+f.open("w"); f.writeln("data"); f.close();
+```
+
+### Motion Design Trends Applied (2025-2026)
+- **Spring physics easing** (overshoot + settle)
+- **Glitch aesthetic** (rapid position shifts, interference bars, flash frames)
+- **Staggered cascade** (2-4 frame offsets between elements)
+- **Dark premium palette** (charcoal #161618, ignite #E8501A, amber #F5A623)
+- **Particle systems** (floating dots with drift + opacity fade)
+- **Energy burst** (expanding rings + radial rays from focal point)

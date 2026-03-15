@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, DM_Serif_Display, JetBrains_Mono } from 'next/font/google';
 import { NavBar } from '@/components/layout/nav-bar';
+import { Providers } from '@/components/providers';
 import './globals.css';
 
 const jakarta = Plus_Jakarta_Sans({
@@ -34,8 +35,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${jakarta.variable} ${dmSerif.variable} ${jetbrains.variable} font-sans antialiased`}>
-        <NavBar />
-        <main className="pt-16">{children}</main>
+        <Providers>
+          <NavBar />
+          <main className="pt-16">{children}</main>
+        </Providers>
       </body>
     </html>
   );

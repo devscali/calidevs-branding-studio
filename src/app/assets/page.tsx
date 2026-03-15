@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { Upload, Search, Trash2, Download, Copy, X } from 'lucide-react';
+import { useToast } from '@/components/ui/toast';
 
 interface Asset {
   id: number;
@@ -44,6 +45,7 @@ const FORMAT_COLORS: Record<string, string> = {
 };
 
 export default function AssetsPage() {
+  const { error: showError, success: showSuccess } = useToast();
   const [assetList, setAssetList] = useState<Asset[]>([]);
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
@@ -74,9 +76,10 @@ export default function AssetsPage() {
       const res = await fetch('/api/assets/upload', { method: 'POST', body: formData });
       if (res.ok) {
         fetchAssets();
+        showSuccess('Asset uploaded successfully');
       } else {
         const data = await res.json();
-        alert(data.error || 'Upload failed');
+        showError(data.error || 'Upload failed');
       }
     } finally {
       setUploading(false);

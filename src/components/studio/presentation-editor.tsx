@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import { EXPORT_SIZES, type ExportSize } from '@/lib/brand/constants';
 import type { TemplateConfig, TemplateValues, TemplateModule } from '@/lib/templates/types';
 import { ImageField } from './image-field';
+import { useToast } from '@/components/ui/toast';
 
 interface PresentationEditorProps {
   template: TemplateModule;
@@ -16,6 +17,7 @@ interface PresentationEditorProps {
  */
 export function PresentationEditor({ template }: PresentationEditorProps) {
   const { config, PreviewTemplate } = template;
+  const { error: showError, success: showSuccess } = useToast();
   const pages = config.pages || [config.fields];
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -58,9 +60,10 @@ export function PresentationEditor({ template }: PresentationEditorProps) {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+      showSuccess(`Exported ${format.toUpperCase()} successfully`);
     } catch (err) {
       console.error('Export error:', err);
-      alert(err instanceof Error ? err.message : 'Export failed');
+      showError(err instanceof Error ? err.message : 'Export failed');
     } finally {
       setExporting(null);
     }
