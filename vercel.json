@@ -4,6 +4,14 @@
     "src/app/api/export/**/*.ts": {
       "memory": 1024,
       "maxDuration": 30
+    },
+    "src/app/api/assets/**/*.ts": {
+      "memory": 1024,
+      "maxDuration": 60
+    },
+    "src/app/api/templates/**/*.ts": {
+      "memory": 1024,
+      "maxDuration": 30
     }
   }
 }

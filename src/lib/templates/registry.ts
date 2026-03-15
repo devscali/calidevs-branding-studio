@@ -1,4 +1,4 @@
-import type { TemplateModule } from './types';
+import type { TemplateModule, TemplateCategory } from './types';
 
 // Terminal templates
 import * as insightPost from './terminal/insight-post';
@@ -9,6 +9,7 @@ import * as packageJson from './terminal/package-json';
 
 // Social templates
 import * as quote from './social/quote';
+import * as quoteBg from './social/quote-bg';
 import * as service from './social/service';
 import * as stat from './social/stat';
 import * as milestone from './social/milestone';
@@ -20,6 +21,15 @@ import * as releaseNotes from './dev/release-notes';
 import * as statusPage from './dev/status-page';
 import * as codeReview from './dev/code-review';
 import * as deployCard from './dev/deploy-card';
+
+// Presentation templates
+import * as pitchDeck from './presentation/pitch-deck';
+import * as brandGuidelines from './presentation/brand-guidelines';
+import * as caseStudy from './presentation/case-study';
+
+// Motion templates
+import * as logoAnimation from './motion/logo-animation';
+import * as socialAnimation from './motion/social-animation';
 
 // Campaign templates
 import * as brandHook from './campaign/brand-hook';
@@ -37,6 +47,7 @@ export const TEMPLATES: Record<string, TemplateModule> = {
   'terminal-cli-card': cliCard,
   'terminal-package': packageJson,
   'social-quote': quote,
+  'social-quote-bg': quoteBg,
   'social-service': service,
   'social-stat': stat,
   'social-milestone': milestone,
@@ -46,6 +57,11 @@ export const TEMPLATES: Record<string, TemplateModule> = {
   'dev-status': statusPage,
   'dev-review': codeReview,
   'dev-deploy-card': deployCard,
+  'presentation-pitch-deck': pitchDeck,
+  'presentation-brand-guidelines': brandGuidelines,
+  'presentation-case-study': caseStudy,
+  'motion-logo-animation': logoAnimation,
+  'motion-social-animation': socialAnimation,
   'campaign-brand-hook': brandHook,
   'campaign-package-base': packageBase,
   'campaign-manifesto': manifesto,
@@ -55,16 +71,31 @@ export const TEMPLATES: Record<string, TemplateModule> = {
   'campaign-cta': ctaClosing,
 };
 
+// Dynamic templates loaded from database
+const dynamicTemplates: Record<string, TemplateModule> = {};
+
+export function registerDynamicTemplate(id: string, module: TemplateModule) {
+  dynamicTemplates[id] = module;
+}
+
 export const TEMPLATE_LIST = Object.values(TEMPLATES).map((t) => t.config);
 
-export const CATEGORIES = ['all', 'terminal', 'social', 'dev', 'campaign'] as const;
+export function getAllTemplates() {
+  return [
+    ...TEMPLATE_LIST,
+    ...Object.values(dynamicTemplates).map((t) => t.config),
+  ];
+}
+
+export const CATEGORIES = ['all', 'terminal', 'social', 'dev', 'campaign', 'custom', 'presentation', 'motion'] as const;
 export type Category = (typeof CATEGORIES)[number];
 
 export function getTemplatesByCategory(category: Category) {
-  if (category === 'all') return TEMPLATE_LIST;
-  return TEMPLATE_LIST.filter((t) => t.category === category);
+  const all = getAllTemplates();
+  if (category === 'all') return all;
+  return all.filter((t) => t.category === category);
 }
 
 export function getTemplate(id: string): TemplateModule | undefined {
-  return TEMPLATES[id];
+  return TEMPLATES[id] ?? dynamicTemplates[id];
 }

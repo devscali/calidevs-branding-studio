@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Terminal, Share2, Wrench, Megaphone } from 'lucide-react';
+import { Terminal, Share2, Wrench, Megaphone, Puzzle, Presentation, Clapperboard, FileUp } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { TEMPLATE_LIST, CATEGORIES, getTemplatesByCategory, type Category } from '@/lib/templates/registry';
 
@@ -12,6 +12,9 @@ const CATEGORY_LABELS: Record<Category, string> = {
   social: 'Social',
   dev: 'Dev',
   campaign: 'Campaign',
+  custom: 'Custom',
+  presentation: 'Presentation',
+  motion: 'Motion',
 };
 
 const CATEGORY_ICONS: Record<string, LucideIcon> = {
@@ -19,6 +22,9 @@ const CATEGORY_ICONS: Record<string, LucideIcon> = {
   social: Share2,
   dev: Wrench,
   campaign: Megaphone,
+  custom: Puzzle,
+  presentation: Presentation,
+  motion: Clapperboard,
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -26,6 +32,9 @@ const CATEGORY_COLORS: Record<string, string> = {
   social: 'text-amber',
   dev: 'text-muted',
   campaign: 'text-[#a78bfa]',
+  custom: 'text-[#5dcaa5]',
+  presentation: 'text-[#85b7eb]',
+  motion: 'text-[#f0997b]',
 };
 
 export default function StudioPage() {
@@ -58,6 +67,20 @@ export default function StudioPage() {
           </button>
         ))}
       </div>
+
+      {/* Import CTA */}
+      <Link
+        href="/studio/import"
+        className="mb-6 flex items-center gap-3 rounded-2xl border border-dashed border-border p-4 transition-all hover:border-ignite/40 hover:bg-ignite/5"
+      >
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-ignite/10 text-ignite">
+          <FileUp size={20} strokeWidth={1.5} />
+        </div>
+        <div>
+          <p className="text-sm font-bold">Import PSD/AI</p>
+          <p className="text-xs text-muted">Convert a Photoshop or Illustrator file into an editable template</p>
+        </div>
+      </Link>
 
       {/* Template grid */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

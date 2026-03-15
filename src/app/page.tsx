@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Images, Wand2 } from 'lucide-react';
+import { Images, Wand2, FolderOpen } from 'lucide-react';
 import { Wordmark } from '@/lib/brand/wordmark';
 import { BoldBlaze } from '@/lib/brand/flame';
 import { TAGLINE } from '@/lib/brand/constants';
@@ -15,7 +15,7 @@ export default function Home() {
       </div>
 
       {/* Cards */}
-      <div className="mt-16 grid w-full max-w-2xl gap-6 sm:grid-cols-2">
+      <div className="mt-16 grid w-full max-w-3xl gap-6 sm:grid-cols-3">
         <Link
           href="/gallery"
           className="group rounded-2xl border border-border bg-surface p-8 transition-all hover:border-ignite/40 hover:shadow-lg hover:shadow-ignite/5"
@@ -45,6 +45,22 @@ export default function Home() {
           </p>
           <span className="mt-4 inline-block text-sm text-amber opacity-0 transition-opacity group-hover:opacity-100">
             Create →
+          </span>
+        </Link>
+
+        <Link
+          href="/assets"
+          className="group rounded-2xl border border-border bg-surface p-8 transition-all hover:border-[#a78bfa]/40 hover:shadow-lg hover:shadow-[#a78bfa]/5"
+        >
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#a78bfa]/10 text-[#a78bfa] transition-colors group-hover:bg-[#a78bfa]/20">
+            <FolderOpen size={24} strokeWidth={1.5} />
+          </div>
+          <h2 className="mb-2 text-xl font-bold">Assets</h2>
+          <p className="text-sm text-muted">
+            Upload and manage PSD, AI, InDesign, and image assets for your brand.
+          </p>
+          <span className="mt-4 inline-block text-sm text-[#a78bfa] opacity-0 transition-opacity group-hover:opacity-100">
+            Manage →
           </span>
         </Link>
       </div>

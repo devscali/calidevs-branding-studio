@@ -7,6 +7,7 @@ import { Wordmark } from '@/lib/brand/wordmark';
 const NAV_LINKS = [
   { href: '/gallery', label: 'Gallery' },
   { href: '/studio', label: 'Studio' },
+  { href: '/assets', label: 'Assets' },
 ];
 
 export function NavBar() {

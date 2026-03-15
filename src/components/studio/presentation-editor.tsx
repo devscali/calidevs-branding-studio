@@ -5,18 +5,23 @@ import { EXPORT_SIZES, type ExportSize } from '@/lib/brand/constants';
 import type { TemplateConfig, TemplateValues, TemplateModule } from '@/lib/templates/types';
 import { ImageField } from './image-field';
 
-interface TemplateEditorProps {
+interface PresentationEditorProps {
   template: TemplateModule;
 }
 
-export function TemplateEditor({ template }: TemplateEditorProps) {
+/**
+ * Multi-page presentation editor.
+ * Shows slide navigator + per-slide fields.
+ * For now, exports single pages (multi-page PDF is handled by the API).
+ */
+export function PresentationEditor({ template }: PresentationEditorProps) {
   const { config, PreviewTemplate } = template;
+  const pages = config.pages || [config.fields];
+  const [currentPage, setCurrentPage] = useState(0);
 
   const [values, setValues] = useState<TemplateValues>(() => {
     const initial: TemplateValues = {};
-    config.fields.forEach((f) => {
-      initial[f.name] = f.default;
-    });
+    config.fields.forEach((f) => { initial[f.name] = f.default; });
     return initial;
   });
 
@@ -48,8 +53,7 @@ export function TemplateEditor({ template }: TemplateEditorProps) {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      const ext = format === 'jpeg' ? 'jpg' : format;
-      a.download = `${config.id}-${size}.${ext}`;
+      a.download = `${config.id}-${size}.${format === 'jpeg' ? 'jpg' : format}`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -62,24 +66,81 @@ export function TemplateEditor({ template }: TemplateEditorProps) {
     }
   }, [config.id, values, size]);
 
+  const currentFields = pages[currentPage] || config.fields;
+  const baseClasses = 'w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted/50 focus:border-ignite focus:outline-none focus:ring-1 focus:ring-ignite';
+
   return (
     <div className="flex min-h-[calc(100vh-7rem)] flex-col lg:flex-row">
-      {/* Left panel: Form */}
+      {/* Left panel */}
       <div className="w-full border-b border-border p-6 lg:w-96 lg:border-b-0 lg:border-r lg:overflow-y-auto">
-        <h2 className="mb-6 text-lg font-bold">{config.name}</h2>
+        <h2 className="mb-4 text-lg font-bold">{config.name}</h2>
 
+        {/* Slide navigator */}
+        {pages.length > 1 && (
+          <div className="mb-6">
+            <label className="mb-2 block text-sm font-medium text-muted">Slides</label>
+            <div className="flex gap-2 overflow-x-auto pb-2">
+              {pages.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentPage(i)}
+                  className={`flex-shrink-0 rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors ${
+                    currentPage === i
+                      ? 'border-ignite bg-ignite/10 text-ignite'
+                      : 'border-border text-muted hover:text-foreground'
+                  }`}
+                >
+                  Slide {i + 1}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Fields for current slide */}
         <div className="space-y-4">
-          {config.fields.map((field) => (
-            <FieldInput
-              key={field.name}
-              field={field}
-              value={values[field.name] || ''}
-              onChange={(v) => updateField(field.name, v)}
-            />
+          {currentFields.map((field) => (
+            <div key={field.name}>
+              {field.type === 'image' ? (
+                <ImageField
+                  label={field.label}
+                  value={values[field.name] || ''}
+                  onChange={(v) => updateField(field.name, v)}
+                  accept={field.accept}
+                />
+              ) : (
+                <div>
+                  <label className="mb-1 block text-sm font-medium text-muted">{field.label}</label>
+                  {field.type === 'textarea' ? (
+                    <textarea
+                      value={values[field.name] || ''}
+                      onChange={(e) => updateField(field.name, e.target.value)}
+                      placeholder={field.placeholder}
+                      rows={3}
+                      className={baseClasses}
+                    />
+                  ) : field.type === 'select' ? (
+                    <select value={values[field.name] || ''} onChange={(e) => updateField(field.name, e.target.value)} className={baseClasses}>
+                      {field.options?.map((opt) => (
+                        <option key={opt} value={opt}>{opt}</option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      type="text"
+                      value={values[field.name] || ''}
+                      onChange={(e) => updateField(field.name, e.target.value)}
+                      placeholder={field.placeholder}
+                      className={baseClasses}
+                    />
+                  )}
+                </div>
+              )}
+            </div>
           ))}
         </div>
 
-        {/* Size selector */}
+        {/* Size selector + export */}
         <div className="mt-8">
           <label className="mb-2 block text-sm font-medium text-muted">Export Size</label>
           <select
@@ -88,14 +149,11 @@ export function TemplateEditor({ template }: TemplateEditorProps) {
             className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground"
           >
             {Object.entries(EXPORT_SIZES).map(([key, s]) => (
-              <option key={key} value={key}>
-                {s.label} ({s.width}x{s.height})
-              </option>
+              <option key={key} value={key}>{s.label} ({s.width}x{s.height})</option>
             ))}
           </select>
         </div>
 
-        {/* Export buttons */}
         <div className="mt-6 grid grid-cols-2 gap-2">
           {(['jpeg', 'png', 'svg', 'pdf'] as const).map((format) => (
             <button
@@ -121,61 +179,10 @@ export function TemplateEditor({ template }: TemplateEditorProps) {
           </div>
           <p className="mt-3 text-center text-xs text-muted">
             {EXPORT_SIZES[size].label} — {EXPORT_SIZES[size].width}x{EXPORT_SIZES[size].height}
+            {pages.length > 1 && ` — Slide ${currentPage + 1}/${pages.length}`}
           </p>
         </div>
       </div>
-    </div>
-  );
-}
-
-function FieldInput({
-  field,
-  value,
-  onChange,
-}: {
-  field: TemplateConfig['fields'][number];
-  value: string;
-  onChange: (v: string) => void;
-}) {
-  const baseClasses = 'w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted/50 focus:border-ignite focus:outline-none focus:ring-1 focus:ring-ignite';
-
-  if (field.type === 'image') {
-    return (
-      <ImageField
-        label={field.label}
-        value={value}
-        onChange={onChange}
-        accept={field.accept}
-      />
-    );
-  }
-
-  return (
-    <div>
-      <label className="mb-1 block text-sm font-medium text-muted">{field.label}</label>
-      {field.type === 'textarea' ? (
-        <textarea
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder={field.placeholder}
-          rows={3}
-          className={baseClasses}
-        />
-      ) : field.type === 'select' ? (
-        <select value={value} onChange={(e) => onChange(e.target.value)} className={baseClasses}>
-          {field.options?.map((opt) => (
-            <option key={opt} value={opt}>{opt}</option>
-          ))}
-        </select>
-      ) : (
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder={field.placeholder}
-          className={baseClasses}
-        />
-      )}
     </div>
   );
 }
