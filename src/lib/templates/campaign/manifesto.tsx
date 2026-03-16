@@ -29,11 +29,11 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 60 * scale }}>
         <span style={{ display: 'flex', alignItems: 'flex-end', fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 22 * scale }}>
           <span style={{ color: COLORS.white }}>cali</span>
-          <span style={{ color: CANADA_COLORS.violet }}>devs</span>
+          <span style={{ color: COLORS.ignite }}>devs</span>
           <svg width={8 * scale} height={10 * scale} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 * scale }}>
-            <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
-            <path d={FLAME_PATHS.inner} fill={COLORS.white} />
-            <path d={FLAME_PATHS.core} fill={COLORS.white} />
+            <path d={FLAME_PATHS.outer} fill={COLORS.ignite} />
+            <path d={FLAME_PATHS.inner} fill={COLORS.amber} />
+            <path d={FLAME_PATHS.core} fill={COLORS.sand} />
           </svg>
         </span>
         <span style={{ fontSize: 14 * scale, color: '#666666', fontFamily: 'JetBrains Mono', letterSpacing: '0.15em' }}>
@@ -49,7 +49,7 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
         <span style={{ fontSize: 32 * scale, color: COLORS.white, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.5 }}>
           {v('block2', 2)}
         </span>
-        <span style={{ fontSize: 38 * scale, fontWeight: 700, color: CANADA_COLORS.violet, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.4 }}>
+        <span style={{ fontSize: 38 * scale, fontWeight: 700, color: COLORS.ignite, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.4 }}>
           {v('accent1', 3)}
         </span>
         <span style={{ fontSize: 32 * scale, color: COLORS.white, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.5 }}>
@@ -62,7 +62,7 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
           <span style={{ fontSize: 32 * scale, fontWeight: 700, color: COLORS.white, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.4 }}>
             {v('closer', 6)}
           </span>
-          <span style={{ fontSize: 38 * scale, fontWeight: 700, color: CANADA_COLORS.violet, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.4 }}>
+          <span style={{ fontSize: 38 * scale, fontWeight: 700, color: COLORS.ignite, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.4 }}>
             {v('accent2', 7)}
           </span>
         </div>
@@ -93,11 +93,11 @@ export function PreviewTemplate({ values }: { values: TemplateValues }) {
       <div className="flex items-center justify-between mb-4">
         <span className="inline-flex items-end font-bold text-sm">
           <span className="text-white">cali</span>
-          <span style={{ color: CANADA_COLORS.violet }}>devs</span>
+          <span style={{ color: COLORS.ignite }}>devs</span>
           <svg width={5} height={7} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 }}>
-            <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
-            <path d={FLAME_PATHS.inner} fill={COLORS.white} />
-            <path d={FLAME_PATHS.core} fill={COLORS.white} />
+            <path d={FLAME_PATHS.outer} fill={COLORS.ignite} />
+            <path d={FLAME_PATHS.inner} fill={COLORS.amber} />
+            <path d={FLAME_PATHS.core} fill={COLORS.sand} />
           </svg>
         </span>
         <span className="text-[10px] font-mono tracking-widest" style={{ color: '#666666' }}>{v('eyebrow', 0)}</span>
@@ -105,12 +105,12 @@ export function PreviewTemplate({ values }: { values: TemplateValues }) {
       <div className="flex-1 flex flex-col justify-center gap-3">
         <span className="text-sm text-white leading-relaxed">{v('block1', 1)}</span>
         <span className="text-sm text-white leading-relaxed">{v('block2', 2)}</span>
-        <span className="text-base font-bold leading-relaxed" style={{ color: CANADA_COLORS.violet }}>{v('accent1', 3)}</span>
+        <span className="text-base font-bold leading-relaxed" style={{ color: COLORS.ignite }}>{v('accent1', 3)}</span>
         <span className="text-sm text-white leading-relaxed">{v('block3', 4)}</span>
         <span className="text-sm text-white leading-relaxed">{v('block4', 5)}</span>
         <div className="flex flex-col mt-2">
           <span className="text-sm font-bold text-white">{v('closer', 6)}</span>
-          <span className="text-base font-bold" style={{ color: CANADA_COLORS.violet }}>{v('accent2', 7)}</span>
+          <span className="text-base font-bold" style={{ color: COLORS.ignite }}>{v('accent2', 7)}</span>
         </div>
       </div>
       <div className="flex items-center justify-between mt-4">

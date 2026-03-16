@@ -25,20 +25,20 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
       {/* Large flame centered */}
       <div style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
         <svg width={80 * scale} height={100 * scale} viewBox={FLAME_PATHS.viewBox} style={{ marginBottom: 60 * scale }}>
-          <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
-          <path d={FLAME_PATHS.inner} fill="#c4b5fd" />
-          <path d={FLAME_PATHS.core} fill={COLORS.white} />
+          <path d={FLAME_PATHS.outer} fill={COLORS.ignite} />
+          <path d={FLAME_PATHS.inner} fill={COLORS.amber} />
+          <path d={FLAME_PATHS.core} fill={COLORS.sand} />
         </svg>
 
         {/* Wordmark large */}
         <div style={{ display: 'flex', alignItems: 'flex-end', marginBottom: 60 * scale }}>
           <span style={{ display: 'flex', alignItems: 'flex-end', fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 48 * scale }}>
             <span style={{ color: COLORS.white }}>cali</span>
-            <span style={{ color: CANADA_COLORS.violet }}>devs</span>
+            <span style={{ color: COLORS.ignite }}>devs</span>
             <svg width={8 * scale} height={10 * scale} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 * scale }}>
-              <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
-              <path d={FLAME_PATHS.inner} fill={COLORS.white} />
-              <path d={FLAME_PATHS.core} fill={COLORS.white} />
+              <path d={FLAME_PATHS.outer} fill={COLORS.ignite} />
+              <path d={FLAME_PATHS.inner} fill={COLORS.amber} />
+              <path d={FLAME_PATHS.core} fill={COLORS.sand} />
             </svg>
           </span>
         </div>
@@ -51,14 +51,14 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
         </span>
 
         {/* Price badge */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#1a1a1c', borderRadius: 16 * scale, padding: `${16 * scale}px ${40 * scale}px`, marginBottom: 32 * scale, border: `1px solid ${CANADA_COLORS.violet}33` }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#1a1a1c', borderRadius: 16 * scale, padding: `${16 * scale}px ${40 * scale}px`, marginBottom: 32 * scale, border: `1px solid ${COLORS.ignite}33` }}>
           <span style={{ fontSize: 28 * scale, fontWeight: 700, color: COLORS.white, fontFamily: 'Plus Jakarta Sans' }}>
             {v('price', 2)}
           </span>
         </div>
 
         {/* CTA button */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: CANADA_COLORS.violet, borderRadius: 16 * scale, padding: `${20 * scale}px ${60 * scale}px` }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.ignite, borderRadius: 16 * scale, padding: `${20 * scale}px ${60 * scale}px` }}>
           <span style={{ fontSize: 24 * scale, fontWeight: 700, color: COLORS.white, fontFamily: 'Plus Jakarta Sans' }}>
             {v('cta', 3)}
           </span>
@@ -82,26 +82,26 @@ export function PreviewTemplate({ values }: { values: TemplateValues }) {
     <div className="flex flex-col w-full aspect-auto h-full rounded-lg items-center justify-center" style={{ backgroundColor: CANADA_COLORS.bg, padding: '2rem 1.5rem' }}>
       <div className="flex-1 flex flex-col justify-center items-center text-center">
         <svg width={40} height={50} viewBox={FLAME_PATHS.viewBox} className="mb-4">
-          <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
-          <path d={FLAME_PATHS.inner} fill="#c4b5fd" />
-          <path d={FLAME_PATHS.core} fill={COLORS.white} />
+          <path d={FLAME_PATHS.outer} fill={COLORS.ignite} />
+          <path d={FLAME_PATHS.inner} fill={COLORS.amber} />
+          <path d={FLAME_PATHS.core} fill={COLORS.sand} />
         </svg>
         {/* Large wordmark */}
         <span className="inline-flex items-end font-bold text-2xl mb-6">
           <span className="text-white">cali</span>
-          <span style={{ color: CANADA_COLORS.violet }}>devs</span>
+          <span style={{ color: COLORS.ignite }}>devs</span>
           <svg width={5} height={7} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 }}>
-            <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
-            <path d={FLAME_PATHS.inner} fill={COLORS.white} />
-            <path d={FLAME_PATHS.core} fill={COLORS.white} />
+            <path d={FLAME_PATHS.outer} fill={COLORS.ignite} />
+            <path d={FLAME_PATHS.inner} fill={COLORS.amber} />
+            <path d={FLAME_PATHS.core} fill={COLORS.sand} />
           </svg>
         </span>
         <span className="text-lg font-bold text-white leading-snug mb-1">{v('headline', 0)}</span>
         <span className="text-[10px] mb-4" style={{ color: '#999999' }}>{v('sub', 1)}</span>
-        <div className="px-4 py-1.5 rounded-lg mb-2 border" style={{ backgroundColor: '#1a1a1c', borderColor: `${CANADA_COLORS.violet}33` }}>
+        <div className="px-4 py-1.5 rounded-lg mb-2 border" style={{ backgroundColor: '#1a1a1c', borderColor: `${COLORS.ignite}33` }}>
           <span className="text-sm font-bold text-white">{v('price', 2)}</span>
         </div>
-        <div className="w-full py-2 rounded-lg text-xs font-bold text-white" style={{ backgroundColor: CANADA_COLORS.violet }}>
+        <div className="w-full py-2 rounded-lg text-xs font-bold text-white" style={{ backgroundColor: COLORS.ignite }}>
           {v('cta', 3)}
         </div>
       </div>

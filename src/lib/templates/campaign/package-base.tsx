@@ -37,14 +37,14 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 60 * scale }}>
         <span style={{ display: 'flex', alignItems: 'flex-end', fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 22 * scale }}>
           <span style={{ color: COLORS.white }}>cali</span>
-          <span style={{ color: CANADA_COLORS.violet }}>devs</span>
+          <span style={{ color: COLORS.ignite }}>devs</span>
           <svg width={8 * scale} height={10 * scale} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 * scale }}>
-            <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
-            <path d={FLAME_PATHS.inner} fill={COLORS.white} />
-            <path d={FLAME_PATHS.core} fill={COLORS.white} />
+            <path d={FLAME_PATHS.outer} fill={COLORS.ignite} />
+            <path d={FLAME_PATHS.inner} fill={COLORS.amber} />
+            <path d={FLAME_PATHS.core} fill={COLORS.sand} />
           </svg>
         </span>
-        <span style={{ fontSize: 14 * scale, color: CANADA_COLORS.violet, fontFamily: 'JetBrains Mono', letterSpacing: '0.05em' }}>
+        <span style={{ fontSize: 14 * scale, color: COLORS.ignite, fontFamily: 'JetBrains Mono', letterSpacing: '0.05em' }}>
           {values.eyebrow || config.fields[0].default}
         </span>
       </div>
@@ -106,14 +106,14 @@ export function PreviewTemplate({ values }: { values: TemplateValues }) {
       <div className="flex items-center justify-between mb-6">
         <span className="inline-flex items-end font-bold text-sm">
           <span className="text-white">cali</span>
-          <span style={{ color: CANADA_COLORS.violet }}>devs</span>
+          <span style={{ color: COLORS.ignite }}>devs</span>
           <svg width={5} height={7} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 }}>
-            <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
-            <path d={FLAME_PATHS.inner} fill={COLORS.white} />
-            <path d={FLAME_PATHS.core} fill={COLORS.white} />
+            <path d={FLAME_PATHS.outer} fill={COLORS.ignite} />
+            <path d={FLAME_PATHS.inner} fill={COLORS.amber} />
+            <path d={FLAME_PATHS.core} fill={COLORS.sand} />
           </svg>
         </span>
-        <span className="text-[8px] font-mono" style={{ color: CANADA_COLORS.violet }}>
+        <span className="text-[8px] font-mono" style={{ color: COLORS.ignite }}>
           {values.eyebrow || config.fields[0].default}
         </span>
       </div>

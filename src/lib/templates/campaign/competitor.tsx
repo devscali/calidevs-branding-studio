@@ -31,11 +31,11 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 60 * scale }}>
         <span style={{ display: 'flex', alignItems: 'flex-end', fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 22 * scale }}>
           <span style={{ color: COLORS.white }}>cali</span>
-          <span style={{ color: CANADA_COLORS.violet }}>devs</span>
+          <span style={{ color: COLORS.ignite }}>devs</span>
           <svg width={8 * scale} height={10 * scale} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 * scale }}>
-            <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
-            <path d={FLAME_PATHS.inner} fill={COLORS.white} />
-            <path d={FLAME_PATHS.core} fill={COLORS.white} />
+            <path d={FLAME_PATHS.outer} fill={COLORS.ignite} />
+            <path d={FLAME_PATHS.inner} fill={COLORS.amber} />
+            <path d={FLAME_PATHS.core} fill={COLORS.sand} />
           </svg>
         </span>
       </div>
@@ -45,7 +45,7 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
         <span style={{ fontSize: 44 * scale, fontWeight: 700, color: COLORS.white, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.3, marginBottom: 16 * scale }}>
           {v('hook', 0)}
         </span>
-        <span style={{ fontSize: 44 * scale, fontWeight: 700, color: CANADA_COLORS.violet, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.3, marginBottom: 60 * scale }}>
+        <span style={{ fontSize: 44 * scale, fontWeight: 700, color: COLORS.ignite, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.3, marginBottom: 60 * scale }}>
           {v('response', 1)}
         </span>
 
@@ -53,7 +53,7 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 * scale, marginBottom: 60 * scale }}>
           {benefits.map((b, i) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 * scale }}>
-              <span style={{ color: CANADA_COLORS.violet, fontSize: 24 * scale, fontFamily: 'JetBrains Mono' }}>+</span>
+              <span style={{ color: COLORS.ignite, fontSize: 24 * scale, fontFamily: 'JetBrains Mono' }}>+</span>
               <span style={{ color: COLORS.white, fontSize: 24 * scale, fontFamily: 'Plus Jakarta Sans' }}>{b}</span>
             </div>
           ))}
@@ -67,7 +67,7 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
 
       {/* CTA + Footer */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 * scale }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: CANADA_COLORS.violet, borderRadius: 12 * scale, padding: `${16 * scale}px ${32 * scale}px` }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.ignite, borderRadius: 12 * scale, padding: `${16 * scale}px ${32 * scale}px` }}>
           <span style={{ fontSize: 22 * scale, fontWeight: 700, color: COLORS.white, fontFamily: 'Plus Jakarta Sans' }}>
             {v('cta', 8)}
           </span>
@@ -97,21 +97,21 @@ export function PreviewTemplate({ values }: { values: TemplateValues }) {
       <div className="flex items-baseline mb-4">
         <span className="inline-flex items-end font-bold text-sm">
           <span className="text-white">cali</span>
-          <span style={{ color: CANADA_COLORS.violet }}>devs</span>
+          <span style={{ color: COLORS.ignite }}>devs</span>
           <svg width={5} height={7} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 }}>
-            <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
-            <path d={FLAME_PATHS.inner} fill={COLORS.white} />
-            <path d={FLAME_PATHS.core} fill={COLORS.white} />
+            <path d={FLAME_PATHS.outer} fill={COLORS.ignite} />
+            <path d={FLAME_PATHS.inner} fill={COLORS.amber} />
+            <path d={FLAME_PATHS.core} fill={COLORS.sand} />
           </svg>
         </span>
       </div>
       <div className="flex-1 flex flex-col justify-center">
         <span className="text-lg font-bold text-white leading-snug">{v('hook', 0)}</span>
-        <span className="text-lg font-bold leading-snug mb-4" style={{ color: CANADA_COLORS.violet }}>{v('response', 1)}</span>
+        <span className="text-lg font-bold leading-snug mb-4" style={{ color: COLORS.ignite }}>{v('response', 1)}</span>
         <div className="flex flex-col gap-1.5 mb-4">
           {benefits.map((b, i) => (
             <div key={i} className="flex items-center gap-1.5">
-              <span className="text-xs font-mono" style={{ color: CANADA_COLORS.violet }}>+</span>
+              <span className="text-xs font-mono" style={{ color: COLORS.ignite }}>+</span>
               <span className="text-xs text-white">{b}</span>
             </div>
           ))}
@@ -119,7 +119,7 @@ export function PreviewTemplate({ values }: { values: TemplateValues }) {
         <span className="text-sm font-bold text-white">{v('price', 7)}</span>
       </div>
       <div className="flex flex-col items-center gap-2 mt-4">
-        <div className="w-full text-center py-2 rounded-lg text-xs font-bold text-white" style={{ backgroundColor: CANADA_COLORS.violet }}>
+        <div className="w-full text-center py-2 rounded-lg text-xs font-bold text-white" style={{ backgroundColor: COLORS.ignite }}>
           {v('cta', 8)}
         </div>
         <span className="inline-flex items-end font-bold text-[10px]">

@@ -28,11 +28,11 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 40 * scale }}>
         <span style={{ display: 'flex', alignItems: 'flex-end', fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 22 * scale }}>
           <span style={{ color: COLORS.white }}>cali</span>
-          <span style={{ color: CANADA_COLORS.violet }}>devs</span>
+          <span style={{ color: COLORS.ignite }}>devs</span>
           <svg width={8 * scale} height={10 * scale} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 * scale }}>
-            <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
-            <path d={FLAME_PATHS.inner} fill={COLORS.white} />
-            <path d={FLAME_PATHS.core} fill={COLORS.white} />
+            <path d={FLAME_PATHS.outer} fill={COLORS.ignite} />
+            <path d={FLAME_PATHS.inner} fill={COLORS.amber} />
+            <path d={FLAME_PATHS.core} fill={COLORS.sand} />
           </svg>
         </span>
       </div>
@@ -41,9 +41,9 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
       <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 4 * scale, marginBottom: 60 * scale }}>
           <span style={{ fontSize: 72 * scale, fontWeight: 700, color: COLORS.white, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.1 }}>{v('line1', 0)}</span>
-          <span style={{ fontSize: 72 * scale, fontWeight: 700, color: CANADA_COLORS.violet, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.1 }}>{v('line2', 1)}</span>
+          <span style={{ fontSize: 72 * scale, fontWeight: 700, color: COLORS.ignite, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.1 }}>{v('line2', 1)}</span>
           <span style={{ fontSize: 72 * scale, fontWeight: 700, color: COLORS.white, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.1 }}>{v('line3', 2)}</span>
-          <span style={{ fontSize: 72 * scale, fontWeight: 700, color: CANADA_COLORS.violet, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.1 }}>{v('line4', 3)}</span>
+          <span style={{ fontSize: 72 * scale, fontWeight: 700, color: COLORS.ignite, fontFamily: 'Plus Jakarta Sans', lineHeight: 1.1 }}>{v('line4', 3)}</span>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 * scale }}>
@@ -78,19 +78,19 @@ export function PreviewTemplate({ values }: { values: TemplateValues }) {
       {/* Wordmark top */}
       <div className="flex items-end mb-6">
         <span className="font-bold text-sm text-white">cali</span>
-        <span className="font-bold text-sm" style={{ color: CANADA_COLORS.violet }}>devs</span>
+        <span className="font-bold text-sm" style={{ color: COLORS.ignite }}>devs</span>
         <svg width={5} height={7} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 }}>
-          <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
-          <path d={FLAME_PATHS.inner} fill={COLORS.white} />
-          <path d={FLAME_PATHS.core} fill={COLORS.white} />
+          <path d={FLAME_PATHS.outer} fill={COLORS.ignite} />
+          <path d={FLAME_PATHS.inner} fill={COLORS.amber} />
+          <path d={FLAME_PATHS.core} fill={COLORS.sand} />
         </svg>
       </div>
       <div className="flex-1 flex flex-col justify-center">
         <div className="flex flex-col mb-6">
           <span className="text-2xl font-bold text-white leading-tight">{v('line1', 0)}</span>
-          <span className="text-2xl font-bold leading-tight" style={{ color: CANADA_COLORS.violet }}>{v('line2', 1)}</span>
+          <span className="text-2xl font-bold leading-tight" style={{ color: COLORS.ignite }}>{v('line2', 1)}</span>
           <span className="text-2xl font-bold text-white leading-tight">{v('line3', 2)}</span>
-          <span className="text-2xl font-bold leading-tight" style={{ color: CANADA_COLORS.violet }}>{v('line4', 3)}</span>
+          <span className="text-2xl font-bold leading-tight" style={{ color: COLORS.ignite }}>{v('line4', 3)}</span>
         </div>
         <div className="flex flex-col gap-0.5">
           <span className="text-xs" style={{ color: '#999999' }}>{v('sub1', 4)}</span>
