@@ -29,17 +29,14 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
     <div style={{ display: 'flex', flexDirection: 'column', width, height, backgroundColor: CANADA_COLORS.bg, padding: `${120 * scale}px ${80 * scale}px` }}>
       {/* Wordmark top */}
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 60 * scale }}>
-        <span style={{ display: 'flex', alignItems: 'baseline', fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 22 * scale }}>
+        <span style={{ display: 'flex', alignItems: 'flex-end', fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 22 * scale }}>
           <span style={{ color: COLORS.white }}>cali</span>
-          <span style={{ color: CANADA_COLORS.violet }}>de</span>
-          <span style={{ display: 'flex', alignItems: 'baseline' }}>
-            <svg width={14 * scale} height={17 * scale} viewBox={FLAME_PATHS.viewBox}>
-              <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
-              <path d={FLAME_PATHS.inner} fill={COLORS.white} />
-              <path d={FLAME_PATHS.core} fill={COLORS.white} />
-            </svg>
-          </span>
-          <span style={{ color: CANADA_COLORS.violet }}>s</span>
+          <span style={{ color: CANADA_COLORS.violet }}>devs</span>
+          <svg width={8 * scale} height={10 * scale} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 * scale }}>
+            <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
+            <path d={FLAME_PATHS.inner} fill={COLORS.white} />
+            <path d={FLAME_PATHS.core} fill={COLORS.white} />
+          </svg>
         </span>
       </div>
 
@@ -76,17 +73,14 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
           </span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <span style={{ display: 'flex', alignItems: 'baseline', fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 18 * scale }}>
+          <span style={{ display: 'flex', alignItems: 'flex-end', fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 18 * scale }}>
             <span style={{ color: COLORS.white }}>cali</span>
-            <span style={{ color: COLORS.ignite }}>de</span>
-            <span style={{ display: 'flex', alignItems: 'baseline' }}>
-              <svg width={11 * scale} height={14 * scale} viewBox={FLAME_PATHS.viewBox}>
-                <path d={FLAME_PATHS.outer} fill={COLORS.ignite} />
-                <path d={FLAME_PATHS.inner} fill={COLORS.amber} />
-                <path d={FLAME_PATHS.core} fill={COLORS.sand} />
-              </svg>
-            </span>
-            <span style={{ color: COLORS.ignite }}>s</span>
+            <span style={{ color: COLORS.ignite }}>devs</span>
+            <svg width={6 * scale} height={8 * scale} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 * scale }}>
+              <path d={FLAME_PATHS.outer} fill={COLORS.ignite} />
+              <path d={FLAME_PATHS.inner} fill={COLORS.amber} />
+              <path d={FLAME_PATHS.core} fill={COLORS.sand} />
+            </svg>
           </span>
         </div>
       </div>
@@ -101,15 +95,14 @@ export function PreviewTemplate({ values }: { values: TemplateValues }) {
   return (
     <div className="flex flex-col w-full aspect-auto h-full rounded-lg" style={{ backgroundColor: CANADA_COLORS.bg, padding: '2rem 1.5rem' }}>
       <div className="flex items-baseline mb-4">
-        <span className="inline-flex items-baseline font-bold text-sm">
+        <span className="inline-flex items-end font-bold text-sm">
           <span className="text-white">cali</span>
-          <span style={{ color: CANADA_COLORS.violet }}>de</span>
-          <svg width={9} height={11} viewBox={FLAME_PATHS.viewBox}>
+          <span style={{ color: CANADA_COLORS.violet }}>devs</span>
+          <svg width={5} height={7} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 }}>
             <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
             <path d={FLAME_PATHS.inner} fill={COLORS.white} />
             <path d={FLAME_PATHS.core} fill={COLORS.white} />
           </svg>
-          <span style={{ color: CANADA_COLORS.violet }}>s</span>
         </span>
       </div>
       <div className="flex-1 flex flex-col justify-center">
@@ -129,15 +122,14 @@ export function PreviewTemplate({ values }: { values: TemplateValues }) {
         <div className="w-full text-center py-2 rounded-lg text-xs font-bold text-white" style={{ backgroundColor: CANADA_COLORS.violet }}>
           {v('cta', 8)}
         </div>
-        <span className="inline-flex items-baseline font-bold text-[10px]">
+        <span className="inline-flex items-end font-bold text-[10px]">
           <span className="text-white">cali</span>
-          <span style={{ color: COLORS.ignite }}>de</span>
-          <svg width={6} height={8} viewBox={FLAME_PATHS.viewBox}>
+          <span style={{ color: COLORS.ignite }}>devs</span>
+          <svg width={3} height={4} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 }}>
             <path d={FLAME_PATHS.outer} fill={COLORS.ignite} />
             <path d={FLAME_PATHS.inner} fill={COLORS.amber} />
             <path d={FLAME_PATHS.core} fill={COLORS.sand} />
           </svg>
-          <span style={{ color: COLORS.ignite }}>s</span>
         </span>
       </div>
     </div>

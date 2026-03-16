@@ -31,18 +31,15 @@ export function SatoriTemplate({ values, width, height }: { values: TemplateValu
         </svg>
 
         {/* Wordmark large */}
-        <div style={{ display: 'flex', alignItems: 'baseline', marginBottom: 60 * scale }}>
-          <span style={{ display: 'flex', alignItems: 'baseline', fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 48 * scale }}>
+        <div style={{ display: 'flex', alignItems: 'flex-end', marginBottom: 60 * scale }}>
+          <span style={{ display: 'flex', alignItems: 'flex-end', fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 48 * scale }}>
             <span style={{ color: COLORS.white }}>cali</span>
-            <span style={{ color: CANADA_COLORS.violet }}>de</span>
-            <span style={{ display: 'flex', alignItems: 'baseline' }}>
-              <svg width={30 * scale} height={38 * scale} viewBox={FLAME_PATHS.viewBox}>
-                <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
-                <path d={FLAME_PATHS.inner} fill={COLORS.white} />
-                <path d={FLAME_PATHS.core} fill={COLORS.white} />
-              </svg>
-            </span>
-            <span style={{ color: CANADA_COLORS.violet }}>s</span>
+            <span style={{ color: CANADA_COLORS.violet }}>devs</span>
+            <svg width={8 * scale} height={10 * scale} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 * scale }}>
+              <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
+              <path d={FLAME_PATHS.inner} fill={COLORS.white} />
+              <path d={FLAME_PATHS.core} fill={COLORS.white} />
+            </svg>
           </span>
         </div>
 
@@ -90,15 +87,14 @@ export function PreviewTemplate({ values }: { values: TemplateValues }) {
           <path d={FLAME_PATHS.core} fill={COLORS.white} />
         </svg>
         {/* Large wordmark */}
-        <span className="inline-flex items-baseline font-bold text-2xl mb-6">
+        <span className="inline-flex items-end font-bold text-2xl mb-6">
           <span className="text-white">cali</span>
-          <span style={{ color: CANADA_COLORS.violet }}>de</span>
-          <svg width={16} height={20} viewBox={FLAME_PATHS.viewBox}>
+          <span style={{ color: CANADA_COLORS.violet }}>devs</span>
+          <svg width={5} height={7} viewBox={FLAME_PATHS.viewBox} style={{ marginLeft: 1 }}>
             <path d={FLAME_PATHS.outer} fill={CANADA_COLORS.violet} />
             <path d={FLAME_PATHS.inner} fill={COLORS.white} />
             <path d={FLAME_PATHS.core} fill={COLORS.white} />
           </svg>
-          <span style={{ color: CANADA_COLORS.violet }}>s</span>
         </span>
         <span className="text-lg font-bold text-white leading-snug mb-1">{v('headline', 0)}</span>
         <span className="text-[10px] mb-4" style={{ color: '#999999' }}>{v('sub', 1)}</span>

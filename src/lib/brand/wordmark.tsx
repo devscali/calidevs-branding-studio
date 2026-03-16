@@ -9,13 +9,13 @@ interface WordmarkProps {
 
 export function Wordmark({ variant = 'on-dark', size = 32, className = '' }: WordmarkProps) {
   const colors = WORDMARK_COLORS[variant];
-  const flameSize = size * 0.75;
+  const flameSize = size * 0.55;
 
   return (
-    <span className={`inline-flex items-baseline font-sans font-bold ${className}`} style={{ fontSize: size }}>
+    <span className={`inline-flex items-end font-sans font-bold ${className}`} style={{ fontSize: size }}>
       <span style={{ color: colors.cali }}>cali</span>
-      <span style={{ color: colors.devs }}>de</span>
-      <span style={{ display: 'inline-flex', alignItems: 'baseline' }}>
+      <span style={{ color: colors.devs }}>devs</span>
+      <span style={{ display: 'inline-flex', alignItems: 'flex-end', marginLeft: size * 0.02 }}>
         <BoldBlaze
           size={flameSize}
           outerColor={colors.flame.outer}
@@ -24,7 +24,6 @@ export function Wordmark({ variant = 'on-dark', size = 32, className = '' }: Wor
           className="relative"
         />
       </span>
-      <span style={{ color: colors.devs }}>s</span>
     </span>
   );
 }
@@ -32,13 +31,13 @@ export function Wordmark({ variant = 'on-dark', size = 32, className = '' }: Wor
 // Satori-compatible wordmark (no className, uses style objects only)
 export function WordmarkSatori({ variant = 'on-dark', size = 32 }: Omit<WordmarkProps, 'className'>) {
   const colors = WORDMARK_COLORS[variant];
-  const flameSize = size * 0.75;
+  const flameSize = size * 0.55;
 
   return (
-    <span style={{ display: 'flex', alignItems: 'baseline', fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: size }}>
+    <span style={{ display: 'flex', alignItems: 'flex-end', fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: size }}>
       <span style={{ color: colors.cali }}>cali</span>
-      <span style={{ color: colors.devs }}>de</span>
-      <span style={{ display: 'flex', alignItems: 'baseline' }}>
+      <span style={{ color: colors.devs }}>devs</span>
+      <span style={{ display: 'flex', alignItems: 'flex-end', marginLeft: size * 0.02 }}>
         <BoldBlazeSatori
           size={flameSize}
           outerColor={colors.flame.outer}
@@ -46,7 +45,6 @@ export function WordmarkSatori({ variant = 'on-dark', size = 32 }: Omit<Wordmark
           coreColor={colors.flame.core}
         />
       </span>
-      <span style={{ color: colors.devs }}>s</span>
     </span>
   );
 }
