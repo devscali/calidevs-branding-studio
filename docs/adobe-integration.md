@@ -287,6 +287,124 @@ src/components/studio/
 
 ---
 
+## AI Content Generator (Claude Haiku)
+
+### Overview
+One-click AI content generation for any template. Uses Claude Haiku to fill text fields with contextually relevant content based on the template's category, name, and field labels.
+
+### How It Works
+```
+User clicks "Generate with AI" in template editor sidebar
+        ↓
+POST /api/ai/generate  (Zod-validated request)
+        ↓
+src/lib/ai/generate-content.ts  →  Claude Haiku API
+        ↓
+Returns JSON { fieldName: generatedValue }
+        ↓
+Merges into template editor state → live preview updates
+```
+
+### Files
+
+| File | Purpose |
+|------|---------|
+| `src/lib/ai/generate-content.ts` | Claude API wrapper, prompt engineering, response parsing |
+| `src/app/api/ai/generate/route.ts` | POST endpoint with Zod validation |
+| `src/components/studio/template-editor.tsx` | UI: Sparkles button, optional prompt input, loading state |
+
+### API Route
+
+**`POST /api/ai/generate`**
+
+Request:
+```json
+{
+  "templateName": "Canada — CTA Slide",
+  "templateCategory": "campaign",
+  "templateDescription": "Closing slide with CTA",
+  "fields": [
+    { "name": "headline", "label": "Headline", "type": "text", "placeholder": "Main question" },
+    { "name": "cta", "label": "CTA Button", "type": "text" }
+  ],
+  "currentValues": { "headline": "Ready to scale?", "cta": "Book a Call" },
+  "userPrompt": "focus on AI services for restaurants"
+}
+```
+
+Response:
+```json
+{
+  "values": {
+    "headline": "Your restaurant needs AI. Yesterday.",
+    "cta": "Get Your Free AI Audit"
+  }
+}
+```
+
+### Category Tone Map
+
+| Category | Tone |
+|----------|------|
+| social | Casual, engaging, hashtag-friendly |
+| terminal | Technical, witty, developer humor |
+| dev | Professional but approachable |
+| campaign | Bold, aspirational, brand-forward |
+| presentation | Authoritative, structured, clear |
+| motion | Dynamic, action-oriented, brief |
+| custom | Versatile, professional |
+
+### Smart Features
+- **Field filtering**: Only generates for text/textarea/select fields — skips image and color
+- **Select validation**: If Claude returns a value not in options, falls back to first option
+- **JSON recovery**: If response isn't clean JSON, extracts `{...}` via regex
+- **Optional prompt**: Users can add context ("focus on restaurants", "make it funny")
+- **Loading state**: Sparkles icon animates, export buttons disabled during generation
+
+### Environment
+- **Model**: `claude-haiku-4-5-20241022` (fast, cheap — ideal for short-form content)
+- **Max tokens**: 1024
+- **Env var**: `ANTHROPIC_API_KEY` (set in Vercel Production env vars, encrypted)
+- **SDK**: `@anthropic-ai/sdk`
+
+### Security
+- API key is server-side only — never exposed to the browser
+- Key stored encrypted in Vercel Environment Variables (Production)
+- The `/api/ai/generate` route runs on the server; client only sends template data
+- No user credentials needed — anyone with access to `branding.calidevs.com` can use AI generation
+
+---
+
+## Brand Identity Fix Log
+
+### Wordmark Correction (March 2026)
+**Problem**: The flame SVG was replacing the letter "v" mid-word: `cali` + `de` + 🔥 + `s`
+**Fix**: Full word "calidevs" + tiny flame as decorative dot at the end
+**Scope**: `wordmark.tsx` (Wordmark + WordmarkSatori components) + all 7 campaign templates
+
+### Flame Proportions
+- Flame size ratio: `size * 0.38` (was 0.55 — too large at small sizes)
+- Alignment: `items-end` with `marginBottom: size * 0.02` for baseline symmetry
+- Margin-left: `size * 0.04` for breathing room after "s"
+
+### Campaign Color Alignment (March 2026)
+**Problem**: Canada campaign templates used violet (`#a78bfa`) for accents — not aligned with brand
+**Fix**: Replaced all violet references with brand colors
+
+| Element | Before | After |
+|---------|--------|-------|
+| Accent text | `CANADA_COLORS.violet` | `COLORS.ignite` (#E8501A) |
+| Flame outer | violet | `COLORS.ignite` |
+| Flame inner | `#c4b5fd` / white | `COLORS.amber` (#F5A623) |
+| Flame core | white | `COLORS.sand` (#FFECD2) |
+| CTA buttons | violet | `COLORS.ignite` |
+| Borders | `violet + 33` opacity | `ignite + 33` opacity |
+| Background | `CANADA_COLORS.bg` (#0d0d0d) | Unchanged (dark is fine) |
+
+**Files modified**: All 7 in `src/lib/templates/campaign/`
+
+---
+
 ## UX/UI Improvements (Elena Audit)
 
 ### Toast Notification System
