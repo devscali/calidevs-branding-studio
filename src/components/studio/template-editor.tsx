@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { Sparkles } from 'lucide-react';
 import { EXPORT_SIZES, type ExportSize } from '@/lib/brand/constants';
 import type { TemplateConfig, TemplateValues, TemplateModule } from '@/lib/templates/types';
 import { ImageField } from './image-field';
@@ -24,6 +25,9 @@ export function TemplateEditor({ template }: TemplateEditorProps) {
 
   const [size, setSize] = useState<ExportSize>(config.defaultSize as ExportSize);
   const [exporting, setExporting] = useState<string | null>(null);
+  const [generating, setGenerating] = useState(false);
+  const [aiPrompt, setAiPrompt] = useState('');
+  const [showAiPanel, setShowAiPanel] = useState(false);
 
   const updateField = useCallback((name: string, value: string) => {
     setValues((prev) => ({ ...prev, [name]: value }));
@@ -65,6 +69,55 @@ export function TemplateEditor({ template }: TemplateEditorProps) {
     }
   }, [config.id, values, size]);
 
+  const handleAiGenerate = useCallback(async () => {
+    setGenerating(true);
+    try {
+      const textFields = config.fields
+        .filter(f => f.type !== 'image' && f.type !== 'color')
+        .map(f => ({
+          name: f.name,
+          label: f.label,
+          type: f.type,
+          placeholder: f.placeholder,
+          options: f.options,
+        }));
+
+      if (textFields.length === 0) {
+        showError('No text fields to generate');
+        return;
+      }
+
+      const res = await fetch('/api/ai/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          templateName: config.name,
+          templateCategory: config.category,
+          templateDescription: config.description,
+          fields: textFields,
+          currentValues: values,
+          userPrompt: aiPrompt || undefined,
+        }),
+      });
+
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.error || 'Generation failed');
+      }
+
+      const { values: generated } = await res.json();
+      setValues(prev => ({ ...prev, ...generated }));
+      showSuccess('Content generated');
+      setAiPrompt('');
+      setShowAiPanel(false);
+    } catch (err) {
+      console.error('AI generation error:', err);
+      showError(err instanceof Error ? err.message : 'Generation failed');
+    } finally {
+      setGenerating(false);
+    }
+  }, [config, values, aiPrompt]);
+
   return (
     <div className="flex min-h-[calc(100vh-7rem)] flex-col lg:flex-row">
       {/* Left panel: Form */}
@@ -80,6 +133,38 @@ export function TemplateEditor({ template }: TemplateEditorProps) {
               onChange={(v) => updateField(field.name, v)}
             />
           ))}
+        </div>
+
+        {/* AI Generate */}
+        <div className="mt-6 border-t border-border pt-6">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm font-medium text-muted">AI Content</span>
+            <button
+              onClick={() => setShowAiPanel(!showAiPanel)}
+              className="text-xs text-muted hover:text-foreground transition-colors"
+            >
+              {showAiPanel ? 'Hide prompt' : 'Add prompt'}
+            </button>
+          </div>
+
+          {showAiPanel && (
+            <textarea
+              value={aiPrompt}
+              onChange={(e) => setAiPrompt(e.target.value)}
+              placeholder="Optional: describe the vibe, topic, or audience..."
+              rows={2}
+              className="mb-3 w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted/50 focus:border-ignite focus:outline-none focus:ring-1 focus:ring-ignite"
+            />
+          )}
+
+          <button
+            onClick={handleAiGenerate}
+            disabled={generating || exporting !== null}
+            className="flex w-full items-center justify-center gap-2 rounded-lg border border-ignite/30 bg-ignite/10 px-4 py-2.5 text-sm font-medium text-ignite transition-colors hover:bg-ignite hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <Sparkles size={16} className={generating ? 'animate-spin' : ''} />
+            {generating ? 'Generating...' : 'Generate with AI'}
+          </button>
         </div>
 
         {/* Size selector */}
@@ -104,7 +189,7 @@ export function TemplateEditor({ template }: TemplateEditorProps) {
             <button
               key={format}
               onClick={() => handleExport(format)}
-              disabled={exporting !== null}
+              disabled={exporting !== null || generating}
               className="rounded-lg border border-border bg-surface px-4 py-2.5 text-sm font-medium transition-colors hover:bg-ignite hover:text-white hover:border-ignite disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {exporting === format ? 'Exporting...' : format.toUpperCase()}
