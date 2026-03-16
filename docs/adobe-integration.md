@@ -389,3 +389,102 @@ f.open("w"); f.writeln("data"); f.close();
 - **Dark premium palette** (charcoal #161618, ignite #E8501A, amber #F5A623)
 - **Particle systems** (floating dots with drift + opacity fade)
 - **Energy burst** (expanding rings + radial rays from focal point)
+
+---
+
+## Envato Elements + Claude Code Workflow
+
+### The Power Combo
+Professional templates from Envato Elements + automated customization via ExtendScript = production studio output in minutes.
+
+### Workflow
+```
+1. Download template from Envato Elements → ~/Downloads/
+2. Tell Claude "ponle calidevs" (or any branding)
+3. Claude opens in AE/PS/AI via script
+4. Analyzes structure (comps, layers, placeholders)
+5. Swaps branding: logos, text, colors, footage
+6. Everything stays EDITABLE — user can fine-tune in the app
+```
+
+### Supported Template Types
+
+| App | Template Type | What Claude Does |
+|-----|--------------|-----------------|
+| **After Effects** | Logo reveals, intros, openers, slideshows, lower thirds, social media packs | Open .aep, find placeholders, swap text/logos/footage, change colors |
+| **Photoshop** | Email signatures, business cards, social posts, mockups, flyers, certificates | Open .psd, find text layers, replace content in batch, export per-person |
+| **Illustrator** | Brand kits, logo variations, icon sets, print layouts | Open .ai, modify text/colors, export variations |
+| **Premiere Pro** | MOGRTs (Motion Graphics Templates) | Open .mogrt comps in AE, customize text/media |
+
+### Key ExtendScript Operations
+
+#### Replace Footage in Placeholder
+```javascript
+// Swap image/video in a comp placeholder
+var placeholder = comp.layer("Image Placeholder");
+var newFile = new ImportOptions(new File("/path/to/your-image.jpg"));
+var imported = app.project.importFile(newFile);
+placeholder.replaceSource(imported, false);
+```
+
+#### Batch Text Replacement
+```javascript
+// Replace text in all layers matching a pattern
+for (var i = 1; i <= comp.numLayers; i++) {
+    var lyr = comp.layer(i);
+    if (lyr.property("Source Text")) {
+        var doc = lyr.property("Source Text").value;
+        if (doc.text === "YOUR NAME") {
+            doc.text = "Carlos Rodríguez";
+            lyr.property("Source Text").setValue(doc);
+        }
+    }
+}
+```
+
+#### Batch Export (e.g., Email Signatures)
+```javascript
+// Loop through data, swap text layers, export each
+var people = [
+    { name: "Carlos", role: "CEO", email: "carlos@calidevs.com" },
+    { name: "María", role: "CTO", email: "maria@calidevs.com" },
+];
+for (var i = 0; i < people.length; i++) {
+    comp.layer("Name").property("Source Text").value.text = people[i].name;
+    comp.layer("Role").property("Source Text").value.text = people[i].role;
+    // ... add to render queue, export as PNG
+}
+```
+
+#### Color Swap
+```javascript
+// Change accent color across all fills
+var newColor = [232/255, 80/255, 26/255]; // ignite
+for (var i = 1; i <= comp.numLayers; i++) {
+    var fx = comp.layer(i).property("Effects");
+    if (fx) {
+        for (var j = 1; j <= fx.numProperties; j++) {
+            if (fx.property(j).name === "Fill") {
+                fx.property(j).property("Color").setValue(newColor);
+            }
+        }
+    }
+}
+```
+
+### Template Analysis Pattern
+When Claude opens any template, it follows this process:
+1. **List all project items** (comps, footage, folders)
+2. **Find the main comp** (usually the largest or "Final" comp)
+3. **Enumerate layers** with names, types, effects, in/out points
+4. **Identify placeholders** (empty comps, text layers, footage with generic names)
+5. **Report structure** to user before making changes
+6. **Apply customizations** only to placeholder layers
+7. **Keep everything editable** — user can fine-tune in the native app
+
+### Pro Tips
+- Templates stay fully editable after customization — adjust anything in AE/PS/AI directly
+- Claude handles the repetitive bulk work (50 signatures, 20 social posts, 10 video slides)
+- User handles the creative fine-tuning that needs a human eye
+- Combine multiple templates: Fire Wall intro → Sport Opener scenes → Brand close
+- Export from AE render queue for final video output
